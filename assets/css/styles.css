@@ -1266,6 +1266,9 @@ body {
     background-color: rgba(0, 0, 0, 0.3);
     border-radius: 5px;
     border-left: 3px solid #FFDD00;
+    color: #ffffff; /* Added white color to ensure text is visible */
+    font-weight: 400; /* Added normal font weight */
+    text-shadow: none; /* Remove any text shadow that might be affecting readability */
 }
 
 .card-footer {

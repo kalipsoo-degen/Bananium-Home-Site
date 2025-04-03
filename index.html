@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -113,6 +113,93 @@
             opacity: 1;
             transform: translateY(0);
             visibility: visible; /* Show when animated */
+        }
+        
+        /* Confetti animation styles - removed since using Three.js now */
+        
+        @keyframes confetti-fall {
+            0% { transform: translateY(0) translateX(0) scale(0); opacity: 0; }
+            10% { transform: translateY(-20px) translateX(calc(var(--fall-direction, 0px) * 0.2)) scale(1.2); opacity: 1; }
+            30% { transform: translateY(10px) translateX(calc(var(--fall-direction, 0px) * 0.5)) scale(1); opacity: 0.9; }
+            100% { transform: translateY(400px) translateX(var(--fall-direction, 0px)) scale(0.3) rotate(720deg); opacity: 0; }
+        }
+        
+        @keyframes confetti-sway {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(25px); }
+            50% { transform: translateX(0); }
+            75% { transform: translateX(-25px); }
+            100% { transform: translateX(0); }
+        }
+        
+        @keyframes confetti-pop {
+            0% { transform: scale(0); opacity: 0; }
+            20% { transform: scale(1.5); opacity: 1; }
+            40% { transform: scale(0.8); opacity: 0.9; }
+            60% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+        
+        @keyframes shimmer {
+            0% { filter: brightness(1); }
+            50% { filter: brightness(1.5); }
+            100% { filter: brightness(1); }
+        }
+        
+        .confetti-burst {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            opacity: 0;
+            z-index: 0;
+            animation: burst 0.5s ease-out forwards;
+        }
+        
+        @keyframes burst {
+            0% { transform: scale(0.1); opacity: 0; }
+            20% { opacity: 0.6; }
+            50% { opacity: 0.3; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 18px;
+            background-color: #FFD700;
+            opacity: 0;
+            border-radius: 0;
+            animation: confetti-pop 0.3s ease-out forwards, confetti-fall 1.5s ease-in-out forwards, confetti-sway 2s ease-in-out infinite, shimmer 1.5s infinite;
+            z-index: 1;
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.4);
+            transform-origin: center;
+            --fall-direction: 0px;
+        }
+        
+        .confetti.square {
+            border-radius: 0;
+            transform-origin: center center;
+        }
+        
+        .confetti.circle {
+            border-radius: 50%;
+        }
+        
+        .confetti.triangle {
+            width: 0;
+            height: 0;
+            background: transparent;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 18px solid;
+            box-shadow: none;
+        }
+        
+        .confetti.star {
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            background-color: #FFD700;
         }
         
         @keyframes floating-subtle {
@@ -281,8 +368,12 @@
         <div class="character-placeholder"></div>
         
         <!-- Stylized characters - simple placeholders using emojis and styling -->
-        <div class="character-left" style="position: absolute; font-size: 4rem; left: 25%; bottom: 20%;">🍌</div>
-        <div class="character-right" style="position: absolute; font-size: 4rem; right: 25%; bottom: 20%;">🐦</div>
+        <div class="character-left" style="position: absolute; font-size: 4rem; left: 25%; bottom: 20%;">
+            <span style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; display: inline-block;">🍌</span>
+        </div>
+        <div class="character-right" style="position: absolute; font-size: 4rem; right: 25%; bottom: 20%;">
+            <span style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; display: inline-block;">🍌</span>
+        </div>
         
         <!-- Bananium logo styled to match reference -->
         <div class="bananium-logo-container">
@@ -328,7 +419,7 @@
                                 <source src="assets/videos/CheetahFurry.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
-                            <h3 style="position: absolute; z-index: 2; background-color: rgba(0, 0, 0, 0.8); padding: 15px; bottom: 10px; width: 90%; color: #00FFFF; font-size: 2.64rem; font-weight: 900; text-align: center; text-shadow: 0 0 15px rgba(0, 255, 255, 0.9), 0 0 8px rgba(0, 0, 0, 1); border: 3px solid #00FFFF; border-radius: 8px; letter-spacing: 1px; font-family: 'Orbitron', sans-serif; text-transform: capitalize; line-height: 1.32; left: 50%; transform: translateX(-50%);">What the f**k's going on?</h3>
+                            <h3 style="position: absolute; z-index: 2; background-color: rgba(0, 0, 0, 0.8); padding: 15px; bottom: 10px; width: 90%; color: #00FFFF; font-size: 1.63rem; font-weight: 900; text-align: center; text-shadow: 0 0 15px rgba(0, 255, 255, 0.9), 0 0 8px rgba(0, 0, 0, 1); border: 3px solid #00FFFF; border-radius: 8px; letter-spacing: 1px; font-family: 'Orbitron', sans-serif; text-transform: capitalize; line-height: 1.32; left: 50%; transform: translateX(-50%);">What the f**k's going on?</h3>
                         </div>
                         <div class="flip-tile-back" style="border-radius: 15px; background-color: #1a1a1a; color: #fff; text-shadow: 0 0 2px rgba(255,255,255,0.5);">
                             <div style="text-align: center; padding: 20px; display: flex; flex-direction: column; justify-content: center; height: 100%;">
@@ -346,7 +437,7 @@
                                 <source src="assets/videos/BananaCannonDick.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
-                            <h3 style="position: absolute; z-index: 2; background-color: rgba(0, 0, 0, 0.8); padding: 15px; bottom: 10px; width: 90%; color: #FFA500; font-size: 2.64rem; font-weight: 900; text-align: center; text-shadow: 0 0 15px rgba(255, 165, 0, 0.9), 0 0 8px rgba(0, 0, 0, 1); border: 3px solid #FFA500; border-radius: 8px; letter-spacing: 1px; font-family: 'Orbitron', sans-serif; text-transform: capitalize; line-height: 1.32; left: 50%; transform: translateX(-50%);">How it all goes down?</h3>
+                            <h3 style="position: absolute; z-index: 2; background-color: rgba(0, 0, 0, 0.8); padding: 15px; bottom: 10px; width: 90%; color: #FFA500; font-size: 1.63rem; font-weight: 900; text-align: center; text-shadow: 0 0 15px rgba(255, 165, 0, 0.9), 0 0 8px rgba(0, 0, 0, 1); border: 3px solid #FFA500; border-radius: 8px; letter-spacing: 1px; font-family: 'Orbitron', sans-serif; text-transform: capitalize; line-height: 1.32; left: 50%; transform: translateX(-50%);">How it all goes down?</h3>
                         </div>
                         <div class="flip-tile-back" style="border-radius: 15px; background-color: #1a1a1a; color: #fff; text-shadow: 0 0 2px rgba(255,255,255,0.5);">
                             <div style="text-align: center; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
@@ -363,7 +454,7 @@
                                 <source src="assets/videos/HabiboCamel.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
-                            <h3 style="position: absolute; z-index: 2; background-color: rgba(0, 0, 0, 0.8); padding: 15px; bottom: 10px; width: 90%; color: #FF00FF; font-size: 2.64rem; font-weight: 900; text-align: center; text-shadow: 0 0 15px rgba(255, 0, 255, 0.9), 0 0 8px rgba(0, 0, 0, 1); border: 3px solid #FF00FF; border-radius: 8px; letter-spacing: 1px; font-family: 'Orbitron', sans-serif; text-transform: capitalize; line-height: 1.32; left: 50%; transform: translateX(-50%);">Quantum Quarterfinals</h3>
+                            <h3 style="position: absolute; z-index: 2; background-color: rgba(0, 0, 0, 0.8); padding: 15px; bottom: 10px; width: 90%; color: #FF00FF; font-size: 1.63rem; font-weight: 900; text-align: center; text-shadow: 0 0 15px rgba(255, 0, 255, 0.9), 0 0 8px rgba(0, 0, 0, 1); border: 3px solid #FF00FF; border-radius: 8px; letter-spacing: 1px; font-family: 'Orbitron', sans-serif; text-transform: capitalize; line-height: 1.32; left: 50%; transform: translateX(-50%);">Quantum Quarterfinals</h3>
                         </div>
                         <div class="flip-tile-back" style="border-radius: 15px; background-color: #1a1a1a; color: #fff; text-shadow: 0 0 2px rgba(255,255,255,0.5);">
                             <div style="text-align: center; padding: 20px; display: flex; flex-direction: column; justify-content: center; height: 100%;">
@@ -493,51 +584,46 @@
     
     <!-- Prize Pool Section -->
     <section id="prize-pool" class="prize-pool">
-        <h2 class="section-title animate-on-scroll" style="text-shadow: 0 0 15px #FFD700; animation: pulse 2s infinite, scale-bounce-enhanced 5s infinite; color: #FFD700; font-weight: 800; font-size: 4.5rem; letter-spacing: 2px; margin-bottom: 1rem; transform: scale(1.05);">1024 SOL PRIZE POOL</h2>
+        <h2 class="section-title animate-on-scroll" style="text-shadow: 0 0 15px #9932CC; animation: pulse 2s infinite, scale-bounce-enhanced 5s infinite; color: #FFFFFF; font-weight: 800; font-size: 4.5rem; letter-spacing: 2px; margin-bottom: 1rem; transform: scale(1.05);">1024 SOL PRIZE POOL</h2>
         
-        <p style="text-align: center; font-style: italic; font-size: 2.4rem; font-weight: 400; margin-bottom: 2rem; letter-spacing: 1px; color: rgba(255, 255, 255, 0.9);">Worth over <span style="color: #FFD700; font-weight: 700;">$100,000</span> at current rates!</p>
-        
-        <div class="prize-total-container animate-on-scroll" style="margin-bottom: 100px; position: relative;">
-            <div class="prize-meter" style="box-shadow: 0 0 30px 8px rgba(128, 0, 255, 0.7); height: 35px; border-radius: 25px; width: 85%; max-width: 800px; margin: 0 auto;">
-                <div class="prize-meter-fill" data-target="100" style="width: 0; background-color: rgba(128, 0, 255, 0.8); transition: width 2s ease-in-out;"></div>
-            </div>
-        </div>
+        <p style="text-align: center; font-style: italic; font-size: 2.4rem; font-weight: 400; margin-bottom: 2rem; letter-spacing: 1px; color: rgba(255, 255, 255, 0.9);">Worth over <span style="color: #9932CC; font-weight: 700;">$100,000</span> at current rates!</p>
         
         <div class="prize-podium-container animate-on-scroll" style="margin-top: 60px;">
-            <div style="text-align: center; margin-bottom: 3rem;">
-                <h3 style="font-size: 3.2rem; color: #FFD700; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7); line-height: 1.32; font-weight: 700; margin-bottom: 15px;">THIS COULD BE YOU!</h3>
-                <p style="font-size: 1.8rem; max-width: 800px; margin: 0 auto; font-family: 'futura-pt', sans-serif; font-weight: 500; line-height: 1.54; color: rgba(255, 255, 255, 0.9);">The more warriors you mint, the higher your chances of claiming these massive rewards!</p>
-            </div>
-            <div class="podium-wrapper" style="display: flex; justify-content: center; gap: 40px; position: relative; padding-top: 150px; margin-bottom: 60px;">
+            <div class="podium-wrapper" style="display: flex; justify-content: center; gap: 20px; position: relative; padding-top: 150px; margin-bottom: 60px;">
+                <!-- Confetti containers using Three.js (split into left and right) -->
+                <div id="confetti-left-container" style="position: absolute; left: -400px; width: 400px; top: 0; bottom: 0; z-index: 1; pointer-events: none;"></div>
+                
                 <!-- Second Place -->
                 <div class="podium-place second-place" style="display: flex; flex-direction: column; align-items: center; position: relative; width: 120px;">
-                    <div class="podium-content" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 15px; height: 120px;">
+                    <div class="podium-content" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 15px; height: 150px;">
                         <div class="podium-medal" style="font-size: 2.5rem; margin-bottom: 12px;">🥈</div>
                         <div class="podium-rank" style="font-size: 3rem; font-weight: bold; margin-bottom: 12px;">2</div>
-                        <div class="podium-sol" style="font-size: 1.7rem; font-weight: bold; color: #FFD700; text-shadow: 0 0 5px rgba(255,215,0,0.7);">171 SOL</div>
+                        <div class="podium-sol" style="font-size: 2.3rem; font-weight: bold; color: #FFFFFF; text-shadow: 0 0 10px #9932CC, 0 0 15px #9932CC; letter-spacing: 1px;">171 SOL</div>
                     </div>
-                    <div class="podium-bar" style="width: 100px; height: 170px; background-color: #FFD700; border-radius: 10px 10px 0 0; box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);"></div>
+                    <div class="podium-bar" style="width: 100px; height: 170px; background-color: #9932CC; border-radius: 10px 10px 0 0;"></div>
                 </div>
                 
                 <!-- First Place -->
                 <div class="podium-place first-place" style="display: flex; flex-direction: column; align-items: center; position: relative; width: 120px;">
-                    <div class="podium-content" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 30px; height: 140px;">
+                    <div class="podium-content" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 30px; height: 170px;">
                         <div class="podium-medal" style="font-size: 3rem; margin-bottom: 12px;">🥇</div>
                         <div class="podium-rank" style="font-size: 3.5rem; font-weight: bold; margin-bottom: 12px; color: #FFD700; text-shadow: 0 0 10px rgba(255,215,0,0.9);">1</div>
-                        <div class="podium-sol" style="font-size: 2rem; font-weight: bold; color: #FFD700; text-shadow: 0 0 10px rgba(255,215,0,0.9);">609 SOL</div>
+                        <div class="podium-sol" style="font-size: 2.8rem; font-weight: bold; color: #FFFFFF; text-shadow: 0 0 10px #9932CC, 0 0 15px #9932CC; letter-spacing: 1px;">609 SOL</div>
                     </div>
-                    <div class="podium-bar" style="width: 100px; height: 220px; background-color: #FFD700; border-radius: 10px 10px 0 0; box-shadow: 0 0 20px rgba(255, 215, 0, 0.9); animation: pulse-winner 2s infinite;"></div>
+                    <div class="podium-bar" style="width: 100px; height: 220px; background-color: #FFD700; border-radius: 10px 10px 0 0; animation: none;"></div>
                 </div>
                 
                 <!-- Third Place -->
                 <div class="podium-place third-place" style="display: flex; flex-direction: column; align-items: center; position: relative; width: 120px;">
-                    <div class="podium-content" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 8px; height: 120px;">
+                    <div class="podium-content" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 8px; height: 150px;">
                         <div class="podium-medal" style="font-size: 2.5rem; margin-bottom: 12px;">🥉</div>
                         <div class="podium-rank" style="font-size: 3rem; font-weight: bold; margin-bottom: 12px;">3</div>
-                        <div class="podium-sol" style="font-size: 1.7rem; font-weight: bold; color: #FFD700; text-shadow: 0 0 5px rgba(255,215,0,0.7);">89 SOL</div>
+                        <div class="podium-sol" style="font-size: 2.3rem; font-weight: bold; color: #FFFFFF; text-shadow: 0 0 10px #9932CC, 0 0 15px #9932CC; letter-spacing: 1px;">89 SOL</div>
                     </div>
-                    <div class="podium-bar" style="width: 100px; height: 120px; background-color: #FFD700; border-radius: 10px 10px 0 0; box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);"></div>
+                    <div class="podium-bar" style="width: 100px; height: 120px; background-color: #9932CC; border-radius: 10px 10px 0 0;"></div>
                 </div>
+                
+                <div id="confetti-right-container" style="position: absolute; right: -400px; width: 400px; top: 0; bottom: 0; z-index: 1; pointer-events: none;"></div>
             </div>
         </div>
         
@@ -547,36 +633,36 @@
                 <div style="padding: 0 15px; font-size: 1.5rem; color: rgba(255, 255, 255, 0.9); font-weight: 500; font-style: italic;">Don't miss out!</div>
                 <div style="height: 1px; background-color: rgba(255, 255, 255, 0.8); flex-grow: 1; max-width: 300px;"></div>
             </div>
-            <h3 class="prize-section-subtitle" style="color: #FFD700; font-size: 2.64rem; text-shadow: 0 0 10px rgba(255,215,0,0.5); font-weight: 700; line-height: 1.32;">ADDITIONAL REWARDS</h3>
+            <h3 class="prize-section-subtitle" style="color: #9932CC; font-size: 2.64rem; text-shadow: 0 0 10px rgba(153, 50, 204, 0.5); font-weight: 700; line-height: 1.32;">ADDITIONAL REWARDS</h3>
             
             <div class="prize-cards-wrapper">
                 <div class="prize-card" data-rank="4" style="transition: all 0.3s ease;">
                     <div class="prize-card-inner">
-                        <div class="prize-card-sol" style="color: #FFD700; font-size: 1.8rem; font-weight: 700; margin-bottom: 5px;">54 SOL</div>
+                        <div class="prize-card-sol" style="color: #FFD700; font-size: 2.2rem; font-weight: 700; margin-bottom: 5px;">54 SOL</div>
                         <div class="prize-card-rank" style="font-size: 1.2rem; opacity: 0.6; color: #999999; font-family: 'futura-pt', sans-serif; font-weight: 400;">4</div>
                     </div>
                 </div>
                 <div class="prize-card" data-rank="5" style="transition: all 0.3s ease;">
                     <div class="prize-card-inner">
-                        <div class="prize-card-sol" style="color: #FFD700; font-size: 1.8rem; font-weight: 700; margin-bottom: 5px;">37 SOL</div>
+                        <div class="prize-card-sol" style="color: #FFD700; font-size: 2.2rem; font-weight: 700; margin-bottom: 5px;">37 SOL</div>
                         <div class="prize-card-rank" style="font-size: 1.2rem; opacity: 0.6; color: #999999; font-family: 'futura-pt', sans-serif; font-weight: 400;">5</div>
                     </div>
                 </div>
                 <div class="prize-card" data-rank="6" style="transition: all 0.3s ease;">
                     <div class="prize-card-inner">
-                        <div class="prize-card-sol" style="color: #FFD700; font-size: 1.8rem; font-weight: 700; margin-bottom: 5px;">27 SOL</div>
+                        <div class="prize-card-sol" style="color: #FFD700; font-size: 2.2rem; font-weight: 700; margin-bottom: 5px;">27 SOL</div>
                         <div class="prize-card-rank" style="font-size: 1.2rem; opacity: 0.6; color: #999999; font-family: 'futura-pt', sans-serif; font-weight: 400;">6</div>
                     </div>
                 </div>
                 <div class="prize-card" data-rank="7" style="transition: all 0.3s ease;">
                     <div class="prize-card-inner">
-                        <div class="prize-card-sol" style="color: #FFD700; font-size: 1.8rem; font-weight: 700; margin-bottom: 5px;">21 SOL</div>
+                        <div class="prize-card-sol" style="color: #FFD700; font-size: 2.2rem; font-weight: 700; margin-bottom: 5px;">21 SOL</div>
                         <div class="prize-card-rank" style="font-size: 1.2rem; opacity: 0.6; color: #999999; font-family: 'futura-pt', sans-serif; font-weight: 400;">7</div>
                     </div>
                 </div>
                 <div class="prize-card" data-rank="8" style="transition: all 0.3s ease;">
                     <div class="prize-card-inner">
-                        <div class="prize-card-sol" style="color: #FFD700; font-size: 1.8rem; font-weight: 700; margin-bottom: 5px;">16 SOL</div>
+                        <div class="prize-card-sol" style="color: #FFD700; font-size: 2.2rem; font-weight: 700; margin-bottom: 5px;">16 SOL</div>
                         <div class="prize-card-rank" style="font-size: 1.2rem; opacity: 0.6; color: #999999; font-family: 'futura-pt', sans-serif; font-weight: 400;">8</div>
                     </div>
                 </div>
@@ -584,8 +670,8 @@
         </div>
         
         <div class="prize-info animate-on-scroll" style="margin-top: 3rem; text-align: center;">
-            <p style="font-size: 1.68rem; margin-bottom: 1.5rem; font-family: 'futura-pt', sans-serif; font-weight: 400; line-height: 1.54;">Winners are determined by overall tournament position. <span style="color: #FFD700; font-weight: bold;">Each warrior increases your chances!</span></p>
-            <a href="https://magiceden.us/" class="cta-btn" style="font-size: 1.6rem; padding: 15px 35px; animation: pulse-button 2s infinite; box-shadow: 0 0 20px rgba(255,215,0,0.5);" target="_blank">JOIN THE BATTLE NOW!</a>
+            <p style="font-size: 1.68rem; margin-bottom: 1.5rem; font-family: 'futura-pt', sans-serif; font-weight: 400; line-height: 1.54;">Winners are determined by overall tournament position. <span style="color: #9932CC; font-weight: bold;">Each warrior increases your chances!</span></p>
+            <a href="https://magiceden.us/" class="cta-btn" style="font-size: 1.6rem; padding: 15px 35px; animation: pulse-button 2s infinite; box-shadow: 0 0 20px rgba(153, 50, 204, 0.5); background-color: #9932CC; color: white;" target="_blank">JOIN THE BATTLE NOW!</a>
         </div>
     </section>
     
@@ -617,7 +703,7 @@
         <h2 class="section-title animate-on-scroll" style="font-size: 2.8rem; color: #FFD700; margin-bottom: 1.5rem;">READ THE F***ING WHITEPAPER</h2>
         <div class="about-content">
             <div class="about-text animate-on-scroll" style="padding: 0 20px;">
-                <p style="font-size: 1.92rem; font-family: 'futura-pt', sans-serif; line-height: 1.54; color: rgba(255, 255, 255, 0.9); text-align: center; max-width: 1200px; margin: 0 auto;">DISCOVER THE COMPLETE MECHANICS OF THE BATTLE ROYALE, TOKEN ECONOMICS, AND FUTURE ROADMAP IN OUR COMPREHENSIVE WHITEPAPER.</p>
+                <p style="font-size: 1.5rem; font-family: 'futura-pt', sans-serif; line-height: 1.54; color: rgba(255, 255, 255, 0.9); text-align: center; max-width: 1200px; margin: 0 auto; text-transform: none;">Discover the complete mechanics of the battle royale, token economics, and future roadmap in our comprehensive whitepaper.</p>
                 <div style="text-align: center; margin-top: 2rem;">
                     <a href="https://app.gitbook.com/o/9ZnpHDUG7efPKkYqKuZ1/s/NG5bbbgrg2I2mVKQG083/" class="cta-btn" style="font-size: 1.6rem; padding: 15px 35px;" target="_blank">READ WHITEPAPER</a>
                 </div>
@@ -1645,6 +1731,453 @@
             backgroundStars: backgroundStars
         };
     });
+    </script>
+    
+    <!-- Confetti animation for prize podium using Three.js -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if Three.js is loaded
+            if (typeof THREE === 'undefined') {
+                console.error('Three.js is not loaded');
+                return;
+            }
+            
+            // Confetti system class
+            class ConfettiSystem {
+                constructor(containerElement, side) {
+                    this.container = containerElement;
+                    this.side = side; // "left" or "right"
+                    this.isActive = false;
+                    this.particles = [];
+                    this.emitters = [];
+                    this.clock = new THREE.Clock();
+                    
+                    // Set up scene
+                    this.scene = new THREE.Scene();
+                    
+                    // Set up camera with wider field of view and better positioning to see particles falling farther
+                    const fov = 110; // Even wider field of view (increased from 100)
+                    this.camera = new THREE.PerspectiveCamera(
+                        fov, 
+                        this.container.clientWidth / this.container.clientHeight, 
+                        0.1, 
+                        10000 // Keep the far plane at 10000
+                    );
+                    
+                    // Position camera based on side to better view the confetti spread
+                    if (this.side === "left") {
+                        // Left side camera positioned further back to see wider area
+                        this.camera.position.set(500, 300, 1200); // Further back and higher to capture wide dispersal
+                        this.camera.lookAt(new THREE.Vector3(-100, 0, 0)); 
+                    } else {
+                        // Right side camera positioned further back to see wider area
+                        this.camera.position.set(-500, 300, 1200); // Further back and higher to capture wide dispersal
+                        this.camera.lookAt(new THREE.Vector3(100, 0, 0));
+                    }
+                    
+                    // Set up renderer
+                    this.renderer = new THREE.WebGLRenderer({ 
+                        alpha: true, 
+                        antialias: true 
+                    });
+                    this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
+                    this.renderer.setPixelRatio(window.devicePixelRatio);
+                    this.renderer.setClearColor(0x000000, 0); // Transparent background
+                    this.container.appendChild(this.renderer.domElement);
+                    
+                    // Confetti colors
+                    this.colors = [
+                        0xFFD700, // Gold
+                        0x9932CC, // Purple (matches theme)
+                        0xFF69B4, // Pink
+                        0x87CEFA, // Light blue
+                        0xFFA07A, // Light salmon
+                        0x98FB98, // Pale green
+                        0xB0C4DE, // Light steel blue
+                        0xDDA0DD, // Plum
+                        0xFFFFE0  // Light yellow
+                    ];
+                    
+                    // Create particle materials (one for each color)
+                    this.materials = this.colors.map(color => {
+                        return new THREE.MeshPhongMaterial({
+                            color: color,
+                            shininess: 80,
+                            specular: 0x444444,
+                            side: THREE.DoubleSide,
+                            transparent: true
+                        });
+                    });
+                    
+                    // Create particle geometries - using much smaller scales for better dispersion
+                    this.geometries = {
+                        square: new THREE.PlaneGeometry(10, 10),         // Halved from 20x20
+                        rectangle: new THREE.PlaneGeometry(8, 16),       // Halved from 16x32
+                        narrowRect: new THREE.PlaneGeometry(5, 15),      // Halved from 10x30
+                        smallSquare: new THREE.PlaneGeometry(6, 6),      // Halved from 12x12
+                        circle: new THREE.CircleGeometry(6, 8),          // Halved from 12 radius
+                        smallCircle: new THREE.CircleGeometry(4, 8),     // Halved from 8 radius
+                        triangle: new THREE.ConeGeometry(6, 12, 3),      // Halved from 12x24
+                        thinTriangle: new THREE.ConeGeometry(4, 12, 3)   // Halved from 8x24
+                    };
+                    
+                    // Add lights
+                    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+                    this.scene.add(ambientLight);
+                    
+                    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+                    directionalLight.position.set(0, 1, 1);
+                    this.scene.add(directionalLight);
+                    
+                    // Handle window resize
+                    window.addEventListener('resize', this.onWindowResize.bind(this));
+                    
+                    // Start animation
+                    this.animate();
+                }
+                
+                onWindowResize() {
+                    this.camera.aspect = this.container.clientWidth / this.container.clientHeight;
+                    this.camera.updateProjectionMatrix();
+                    this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
+                }
+                
+                getRandomBrightColor() {
+                    // Create bright, vibrant colors for the explosion lights
+                    const brightColors = [
+                        0xffff00, // Yellow
+                        0xff4500, // Orange-Red
+                        0x00ffff, // Cyan
+                        0xff00ff, // Magenta
+                        0xffffff, // White
+                        0x00ff00, // Bright Green
+                        0xff0000, // Bright Red
+                        0x1e90ff  // Dodger Blue
+                    ];
+                    return brightColors[Math.floor(Math.random() * brightColors.length)];
+                }
+
+                createEmitter(x, y, z, isLargeBurst = false) {
+                    // Create an invisible emitter point
+                    const emitter = new THREE.Object3D();
+                    
+                    // Adjust x position based on side - but preserve the original x variation
+                    // This keeps the explosions distributed while maintaining left/right separation
+                    if (this.side === "left") {
+                        // For left side, allow more variation but keep it generally on the left
+                        x = Math.min(x, 50); // Allow some overlap with right side (was 0)
+                        if (x < -200) x -= 50; else x -= 150; // Variable offset based on existing position
+                    } else {
+                        // For right side, allow more variation but keep it generally on the right
+                        x = Math.max(x, -50); // Allow some overlap with left side (was 0)
+                        if (x > 200) x += 50; else x += 150; // Variable offset based on existing position
+                    }
+                    
+                    emitter.position.set(x, y, z);
+                    this.scene.add(emitter);
+                    
+                    // Burst from this emitter
+                    this.burstFromEmitter(emitter, isLargeBurst);
+                    
+                    return emitter;
+                }
+                
+                burstFromEmitter(emitter, isLargeBurst = false) {
+                    // Create flash at explosion point - brighter for large bursts
+                    const burstLight = new THREE.PointLight(
+                        this.getRandomBrightColor(), 
+                        isLargeBurst ? 8 : 5, // Increased intensity (from 5/3.5)
+                        isLargeBurst ? 400 : 300 // Increased range (from 250/180)
+                    );
+                    burstLight.position.copy(emitter.position);
+                    this.scene.add(burstLight);
+                    
+                    // Add secondary colored light only for large bursts
+                    let secondaryLight;
+                    if (isLargeBurst) {
+                        secondaryLight = new THREE.PointLight(
+                            this.getRandomBrightColor(),
+                            5, // Increased intensity (from 3)
+                            250 // Increased range (from 150)
+                        );
+                        secondaryLight.position.copy(emitter.position);
+                        this.scene.add(secondaryLight);
+                    }
+                    
+                    // Fade out the light(s) more slowly for larger visual impact
+                    const fadeDuration = isLargeBurst ? 400 : 300; // ms - longer duration (from 300/200)
+                    const fadeInterval = setInterval(() => {
+                        burstLight.intensity -= isLargeBurst ? 0.1 : 0.08; // Slower fade (from 0.15/0.1)
+                        if (secondaryLight) secondaryLight.intensity -= 0.06; // Slower fade (from 0.08)
+                        
+                        if (burstLight.intensity <= 0) {
+                            clearInterval(fadeInterval);
+                            this.scene.remove(burstLight);
+                            if (secondaryLight) this.scene.remove(secondaryLight);
+                        }
+                    }, 30); // Longer interval between fades (from 25)
+                    
+                    // Fixed number of particles - exactly 10 per explosion
+                    const particleCount = 10; // Reduced from 25-40 to exactly 10 pieces
+                    
+                    // Create more initial spread for a bigger burst effect
+                    const burstSpread = isLargeBurst ? 200 : 150; // Dramatically increased from 100/80 for much wider dispersion
+                    
+                    // For all bursts, create particles at once with more initial spread
+                    for (let i = 0; i < particleCount; i++) {
+                        this.createParticle(emitter, 1.0, burstSpread);
+                    }
+                    
+                    // Remove emitter after use
+                    this.scene.remove(emitter);
+                }
+                
+                createParticle(emitter, speedMultiplier = 1.0, burstSpread = 20) {
+                    // Random material (color)
+                    const material = this.materials[Math.floor(Math.random() * this.materials.length)];
+                    
+                    // Use all available shapes for more variety
+                    const geometryKeys = Object.keys(this.geometries);
+                    const geometry = this.geometries[geometryKeys[Math.floor(Math.random() * geometryKeys.length)]];
+                    
+                    // Create mesh
+                    const mesh = new THREE.Mesh(geometry, material.clone());
+                    
+                    // Position near emitter with larger random offset for bigger explosion effect
+                    const positionSpread = burstSpread;
+                    
+                    mesh.position.set(
+                        emitter.position.x + (Math.random() - 0.5) * positionSpread * 2, // Double the horizontal spread
+                        emitter.position.y + (Math.random() - 0.5) * positionSpread,
+                        emitter.position.z + (Math.random() - 0.5) * positionSpread * 1.5 // Increase depth spread by 50%
+                    );
+                    
+                    // Simple rotation
+                    mesh.rotation.set(
+                        Math.random() * Math.PI * 2,
+                        Math.random() * Math.PI * 2,
+                        Math.random() * Math.PI * 2
+                    );
+                    
+                    // Add slight random scaling for more variety - use smaller scale for better dispersion
+                    const baseScale = 0.4 + Math.random() * 0.3; // Reduced from 0.8-1.2 to 0.4-0.7
+                    mesh.scale.set(baseScale, baseScale, baseScale);
+                    
+                    // Increased initial velocity for bigger explosion
+                    const speed = 600 + Math.random() * 500; // Increased from 450+400 for much more explosive effect
+                    
+                    // Adjust velocity based on side - with more explosive outward movement
+                    let velocityX;
+                    if (this.side === "left") {
+                        velocityX = -(Math.random() * 4.0 + 2.0); // Increased from 3.0+1.5 for more dramatic lateral movement
+                    } else {
+                        velocityX = Math.random() * 4.0 + 2.0; // Increased from 3.0+1.5 for more dramatic lateral movement
+                    }
+                    
+                    const velocityY = (Math.random() * 2 - 1) * 3.0; // Increased from 2.0 for much more vertical variance
+                    const velocityZ = (Math.random() * 2 - 1) * 3.0; // Increased from 2.0 for much more depth variance
+                    
+                    const velocity = new THREE.Vector3(
+                        velocityX,
+                        velocityY,
+                        velocityZ
+                    ).normalize().multiplyScalar(speed);
+                    
+                    // Add stronger upward burst
+                    const upwardForce = 120 + Math.random() * 180; // Increased from 100+150 for even higher burst
+                    velocity.y += upwardForce;
+                    
+                    // Simple rotation speed
+                    const rotationSpeed = new THREE.Vector3(
+                        (Math.random() - 0.5) * 15, // Increased from 10 for faster rotation
+                        (Math.random() - 0.5) * 15, // Increased from 10 for faster rotation
+                        (Math.random() - 0.5) * 15  // Increased from 10 for faster rotation
+                    );
+                    
+                    // Add to scene
+                    this.scene.add(mesh);
+                    
+                    // Simplified particle properties
+                    const particle = {
+                        mesh: mesh,
+                        velocity: velocity,
+                        rotationSpeed: rotationSpeed,
+                        drag: 0.93, // Higher drag value for less slowdown
+                        gravity: 10, // Drastically reduced gravity for slower falling and better dispersion
+                        lifetime: 0,
+                        maxLifetime: 3 + Math.random() * 1.5, // Longer lifetime (3-4.5 seconds)
+                        size: 0,
+                        maxSize: baseScale * 1.2, // Slightly grow from initial scale
+                        turbulence: 1.5 // Much more turbulence for more natural, chaotic motion
+                    };
+                    
+                    this.particles.push(particle);
+                    
+                    return particle;
+                }
+                
+                update() {
+                    const deltaTime = this.clock.getDelta();
+                    
+                    // Update all particles
+                    for (let i = this.particles.length - 1; i >= 0; i--) {
+                        const particle = this.particles[i];
+                        
+                        // Apply physics updates (simplified)
+                        // Apply drag
+                        particle.velocity.multiplyScalar(particle.drag);
+                        
+                        // Apply gravity
+                        particle.velocity.y -= particle.gravity * deltaTime;
+                        
+                        // Apply turbulence more frequently for more chaotic movement
+                        if (Math.random() < 0.3) { // Increased from 0.1 to 0.3 (30% of frames)
+                            particle.velocity.x += (Math.random() - 0.5) * particle.turbulence;
+                            particle.velocity.y += (Math.random() - 0.5) * particle.turbulence * 0.5; // Add vertical turbulence
+                            particle.velocity.z += (Math.random() - 0.5) * particle.turbulence;
+                        }
+                        
+                        // Update position
+                        particle.mesh.position.x += particle.velocity.x * deltaTime;
+                        particle.mesh.position.y += particle.velocity.y * deltaTime;
+                        particle.mesh.position.z += particle.velocity.z * deltaTime;
+                        
+                        // Update rotation (simplified)
+                        particle.mesh.rotation.x += particle.rotationSpeed.x * deltaTime;
+                        particle.mesh.rotation.y += particle.rotationSpeed.y * deltaTime;
+                        particle.mesh.rotation.z += particle.rotationSpeed.z * deltaTime;
+                        
+                        // Update lifetime
+                        particle.lifetime += deltaTime;
+                        
+                        // Simplified scaling & fading
+                        if (particle.lifetime < 0.3) {
+                            // Scale up phase
+                            particle.size = (particle.lifetime / 0.3) * particle.maxSize;
+                            particle.mesh.scale.set(particle.size, particle.size, particle.size);
+                        } else if (particle.lifetime > particle.maxLifetime - 0.5) {
+                            // Fast fade out at end
+                            const fadeOutProgress = (particle.lifetime - (particle.maxLifetime - 0.5)) / 0.5;
+                            particle.mesh.material.opacity = 1.0 - fadeOutProgress;
+                        }
+                        
+                        // Remove if too old or moved too far
+                        if (particle.lifetime > particle.maxLifetime || 
+                            particle.mesh.position.y < -2000) { // Increased from -1000 to allow particles to fall further
+                            this.scene.remove(particle.mesh);
+                            this.particles.splice(i, 1);
+                        }
+                    }
+                    
+                    // Render scene
+                    this.renderer.render(this.scene, this.camera);
+                }
+                
+                animate() {
+                    requestAnimationFrame(this.animate.bind(this));
+                    
+                    if (!this.isActive) return;
+                    
+                    this.update();
+                    this.renderer.render(this.scene, this.camera);
+                }
+                
+                start() {
+                    this.isActive = true;
+                }
+                
+                stop() {
+                    this.isActive = false;
+                }
+                
+                createRandomExplosions() {
+                    if (!this.isActive) return;
+                    
+                    // Don't create new explosions if there are still particles in the scene
+                    if (this.particles.length > 0) {
+                        // Schedule a check to try again after particles might be gone
+                        setTimeout(() => this.createRandomExplosions(), 500);
+                        return;
+                    }
+                    
+                    // Increase chance of super-burst for more dramatic effect
+                    const isSuperBurst = Math.random() < 0.35; // 35% chance for super bursts
+                    
+                    // Only create ONE explosion at a time to prevent overloading
+                    const explosionCount = 1; 
+                    
+                    for (let i = 0; i < explosionCount; i++) {
+                        // Position explosion anywhere within the container width - use much wider range
+                        // Use a wider range of x-positions for better distribution
+                        const x = (Math.random() * 600) - 300; // Increased from -200/+200 to -300/+300
+                        
+                        // Position based on the side with wider vertical distribution
+                        const y = -300 + Math.random() * 600; // Increased from -200/+400 to -300/+600
+                        const z = -200 + Math.random() * 400; // Increased from -150/+300 to -200/+400
+                        
+                        // For super bursts, create slightly more dramatic single burst
+                        if (isSuperBurst) {
+                            this.createEmitter(x, y, z, true);
+                        } else {
+                            this.createEmitter(x, y, z, false);
+                        }
+                    }
+                    
+                    // Schedule next explosions with longer pauses to ensure particles fully disappear
+                    const nextExplosionDelay = 2000 + Math.random() * 1000; // 2-3 seconds between explosions
+                    setTimeout(() => this.createRandomExplosions(), nextExplosionDelay);
+                }
+            }
+            
+            // Main initialization
+            function initConfetti() {
+                const leftContainer = document.getElementById('confetti-left-container');
+                const rightContainer = document.getElementById('confetti-right-container');
+                
+                if (!leftContainer || !rightContainer) return;
+                
+                // Create confetti systems for both sides
+                const leftConfettiSystem = new ConfettiSystem(leftContainer, "left");
+                const rightConfettiSystem = new ConfettiSystem(rightContainer, "right");
+                
+                // Start the systems
+                leftConfettiSystem.start();
+                rightConfettiSystem.start();
+                
+                // Function to check if element is in viewport
+                function isInViewport(element) {
+                    const rect = element.getBoundingClientRect();
+                    return (
+                        rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+                        rect.bottom >= 0
+                    );
+                }
+                
+                // Function to handle scroll events
+                function handleScroll() {
+                    // We'll check only the podium wrapper, since both containers are within it
+                    const podiumWrapper = document.querySelector('.podium-wrapper');
+                    
+                    if (podiumWrapper && isInViewport(podiumWrapper)) {
+                        // Start creating explosions if not already started
+                        if (!window.confettiStarted) {
+                            window.confettiStarted = true;
+                            leftConfettiSystem.createRandomExplosions();
+                            rightConfettiSystem.createRandomExplosions();
+                        }
+                    }
+                }
+                
+                // Listen for scroll events
+                window.addEventListener('scroll', handleScroll);
+                
+                // Initial check
+                handleScroll();
+            }
+            
+            // Initialize confetti system
+            initConfetti();
+        });
     </script>
 </body>
 </html> 

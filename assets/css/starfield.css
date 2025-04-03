@@ -262,6 +262,18 @@
   padding-right: 8px;
   text-align: left;
   font-family: 'Exo 2', sans-serif;
+  color: #ffffff !important;
+  font-weight: 400 !important;
+  text-shadow: none !important;
+  opacity: 1 !important;
+}
+
+/* Override any potential child element styling */
+.character-description * {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  font-weight: inherit !important;
+  text-shadow: none !important;
 }
 
 /* Custom scrollbar */

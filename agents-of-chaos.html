@@ -52,6 +52,56 @@
             }
         }
         
+        /* Fix for character description text - highest priority */
+        .character-description {
+            color: #ffffff !important;
+            opacity: 1 !important;
+            font-weight: 400 !important;
+            text-shadow: none !important;
+        }
+        
+        /* Ensure all nested elements in description also have proper styling */
+        .character-description * {
+            color: #ffffff !important;
+            opacity: 1 !important;
+            font-weight: inherit !important;
+            text-shadow: none !important;
+        }
+        
+        /* Fix for greyed out text - override all text inside character descriptions */
+        #characterDescription,
+        #characterDescription span,
+        #characterDescription div,
+        #characterDescription p {
+            color: #ffffff !important;
+            opacity: 1 !important;
+            font-weight: 400 !important;
+            text-shadow: none !important;
+            -webkit-text-fill-color: #ffffff !important;
+            background: none !important;
+            background-color: transparent !important;
+            filter: none !important;
+            -webkit-font-smoothing: antialiased !important;
+            text-rendering: optimizeLegibility !important;
+        }
+        
+        /* Additional forceful style override for character description text */
+        .character-description {
+            color: #ffffff !important;
+            opacity: 1 !important;
+        }
+        
+        /* Ensure all nested elements and text nodes have proper color */
+        .character-description::first-line,
+        .character-description::first-letter,
+        .character-description > *,
+        .character-description *::first-line,
+        .character-description *::first-letter {
+            color: #ffffff !important;
+            opacity: 1 !important;
+            -webkit-text-fill-color: #ffffff !important;
+        }
+        
         /* Apply animation to logo */
         .logo {
             animation: logoGlow 3s infinite;
@@ -295,7 +345,7 @@
             <div class="character-image" id="characterImage">
                 <img id="characterImg" alt="Agent" />
             </div>
-            <p class="character-description" id="characterDescription"></p>
+            <p class="character-description" id="characterDescription" style="color: #ffffff !important; opacity: 1 !important; font-weight: 400 !important; text-shadow: none !important; -webkit-text-fill-color: #ffffff !important; filter: none !important; background: none !important;"></p>
             <div class="card-footer">
                 <div class="button-row">
                     <div class="left-nav">
@@ -338,6 +388,33 @@
             }
             return characters;
         };
+        
+        // Global text processing function to fix description styling
+        window.processCharacterDescriptions = function(characters) {
+            if (Array.isArray(characters)) {
+                characters.forEach(character => {
+                    if (character.description) {
+                        // Parse the description to remove any potential HTML or styling
+                        const tempDiv = document.createElement('div');
+                        tempDiv.textContent = character.description;
+                        
+                        // Remove any special characters or formatting that might cause styling issues
+                        let cleanText = tempDiv.textContent;
+                        
+                        // Replace any special Unicode characters that might have different styling
+                        cleanText = cleanText.replace(/[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,\-.\/:;<=>?@\[\]^_`{|}~]/g, function(match) {
+                            // Keep quotes and basic punctuation but replace others with standard versions
+                            if (".,;:!?\"'()[]{}".includes(match)) return match;
+                            return ' ';
+                        });
+                        
+                        // Store the clean text back
+                        character.description = cleanText;
+                    }
+                });
+            }
+            return characters;
+        };
     </script>
     
     <!-- Load original starfield scripts directly -->
@@ -347,6 +424,8 @@
         // Apply the image path patch immediately after loading character data
         if (typeof CHARACTERS_DATA !== 'undefined') {
             window.patchImagePaths(CHARACTERS_DATA);
+            // Also process descriptions
+            window.processCharacterDescriptions(CHARACTERS_DATA);
         }
     </script>
     <script src="bananium-starfield/js/data.js"></script>
@@ -373,6 +452,54 @@
                 intro.style.display = 'none';
             }, 1000);
         }, 8000);
+        
+        // Fix for character description text styling
+        // Monkey-patch the UI.displayCharacterCard method to ensure all text is properly styled
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.UI && UI.displayCharacterCard) {
+                const originalDisplayCharacterCard = UI.displayCharacterCard;
+                
+                UI.displayCharacterCard = function(character) {
+                    // Call original function
+                    originalDisplayCharacterCard.call(this, character);
+                    
+                    // Fix text styling after original function runs
+                    if (character && character.description) {
+                        // Create a new text node with the description
+                        const descriptionEl = document.getElementById('characterDescription');
+                        if (descriptionEl) {
+                            // Clear any existing content
+                            descriptionEl.innerHTML = '';
+                            
+                            // First ensure the parent element has proper styling
+                            descriptionEl.style.color = '#ffffff';
+                            descriptionEl.style.opacity = '1';
+                            descriptionEl.style.fontWeight = '400';
+                            descriptionEl.style.textShadow = 'none';
+                            descriptionEl.style.webkitTextFillColor = '#ffffff';
+                            
+                            // Create a simple span with the content
+                            const span = document.createElement('span');
+                            span.textContent = character.description;
+                            
+                            // Apply styles directly to the span element
+                            span.style.color = '#ffffff';
+                            span.style.opacity = '1';
+                            span.style.fontWeight = '400';
+                            span.style.textShadow = 'none';
+                            span.style.webkitTextFillColor = '#ffffff';
+                            span.style.background = 'none';
+                            span.style.filter = 'none';
+                            
+                            descriptionEl.appendChild(span);
+                            
+                            // Force reflow to ensure styles apply
+                            descriptionEl.offsetHeight;
+                        }
+                    }
+                };
+            }
+        });
     </script>
 
     <!-- Mobile menu functionality to match home page -->
