@@ -1,0 +1,590 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Exo 2', sans-serif;
+}
+
+body {
+  overflow: hidden;
+  color: white;
+  background-color: #000;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+#canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.interface {
+  position: fixed;
+  z-index: 2;
+  top: 20px;
+  left: 20px;
+  pointer-events: none;
+  display: block;
+  max-height: 100vh; /* Increased from 90vh to use full viewport height */
+  overflow: visible !important;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.interface::-webkit-scrollbar {
+  display: none;
+}
+
+/* Replace search container with navigation container */
+.navigation-container {
+  position: relative;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  padding: 15px;
+  width: 350px;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Increased from 10px */
+  margin-bottom: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Search row styles */
+.search-row {
+  margin-bottom: 0; /* Removed bottom margin */
+  width: 100%;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 215, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.search-input:focus {
+  border-color: rgba(255, 215, 0, 0.9);
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+}
+
+.button-row {
+  display: flex;
+  justify-content: center; /* Changed from space-between to center */
+  width: 100%;
+  margin-top: 0; /* Reset top margin */
+}
+
+/* Add specific styling for the full-width button */
+.btn.full-width {
+  width: 100%;
+  display: block;
+  flex: none;
+  text-align: center;
+  font-size: 16px; /* Increased font size */
+  padding: 12px 15px; /* Slightly increased padding */
+}
+
+.btn {
+  background: rgba(255, 215, 0, 0.8); /* Changed to yellow */
+  border: none;
+  border-radius: 4px;
+  color: black; /* Changed to black text */
+  padding: 10px 15px;
+  cursor: pointer;
+  flex: 1;
+  transition: background 0.2s ease;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px; /* Slightly larger font */
+  font-weight: bold; /* Changed from 500 to bold for stronger emphasis */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn:hover {
+  background: rgba(255, 215, 0, 1); /* Brighter yellow on hover */
+}
+
+.character-card {
+  position: absolute; /* Changed from relative to absolute for better positioning */
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 25px 30px;
+  width: 90%; /* Changed from fixed width to percentage */
+  max-width: 600px; /* Added max-width for larger screens */
+  height: calc(100vh - 80px); /* Account for navbar */
+  pointer-events: auto;
+  display: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 18px;
+  overflow-y: auto;
+  margin: 0; /* Changed from auto to 0 */
+  left: 30px; /* Position on the left side with some margin */
+  top: 50%;
+  transform: translateY(-50%); /* Only transform Y axis to center vertically */
+  z-index: 1000; /* Ensure it's above other elements */
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.card-title {
+  font-size: clamp(24px, 5vw, 40px); /* Responsive font size */
+  font-weight: 700;
+  text-transform: uppercase;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 2px;
+  text-align: left;
+  line-height: 1.1;
+  width: calc(100% - 50px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 46px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.close-btn:hover {
+  opacity: 1;
+}
+
+.character-image {
+  width: 100%;
+  height: auto;
+  max-height: 40vh; /* Reduced from 50vh to allow more space for text */
+  aspect-ratio: auto;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 8px;
+  object-fit: contain;
+  flex-shrink: 0;
+  margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.3);
+  min-height: 200px; /* Reduced from 230px */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Add specific styling for the img element inside character-image */
+.character-image img {
+  max-width: 100%;
+  max-height: 40vh; /* Reduced from 50vh to allow more space for text */
+  height: auto;
+  width: auto;
+  object-fit: contain;
+  border-radius: 6px;
+  display: block;
+}
+
+/* Landscape orientation images */
+.character-image img.landscape {
+  max-width: 90%;
+  max-height: 35vh; /* Slightly smaller for landscape images */
+}
+
+.character-description {
+  font-size: clamp(16px, 2.2vw, 20px); /* Responsive font size */
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+  overflow-y: auto;
+  margin-bottom: 8px;
+  min-height: 90px;
+  max-height: none;
+  flex: 1;
+  padding-right: 8px;
+  text-align: left;
+  overflow-wrap: break-word; /* Ensure text breaks properly */
+  word-wrap: break-word;
+  position: relative; /* For scroll indicator */
+}
+
+/* Style for scrollable description with fade indicator */
+.character-description.scrollable::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 8px; /* Account for scrollbar width */
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 100%);
+  pointer-events: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* Add custom scrollbar styling for description */
+.character-description::-webkit-scrollbar {
+  width: 7px;
+}
+
+.character-description::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.character-description::-webkit-scrollbar-thumb {
+  background: rgba(255, 215, 0, 0.3);
+  border-radius: 20px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+.character-description::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 215, 0, 0.5);
+}
+
+/* Navigation button styling */
+.nav-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 42px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+  padding: 0;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 2px;
+  flex: 0 0 auto; /* Don't allow flex to resize the buttons */
+  display: inline-block;
+  width: 42px; /* Set fixed width to ensure consistent spacing */
+  text-align: center;
+}
+
+.nav-btn:hover {
+  opacity: 1;
+}
+
+/* Create a container for the button row and homepage button */
+.card-footer {
+  margin-top: auto;
+  width: 100%;
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 6px;
+  padding-top: 8px;
+  position: sticky;
+  bottom: 0;
+}
+
+/* Style the button row in the card footer specifically */
+.card-footer .button-row {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 0 10px;
+}
+
+/* Style navigation button containers */
+.left-nav, .center-nav, .right-nav {
+  flex: 1;
+  display: flex;
+}
+
+.left-nav {
+  justify-content: flex-start; /* Align to left */
+}
+
+.center-nav {
+  justify-content: center; /* Align to center */
+}
+
+.right-nav {
+  justify-content: flex-end; /* Align to right */
+}
+
+/* Remove the individual button margin styles */
+#cardPrevBtn, #cardRandomBtn, #cardNextBtn {
+  margin: 0;
+}
+
+.homepage-btn {
+  background: rgba(255, 215, 0, 0.8);
+  border: none;
+  border-radius: 8px;
+  color: black;
+  padding: 12px 18px;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.2s ease;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 6px;
+}
+
+.homepage-btn:hover {
+  background: rgba(255, 215, 0, 1);
+}
+
+/* No results and error messages */
+.dropdown-no-results, .dropdown-error {
+  padding: 15px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+}
+
+/* Enhanced search styles */
+.search-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 5px;
+  z-index: 2000; /* Ensure dropdown appears above other elements */
+}
+
+/* Enhanced search dropdown styles */
+.search-dropdown {
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  width: 100% !important;
+  /* Set height to show approximately 6 items */
+  max-height: 320px !important; /* Fine-tuned to show about 6 items with some partial scrolling */
+  min-height: 120px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  background-color: rgba(10, 15, 30, 0.95);
+  border: 2px solid rgba(255, 215, 0, 0.5) !important;
+  border-top: none !important;
+  border-bottom: 4px solid rgba(255, 215, 0, 0.8) !important;
+  border-radius: 0 0 10px 10px;
+  z-index: 2001 !important;
+  display: none;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7) !important;
+  padding-bottom: 12px !important;
+  margin-bottom: 10px !important;
+  transform: translateZ(0);
+}
+
+/* Custom scrollbar styling for dropdown */
+.search-dropdown::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Hide scrollbar arrows */
+.search-dropdown::-webkit-scrollbar-button {
+  display: none;
+}
+
+.search-dropdown::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.search-dropdown::-webkit-scrollbar-thumb {
+  background: rgba(255, 215, 0, 0.3);
+  border-radius: 20px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+.search-dropdown::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 215, 0, 0.5);
+}
+
+/* Make dropdown items more compact */
+.dropdown-item {
+  padding: 8px 12px !important; /* Reduced padding from 12px to 8px top/bottom */
+  display: flex;
+  align-items: center;
+  transition: background-color 0.2s;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+  min-height: 50px !important; /* Reduced from 60px to 50px for more compact items */
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+  margin-bottom: 5px; /* Extra margin at the bottom of the list */
+}
+
+.dropdown-item:hover {
+  background-color: rgba(255, 215, 0, 0.15);
+}
+
+.dropdown-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 10px;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.dropdown-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dropdown-text {
+  color: #fff;
+  font-family: 'Exo 2', sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdown-no-results {
+  padding: 15px;
+  text-align: center;
+  color: rgba(255, 215, 0, 0.5);
+  font-style: italic;
+}
+
+/* Create a special class for when the dropdown would be cut off by the viewport */
+.search-dropdown-flipped {
+  top: auto; /* Remove top positioning */
+  bottom: 100%; /* Position above the search input instead */
+  border-top: 3px solid rgba(255, 215, 0, 0.6); /* Move accent border to top */
+  border-bottom: 1px solid rgba(255, 215, 0, 0.3); /* Regular border on bottom */
+  border-radius: 10px 10px 0 0; /* Flip border radius */
+  box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.6); /* Flip shadow direction */
+}
+
+.hover-info {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  padding: 8px 16px;
+  pointer-events: none;
+  display: none;
+  z-index: 1000;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  transition: all 0.2s ease;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-family: 'Orbitron', sans-serif;
+  color: #fff;
+  white-space: nowrap;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Media queries for better responsiveness */
+@media (max-width: 768px) {
+  .character-card {
+    padding: 20px;
+    width: 100%;
+    max-width: none;
+    height: 80vh;
+    border-radius: 16px 16px 0 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: auto;
+    transform: none;
+  }
+  
+  .card-title {
+    font-size: clamp(20px, 6vw, 36px);
+  }
+  
+  .character-description {
+    font-size: clamp(15px, 4vw, 18px);
+    line-height: 1.4;
+  }
+  
+  .character-image {
+    max-height: 35vh;
+  }
+  
+  .character-image img {
+    max-height: 35vh;
+  }
+  
+  .homepage-btn {
+    font-size: 18px;
+    padding: 10px 15px;
+  }
+  
+  .nav-btn {
+    font-size: 36px;
+    width: 36px;
+  }
+}
+
+/* Medium screens - adjust left positioning */
+@media (min-width: 769px) and (max-width: 1200px) {
+  .character-card {
+    left: 20px;
+    width: 95%;
+    max-width: 500px;
+    padding: 20px;
+  }
+}
+
+/* Large screens - make card wider */
+@media (min-width: 1201px) {
+  .character-card {
+    max-width: 550px;
+    width: 40%;
+  }
+}
+
+/* Small mobile adjustments */
+@media (max-width: 480px) {
+  .character-card {
+    padding: 15px;
+    gap: 12px;
+    height: 85vh;
+  }
+  
+  .card-title {
+    font-size: clamp(18px, 5vw, 24px);
+  }
+  
+  .character-description {
+    font-size: clamp(14px, 3.5vw, 16px);
+    line-height: 1.3;
+  }
+  
+  .homepage-btn {
+    font-size: 16px;
+    padding: 8px 12px;
+  }
+}

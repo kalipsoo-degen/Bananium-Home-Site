@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galaxy Starfield Character Explorer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!--
+    Galaxy Starfield Character Explorer
+    Copyright (c) 2023 [Your Name/Organization]
+    
+    Using THREE.js (MIT License) - https://github.com/mrdoob/three.js/
+    Using Google Fonts (OFL) - Orbitron and Exo 2
+  -->
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  
+  <div class="interface">
+    <div class="navigation-container" id="navigationContainer">
+      <div class="search-row">
+        <div class="search-wrapper">
+          <input type="text" id="searchInput" placeholder="Search characters..." class="search-input">
+          <div id="searchDropdown" class="search-dropdown"></div>
+        </div>
+      </div>
+      <div class="button-row">
+        <button class="btn full-width" id="randomBtn">RANDOM</button>
+      </div>
+    </div>
+    
+    <div class="character-card" id="characterCard">
+      <div class="card-header">
+        <h2 class="card-title" id="characterName">Character Name</h2>
+        <button class="close-btn" id="closeCard">&times;</button>
+      </div>
+      <div class="character-image" id="characterImage">
+        <img id="characterImg" alt="Character" />
+      </div>
+      <p class="character-description" id="characterDescription"></p>
+      <div class="card-footer">
+        <div class="button-row">
+          <div class="left-nav">
+            <button class="nav-btn" id="cardPrevBtn">◀</button>
+          </div>
+          <div class="center-nav">
+            <button class="nav-btn" id="cardRandomBtn">⟳</button>
+          </div>
+          <div class="right-nav">
+            <button class="nav-btn" id="cardNextBtn">▶</button>
+          </div>
+        </div>
+        <a href="#" class="homepage-btn" id="homepageLink" target="_blank">Visit Homepage</a>
+      </div>
+    </div>
+    
+    <div class="hover-info" id="hoverInfo"></div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/character-data.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/starfield.js"></script>
+  <script src="js/character-stars.js"></script>
+  <script src="js/interactions.js"></script>
+  <script src="js/animation.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
