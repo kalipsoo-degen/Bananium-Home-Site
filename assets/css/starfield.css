@@ -1,0 +1,476 @@
+/**
+ * BANANIUM MAXIMUS - Starfield/Agents Interface Styles
+ * Integrated from the Galaxy Starfield Character Explorer
+ */
+
+/* Starfield Page Base Styles */
+.starfield-page {
+  overflow: hidden;
+  color: white;
+  background-color: #000;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.starfield-page::-webkit-scrollbar {
+  display: none;
+}
+
+/* Canvas Setup */
+#canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Interface Layout */
+.interface {
+  position: fixed;
+  z-index: 10;
+  top: 20px;
+  left: 20px;
+  pointer-events: none;
+  display: block;
+  max-height: 100vh;
+  overflow: visible !important;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.interface::-webkit-scrollbar {
+  display: none;
+}
+
+/* Intro Panel */
+.agents-intro {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 500px;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.agents-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.agents-description {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.agents-instruction {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* Navigation Container */
+.navigation-container {
+  position: relative;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 8px;
+  padding: 15px;
+  width: 350px;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Search Row Styles */
+.search-row {
+  margin-bottom: 0;
+  width: 100%;
+}
+
+.search-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 215, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.search-input:focus {
+  border-color: rgba(255, 215, 0, 0.9);
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 0;
+}
+
+/* Full-width Button */
+.btn.full-width {
+  width: 100%;
+  display: block;
+  flex: none;
+  text-align: center;
+  font-size: 16px;
+  padding: 12px 15px;
+}
+
+/* General Button Style */
+.btn {
+  background: rgba(255, 215, 0, 0.8);
+  border: none;
+  border-radius: 4px;
+  color: black;
+  padding: 10px 15px;
+  cursor: pointer;
+  flex: 1;
+  transition: background 0.2s ease;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn:hover {
+  background: rgba(255, 215, 0, 1);
+}
+
+/* Character Card */
+.character-card {
+  position: relative;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 16px;
+  padding: 25px 30px;
+  width: 525px;
+  height: calc(100vh - 120px);
+  pointer-events: auto;
+  display: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 18px;
+  overflow-y: auto;
+  margin-top: 15px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.card-title {
+  font-size: 32px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 2px;
+  text-align: left;
+  line-height: 1.1;
+  width: calc(100% - 50px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--primary-color);
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 46px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.close-btn:hover {
+  opacity: 1;
+}
+
+.character-image {
+  width: 100%;
+  height: auto;
+  max-height: 40vh;
+  aspect-ratio: auto;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 8px;
+  object-fit: contain;
+  flex-shrink: 0;
+  margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.3);
+  min-height: 230px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.character-image img {
+  max-width: 100%;
+  max-height: 40vh;
+  height: auto;
+  width: auto;
+  object-fit: contain;
+  border-radius: 6px;
+  display: block;
+}
+
+.character-description {
+  font-size: 18px;
+  line-height: 1.7;
+  letter-spacing: 0.5px;
+  overflow-y: auto;
+  margin-bottom: 8px;
+  min-height: 90px;
+  max-height: none;
+  flex: 1;
+  padding-right: 8px;
+  text-align: left;
+  font-family: 'Exo 2', sans-serif;
+}
+
+/* Custom scrollbar */
+.character-description::-webkit-scrollbar {
+  width: 7px;
+}
+
+.character-description::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.character-description::-webkit-scrollbar-thumb {
+  background: rgba(255, 215, 0, 0.3);
+  border-radius: 20px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+.character-description::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 215, 0, 0.5);
+}
+
+/* Navigation button styling */
+.nav-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 32px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+  padding: 0 8px;
+  margin: 0;
+  line-height: 1;
+}
+
+.nav-btn:hover {
+  opacity: 1;
+  color: var(--primary-color);
+}
+
+.card-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border-top: 1px solid rgba(255, 215, 0, 0.2);
+  padding-top: 15px;
+  margin-top: 10px;
+}
+
+.card-footer .button-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+}
+
+.left-nav, .center-nav, .right-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.homepage-btn {
+  width: 100%;
+  display: block;
+  padding: 12px 15px;
+  text-align: center;
+  background-color: rgba(255, 215, 0, 0.3);
+  border-radius: 4px;
+  color: white;
+  text-decoration: none;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: background-color 0.2s ease;
+}
+
+.homepage-btn:hover {
+  background-color: rgba(255, 215, 0, 0.5);
+}
+
+/* Search dropdown */
+.search-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0.95);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 0 0 4px 4px;
+  z-index: 100;
+  display: none;
+}
+
+.search-dropdown::-webkit-scrollbar {
+  width: 7px;
+}
+
+.search-dropdown::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.search-dropdown::-webkit-scrollbar-thumb {
+  background: rgba(255, 215, 0, 0.3);
+  border-radius: 20px;
+}
+
+.search-dropdown::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 215, 0, 0.5);
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: rgba(255, 215, 0, 0.2);
+}
+
+.dropdown-img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  border-radius: 4px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.dropdown-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dropdown-text {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdown-no-results {
+  padding: 15px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Hover info for stars */
+.hover-info {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  font-family: 'Exo 2', sans-serif;
+  font-size: 14px;
+  pointer-events: none;
+  z-index: 1000;
+  display: none;
+  max-width: 200px;
+  text-align: center;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .navigation-container {
+    width: calc(100% - 40px);
+    margin: 0 auto;
+  }
+  
+  .character-card {
+    width: calc(100% - 40px);
+    margin: 15px auto 0 auto;
+    left: 0;
+    right: 0;
+    padding: 20px;
+  }
+  
+  .agents-intro {
+    width: calc(100% - 40px);
+    max-width: none;
+    left: 20px;
+    right: 20px;
+  }
+  
+  .card-title {
+    font-size: 24px;
+  }
+  
+  .character-description {
+    font-size: 16px;
+  }
+  
+  .interface {
+    width: 100%;
+    left: 0;
+    padding: 0 20px;
+  }
+} 
