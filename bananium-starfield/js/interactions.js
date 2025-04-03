@@ -658,7 +658,17 @@ const UI = {
     // Update UI
     this.currentCharacterIndex = index;
     this.elements.characterName.textContent = character.name;
-    this.elements.characterDescription.textContent = character.description;
+    
+    // Fix for description text - use a span with direct styling
+    this.elements.characterDescription.innerHTML = '';
+    const span = document.createElement('span');
+    span.textContent = character.description;
+    span.style.color = '#ffffff';
+    span.style.opacity = '1';
+    span.style.fontWeight = '400';
+    span.style.textShadow = 'none';
+    this.elements.characterDescription.appendChild(span);
+    
     this.elements.homepageLink.href = character.homepage;
     
     // Load image with fallback - using the new img element

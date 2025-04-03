@@ -232,6 +232,18 @@ body::-webkit-scrollbar {
   overflow-wrap: break-word; /* Ensure text breaks properly */
   word-wrap: break-word;
   position: relative; /* For scroll indicator */
+  color: #ffffff !important; /* Force white color with !important */
+  font-weight: 400 !important; /* Force normal font weight with !important */
+  text-shadow: none !important; /* Remove any text shadow with !important */
+  opacity: 1 !important; /* Force full opacity with !important */
+}
+
+/* Override any potential child element styling */
+.character-description * {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  font-weight: inherit !important;
+  text-shadow: none !important;
 }
 
 /* Style for scrollable description with fade indicator */
