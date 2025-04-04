@@ -299,6 +299,9 @@
         /* Lock page scrolling initially */
         body {
             overflow: hidden !important; /* Prevent scrolling on initial load */
+            margin: 0 !important; 
+            padding: 0 !important;
+            background-color: #000000 !important;
         }
         
         body.scrolling-enabled {
@@ -313,6 +316,13 @@
         /* Always allow the Enter Arena button to work */
         #enter-arena-btn {
             pointer-events: auto !important;
+        }
+
+        /* Hero section specific styles */
+        .hero {
+            margin: 0 !important;
+            padding: 0 !important;
+            background-color: transparent !important;
         }
     </style>
 </head>
@@ -335,7 +345,7 @@
     </div>
     
     <!-- Navigation -->
-    <nav class="navbar" id="main-navbar">
+    <nav class="navbar" id="main-navbar" style="background: transparent; z-index: 1000;">
         <a href="#" class="logo">BANANIUM</a>
         <div class="nav-links">
             <a href="#home">HOME</a>
@@ -358,12 +368,17 @@
     
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-overlay"></div>
+        <!-- Removed hero-overlay div that was creating black bar -->
         
-        <!-- CSS-based background placeholder -->
-        <div class="hero-background-placeholder"></div>
-        <div class="arena-graphic"></div>
-        <div class="character-placeholder"></div>
+        <!-- Background video with reduced opacity -->
+        <div class="background-video-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1;">
+            <video autoplay loop muted playsinline style="position: absolute; width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 0.5; left: 0; top: 0;">
+                <source src="assets/videos/BananNium.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        
+        <!-- Removed additional background elements -->
         
         <!-- Stylized characters - simple placeholders using emojis and styling -->
         <div class="character-left" style="position: absolute; font-size: 4rem; left: 25%; bottom: 20%;">
@@ -380,8 +395,8 @@
         </div>
         
         <!-- AI AGENTS text with styling similar to reference -->
-        <div class="ai-agents-text">AI AGENTS</div>
-        <div class="subtitle-text">FIGHTING AND TWEETING</div>
+        <div class="ai-agents-text" style="color: #ff3a3a; font-weight: 900; padding: 5px 15px; text-transform: uppercase; letter-spacing: 10px; font-size: 3.2rem; word-spacing: 5px; text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black; background-color: rgba(0,0,0,0.5); display: inline-block; border-radius: 5px;">AI AGENTS</div>
+        <div class="subtitle-text" style="color: #6699ff; font-weight: 900; padding: 5px 15px; text-transform: uppercase; letter-spacing: 10px; font-size: 2.6rem; word-spacing: 5px; text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black; background-color: rgba(0,0,0,0.5); display: inline-block; border-radius: 5px;">FIGHTING AND TWEETING</div>
         
         <a href="#" id="enter-arena-btn" class="cta-btn" style="margin-top: 2rem; animation: pulse-button 2s infinite; position: relative; z-index: 100;">ENTER THE ARENA</a>
     </section>
@@ -422,7 +437,7 @@
                         <div class="flip-tile-back" style="border-radius: 15px; background-color: #1a1a1a; color: #fff; text-shadow: 0 0 2px rgba(255,255,255,0.5);">
                             <div style="text-align: center; padding: 20px; display: flex; flex-direction: column; justify-content: center; height: 100%;">
                                 <p style="font-size: 1.92rem; margin-bottom: 15px; line-height: 1.54; font-weight: 500; text-shadow: 0 0 1px rgba(255,255,255,0.8); font-family: 'futura-pt', sans-serif;"><strong style="color: #FFD700; font-size: 2.16rem;">1024 SOL</strong> going to the winners of the most insane battle royal to hit web3!</p>
-                                <p style="font-size: 1.92rem; line-height: 1.54; font-weight: 500; text-shadow: 0 0 1px rgba(255,255,255,0.8); font-family: 'futura-pt', sans-serif;"><strong style="color: #FFD700;">4096 AI CHARACTERS</strong> duking it out until only one stands might, forever immortalized!</p>
+                                <p style="font-size: 1.92rem; line-height: 1.54; font-weight: 500; text-shadow: 0 0 1px rgba(255,255,255,0.8); font-family: 'futura-pt', sans-serif;"><strong style="color: #FFD700;">4096 AI CHARACTERS</strong> duking it out until only one stands mighty, forever immortalized!</p>
                             </div>
                         </div>
                     </div>
@@ -1617,6 +1632,7 @@
             
             const colorInside = new THREE.Color(params.insideColor);
             const colorOutside = new THREE.Color(params.outsideColor);
+            
             
             // Generate stars in a galaxy pattern with spiral arms
             for(let i = 0; i < params.count; i++) {
