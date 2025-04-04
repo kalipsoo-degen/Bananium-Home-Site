@@ -301,21 +301,31 @@
             overflow: hidden !important; /* Prevent scrolling on initial load */
             margin: 0 !important; 
             padding: 0 !important;
-            /* Removed background-color that was causing the black bar at the top */
+            height: 100vh !important; /* Force body to be exactly viewport height */
+            max-height: 100vh !important; /* Ensure it doesn't exceed viewport */
+            position: fixed !important; /* Completely prevent scrolling */
+            width: 100% !important; /* Full width */
         }
         
         body.scrolling-enabled {
             overflow: auto !important; /* Allow scrolling when this class is added */
+            height: auto !important; /* Allow content to determine height */
+            max-height: none !important; /* No max height limitation */
+            position: relative !important; /* Normal document flow */
         }
         
         /* Ensure navbar links require scrolling to be enabled */
-        body:not(.scrolling-enabled) .navbar a {
+        body:not(.scrolling-enabled) .nav-link {
             pointer-events: none !important; 
+            opacity: 0.5 !important;
+            cursor: default !important;
         }
         
         /* Always allow the Enter Arena button to work */
         #enter-arena-btn {
             pointer-events: auto !important;
+            cursor: pointer !important;
+            opacity: 1 !important;
         }
 
         /* Hero section specific styles */
@@ -323,16 +333,16 @@
             margin: 0 !important;
             padding: 0 !important;
             background-color: transparent !important;
+            height: 100vh !important; /* Make hero section full height of viewport */
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: center !important;
         }
     </style>
 </head>
 <body>
-    <!-- Enable scrolling immediately -->
-    <script>
-        // Ensure scrolling is properly enabled
-        document.body.classList.add('scrolling-enabled');
-        document.body.style.overflow = 'auto';
-    </script>
+    <!-- Script to enable scrolling was removed from here -->
     
     <!-- Audio element with simple filename first -->
     <audio id="background-music" preload="auto" crossorigin="anonymous">
@@ -355,17 +365,17 @@
     <nav class="navbar" id="main-navbar" style="background: rgba(0, 0, 0, 0.8); z-index: 1000; width: 100%; padding: 15px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.5);">
         <a href="#" class="logo">BANANIUM</a>
         <div class="nav-links">
-            <a href="#home">HOME</a>
-            <a href="#about">ABOUT</a>
-            <a href="#about-roadmap">ROADMAP</a>
-            <a href="#prize-pool">PRIZE POOL</a>
-            <a href="agents-of-chaos.html">AGENTS OF CHAOS</a>
-            <a href="#whitepaper">WHITEPAPER</a>
-            <a href="https://magiceden.us/" target="_blank">JOIN THE BATTLE</a>
+            <a href="#home" class="nav-link">HOME</a>
+            <a href="#about" class="nav-link">ABOUT</a>
+            <a href="#about-roadmap" class="nav-link">ROADMAP</a>
+            <a href="#prize-pool" class="nav-link">PRIZE POOL</a>
+            <a href="agents-of-chaos.html" class="nav-link">AGENTS OF CHAOS</a>
+            <a href="#whitepaper" class="nav-link">WHITEPAPER</a>
+            <a href="https://magiceden.us/" target="_blank" class="nav-link">JOIN THE BATTLE</a>
         </div>
         <div class="social-icons">
-            <a href="#"><i class="fa-solid fa-link"></i></a>
-            <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" class="nav-link"><i class="fa-solid fa-link"></i></a>
+            <a href="#" class="nav-link"><i class="fa-brands fa-x-twitter"></i></a>
         </div>
         <!-- Mobile menu toggle (hidden by default, shown on small screens) -->
         <button id="mobile-menu-toggle" class="mobile-menu-toggle">
@@ -966,22 +976,10 @@
             }
         }
         
-        // Force enable scrolling immediately and repeatedly to overcome any overrides
-        function enableScrolling() {
-            document.body.classList.add('scrolling-enabled');
-            document.body.style.overflow = 'auto';
-        }
+        // NOTE: Removed the immediate scrolling enablement functions
         
-        // Call frequently during initial load to ensure scrolling works
-        enableScrolling();
-        setTimeout(enableScrolling, 100);
-        setTimeout(enableScrolling, 500);
-        setTimeout(enableScrolling, 1000);
-        
-        // Ensure scrolling is always enabled on the main site
+        // Ensure scrolling is always enabled on the main site ONLY after user enters
         document.addEventListener('DOMContentLoaded', function() {
-            enableScrolling();
-            
             // Make sure to resize the starfield
             window.addEventListener('resize', handleStarfieldResize);
             
@@ -1036,38 +1034,35 @@
             window.addEventListener('hashchange', setActiveLinks);
         });
         
-        // Double-check after everything is loaded
-        window.addEventListener('load', function() {
-            enableScrolling();
-            
-            // Reapply after a slight delay
-            setTimeout(enableScrolling, 100);
-        });
+        // Removed auto-enablement code
     </script>
 
     <!-- Global wheel event listener -->
     <script>
         // Global wheel event listener
         document.addEventListener('wheel', function(event) {
+            // Don't allow wheel scrolling if scrolling is not enabled yet
+            if (!document.body.classList.contains('scrolling-enabled')) {
+                event.preventDefault();
+                return false;
+            }
+
             const isOverStarfield = isMouseOverStarfield(event);
             const canvas = document.getElementById('canvas');
             
-            // Only manage pointer events for the canvas, don't block scrolling
+            // Only manage pointer events for the canvas, don't block scrolling when enabled
             if (canvas) {
                 if (isOverStarfield) {
                     canvas.style.pointerEvents = 'auto';
                 } else {
                     canvas.style.pointerEvents = 'none';
-                    // Removed event.stopPropagation() to allow natural scrolling
                 }
             }
-        }, true); // Use capture phase
+        }, { passive: false, capture: true }); // Need passive: false to allow preventDefault
         
         // Add additional mouse event listeners to constrain interaction
         document.addEventListener('DOMContentLoaded', function() {
-            // Enable scrolling on the body
-            document.body.classList.add('scrolling-enabled');
-            document.body.style.overflow = 'auto';
+            // Do NOT enable scrolling here - removed that line
             
             const canvas = document.getElementById('canvas');
             if (canvas) {
@@ -1841,6 +1836,76 @@
             backgroundStars: backgroundStars
         };
     });
+    </script>
+
+    <!-- Script to handle Enter Arena button -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const enterArenaBtn = document.getElementById('enter-arena-btn');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            // Make sure scrolling is disabled initially
+            document.body.classList.remove('scrolling-enabled');
+            document.body.style.overflow = 'hidden';
+            
+            // Prevent keyboard scrolling (arrow keys, spacebar, page up/down)
+            function preventKeyboardScroll(e) {
+                // If scrolling is not enabled yet
+                if (!document.body.classList.contains('scrolling-enabled')) {
+                    const keys = [32, 33, 34, 35, 36, 37, 38, 39, 40]; // Space, PageUp, PageDown, End, Home, Left, Up, Right, Down
+                    if (keys.includes(e.keyCode)) {
+                        e.preventDefault();
+                        return false;
+                    }
+                }
+            }
+            document.addEventListener('keydown', preventKeyboardScroll, false);
+            
+            // Prevent touch scrolling
+            function preventTouchScroll(e) {
+                if (!document.body.classList.contains('scrolling-enabled')) {
+                    e.preventDefault();
+                }
+            }
+            document.addEventListener('touchmove', preventTouchScroll, { passive: false });
+            
+            // Enable scrolling when Enter Arena button is clicked
+            enterArenaBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Enable scrolling
+                document.body.classList.add('scrolling-enabled');
+                document.body.style.overflow = 'auto';
+                
+                // Remove the event listeners that prevent scrolling
+                document.removeEventListener('keydown', preventKeyboardScroll, false);
+                document.removeEventListener('touchmove', preventTouchScroll, { passive: false });
+                
+                // Smooth scroll to the about section
+                const aboutSection = document.getElementById('about');
+                aboutSection.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Smooth scroll for navigation links once scrolling is enabled
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Only handle hash links, not external or other page links
+                    if (this.getAttribute('href').startsWith('#') && document.body.classList.contains('scrolling-enabled')) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        if (targetId !== '#') {
+                            const targetElement = document.querySelector(targetId);
+                            if (targetElement) {
+                                targetElement.scrollIntoView({ behavior: 'smooth' });
+                            }
+                        } else {
+                            // For the home link or # links, scroll to top
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>
