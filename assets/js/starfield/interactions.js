@@ -251,7 +251,23 @@ const UI = {
     this.characterImg.onerror = () => {
       this.characterImg.src = Utils.createPlaceholderImage(character);
     };
-    this.characterDescription.textContent = character.description;
+    
+    // Clear any existing content
+    this.characterDescription.innerHTML = '';
+    
+    // Split the description by double newlines to handle paragraphs
+    const paragraphs = character.description.split('\n\n');
+    
+    // Create paragraph elements for each section
+    paragraphs.forEach(paragraphText => {
+        if (paragraphText.trim()) {
+            const paragraph = document.createElement('p');
+            paragraph.textContent = paragraphText.trim();
+            paragraph.style.marginBottom = '1em';
+            this.characterDescription.appendChild(paragraph);
+        }
+    });
+    
     this.homepageLink.href = character.homepage;
     
     // Show the card

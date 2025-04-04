@@ -478,20 +478,28 @@
                             descriptionEl.style.textShadow = 'none';
                             descriptionEl.style.webkitTextFillColor = '#ffffff';
                             
-                            // Create a simple span with the content
-                            const span = document.createElement('span');
-                            span.textContent = character.description;
+                            // Split the description by double newlines to handle paragraphs
+                            const paragraphs = character.description.split('\n\n');
                             
-                            // Apply styles directly to the span element
-                            span.style.color = '#ffffff';
-                            span.style.opacity = '1';
-                            span.style.fontWeight = '400';
-                            span.style.textShadow = 'none';
-                            span.style.webkitTextFillColor = '#ffffff';
-                            span.style.background = 'none';
-                            span.style.filter = 'none';
-                            
-                            descriptionEl.appendChild(span);
+                            // Create paragraph elements for each section
+                            paragraphs.forEach(paragraphText => {
+                                if (paragraphText.trim()) {
+                                    const paragraph = document.createElement('p');
+                                    paragraph.textContent = paragraphText.trim();
+                                    
+                                    // Apply styles directly to the paragraph element
+                                    paragraph.style.color = '#ffffff';
+                                    paragraph.style.opacity = '1';
+                                    paragraph.style.fontWeight = '400';
+                                    paragraph.style.textShadow = 'none';
+                                    paragraph.style.webkitTextFillColor = '#ffffff';
+                                    paragraph.style.background = 'none';
+                                    paragraph.style.filter = 'none';
+                                    paragraph.style.marginBottom = '1em';
+                                    
+                                    descriptionEl.appendChild(paragraph);
+                                }
+                            });
                             
                             // Force reflow to ensure styles apply
                             descriptionEl.offsetHeight;

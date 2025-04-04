@@ -661,13 +661,26 @@ const UI = {
     
     // Fix for description text - use a span with direct styling
     this.elements.characterDescription.innerHTML = '';
-    const span = document.createElement('span');
-    span.textContent = character.description;
-    span.style.color = '#ffffff';
-    span.style.opacity = '1';
-    span.style.fontWeight = '400';
-    span.style.textShadow = 'none';
-    this.elements.characterDescription.appendChild(span);
+    
+    // Split the description by double newlines to handle paragraphs
+    const paragraphs = character.description.split('\n\n');
+    
+    // Create paragraph elements for each section
+    paragraphs.forEach(paragraphText => {
+        if (paragraphText.trim()) {
+            const paragraph = document.createElement('p');
+            paragraph.textContent = paragraphText.trim();
+            
+            // Apply styles directly to the paragraph element
+            paragraph.style.color = '#ffffff';
+            paragraph.style.opacity = '1';
+            paragraph.style.fontWeight = '400';
+            paragraph.style.textShadow = 'none';
+            paragraph.style.marginBottom = '1em';
+            
+            this.elements.characterDescription.appendChild(paragraph);
+        }
+    });
     
     this.elements.homepageLink.href = character.homepage;
     

@@ -220,7 +220,7 @@ body::-webkit-scrollbar {
 
 .character-description {
   font-size: clamp(16px, 2.2vw, 20px); /* Responsive font size */
-  line-height: 1.5;
+  line-height: 1.4;
   letter-spacing: 0.5px;
   overflow-y: auto;
   margin-bottom: 8px;
