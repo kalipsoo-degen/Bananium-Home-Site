@@ -327,6 +327,13 @@
     </style>
 </head>
 <body>
+    <!-- Enable scrolling immediately -->
+    <script>
+        // Ensure scrolling is properly enabled
+        document.body.classList.add('scrolling-enabled');
+        document.body.style.overflow = 'auto';
+    </script>
+    
     <!-- Audio element with simple filename first -->
     <audio id="background-music" preload="auto" crossorigin="anonymous">
         <source src="assets/audio/bananas.mp3" type="audio/mpeg">
@@ -426,7 +433,7 @@
             <!-- Interactive Flip Tiles -->
             <div class="flip-tiles-container">
                 <div class="flip-tile" style="border-radius: 15px; overflow: visible;">
-                    <div class="flip-tile-inner">
+                    <div class="flip-tile-inner" style="border: 3px solid #00FFFF; box-shadow: 0 0 15px rgba(0, 255, 255, 0.6); border-radius: 15px;">
                         <div class="flip-tile-front" style="border-radius: 15px; overflow: hidden; background-color: transparent; display: flex; flex-direction: column; justify-content: flex-end; align-items: center;">
                             <video autoplay loop muted playsinline style="position: absolute; width: 102%; height: 102%; object-fit: cover; z-index: 1; border-radius: 15px; overflow: hidden; object-position: center; top: -1%; left: -1%;">
                                 <source src="assets/videos/CheetahFurry.mp4" type="video/mp4">
@@ -444,7 +451,7 @@
                 </div>
                 
                 <div class="flip-tile" style="border-radius: 15px; overflow: visible;">
-                    <div class="flip-tile-inner">
+                    <div class="flip-tile-inner" style="border: 3px solid #FFA500; box-shadow: 0 0 15px rgba(255, 165, 0, 0.6); border-radius: 15px;">
                         <div class="flip-tile-front" style="border-radius: 15px; overflow: hidden; background-color: transparent; display: flex; flex-direction: column; justify-content: flex-end; align-items: center;">
                             <video autoplay loop muted playsinline style="position: absolute; width: 102%; height: 102%; object-fit: cover; z-index: 1; border-radius: 15px; overflow: hidden; object-position: center; top: -1%; left: -1%;">
                                 <source src="assets/videos/BananaCannonDick.mp4" type="video/mp4">
@@ -461,7 +468,7 @@
                 </div>
                 
                 <div class="flip-tile" style="border-radius: 15px; overflow: visible;">
-                    <div class="flip-tile-inner">
+                    <div class="flip-tile-inner" style="border: 3px solid #FF00FF; box-shadow: 0 0 15px rgba(255, 0, 255, 0.6); border-radius: 15px;">
                         <div class="flip-tile-front" style="border-radius: 15px; overflow: hidden; background-color: transparent; display: flex; flex-direction: column; justify-content: flex-end; align-items: center;">
                             <video autoplay loop muted playsinline style="position: absolute; width: 102%; height: 102%; object-fit: cover; z-index: 1; border-radius: 15px; overflow: hidden; object-position: center; top: -1%; left: -1%;">
                                 <source src="assets/videos/HabiboCamel.mp4" type="video/mp4">
@@ -959,9 +966,21 @@
             }
         }
         
+        // Force enable scrolling immediately and repeatedly to overcome any overrides
+        function enableScrolling() {
+            document.body.classList.add('scrolling-enabled');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Call frequently during initial load to ensure scrolling works
+        enableScrolling();
+        setTimeout(enableScrolling, 100);
+        setTimeout(enableScrolling, 500);
+        setTimeout(enableScrolling, 1000);
+        
         // Ensure scrolling is always enabled on the main site
         document.addEventListener('DOMContentLoaded', function() {
-            document.body.style.overflow = 'auto';
+            enableScrolling();
             
             // Make sure to resize the starfield
             window.addEventListener('resize', handleStarfieldResize);
@@ -1019,7 +1038,10 @@
         
         // Double-check after everything is loaded
         window.addEventListener('load', function() {
-            document.body.style.overflow = 'auto';
+            enableScrolling();
+            
+            // Reapply after a slight delay
+            setTimeout(enableScrolling, 100);
         });
     </script>
 
@@ -1030,19 +1052,23 @@
             const isOverStarfield = isMouseOverStarfield(event);
             const canvas = document.getElementById('canvas');
             
-            // Only allow wheel events inside the starfield container (not just wrapper)
+            // Only manage pointer events for the canvas, don't block scrolling
             if (canvas) {
                 if (isOverStarfield) {
                     canvas.style.pointerEvents = 'auto';
                 } else {
                     canvas.style.pointerEvents = 'none';
-                    event.stopPropagation();
+                    // Removed event.stopPropagation() to allow natural scrolling
                 }
             }
         }, true); // Use capture phase
         
         // Add additional mouse event listeners to constrain interaction
         document.addEventListener('DOMContentLoaded', function() {
+            // Enable scrolling on the body
+            document.body.classList.add('scrolling-enabled');
+            document.body.style.overflow = 'auto';
+            
             const canvas = document.getElementById('canvas');
             if (canvas) {
                 canvas.addEventListener('mousedown', function(event) {
