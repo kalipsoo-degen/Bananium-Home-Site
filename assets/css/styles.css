@@ -490,8 +490,8 @@ body {
 }
 
 .prize-card {
-    width: 100px;
-    height: 120px;
+    width: 127px; /* Increased by 10% from 115px */
+    height: 138px; /* Keeping height the same */
     perspective: 1000px;
     cursor: pointer;
 }
@@ -507,7 +507,7 @@ body {
     background: linear-gradient(135deg, rgba(30, 30, 30, 0.8), rgba(20, 20, 20, 0.8));
     border: 2px solid var(--primary-color);
     border-radius: 10px;
-    padding: 10px;
+    padding: 12px; /* Slightly increased padding */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
 }
