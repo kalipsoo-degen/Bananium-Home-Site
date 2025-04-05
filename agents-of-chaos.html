@@ -40,6 +40,8 @@
             width: 100%;
             z-index: 1000;
             background-color: rgba(0, 0, 0, 0.8);
+            height: auto; /* Ensure height is based on content */
+            padding: 0.5rem 1rem; /* Reduce padding to make navbar thinner */
         }
         
         /* Logo Animation to match home page */
@@ -209,11 +211,11 @@
             width: 100% !important;
         }
         
-        /* Navigation container positioning in this page */
+        /* Navigation container positioning in this page - increase top margin */
         .navigation-container {
             position: absolute;
-            top: 80px; /* Increased to move below the logo */
-            left: 0.3cm; /* Updated to be exactly 0.3cm from left edge */
+            top: 100px; /* Increased from 80px to ensure it's below the navbar */
+            left: 0.3cm;
             width: calc(100% - 40px);
             max-width: 400px;
             z-index: 100;
@@ -222,7 +224,7 @@
         /* Style for intro panel - positioned at top right without border */
         .agents-intro {
             position: fixed;
-            top: 80px;
+            top: 100px; /* Increased from 80px to match navigation container */
             right: 30px;
             z-index: 100;
             text-align: right;
@@ -610,17 +612,6 @@
             });
         });
     </script>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-links">
-            <a href="#">Terms & Conditions</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">FAQ</a>
-            <a href="#">Contact</a>
-        </div>
-        <p class="copyright" style="font-size: 1.125rem; color: rgba(255, 255, 255, 0.7);">© 2025 BANANIUM MAXIMUS. All rights reserved.</p>
-    </footer>
 
     <!-- Mobile-specific enhancements -->
     <script src="assets/js/mobile.js"></script>
