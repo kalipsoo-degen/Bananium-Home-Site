@@ -1,0 +1,332 @@
+/* Mobile-specific styles for Bananium */
+
+/* Base mobile styles */
+@media (max-width: 768px) {
+    /* General adjustments */
+    body {
+        overflow-x: hidden;
+    }
+    
+    /* Improved mobile navigation */
+    .navbar {
+        flex-direction: column;
+        padding: 0.8rem;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+    
+    .logo {
+        font-size: 1.8rem;
+        padding-left: 10px;
+        margin-bottom: 0.5rem;
+    }
+    
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.8rem;
+        display: none;
+        padding: 1rem 0;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-links.active {
+        display: flex;
+    }
+    
+    .nav-links a {
+        padding: 0.5rem;
+        font-size: 1rem;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .social-icons {
+        width: 100%;
+        justify-content: center;
+        padding: 0.5rem 0;
+        margin-top: 0.5rem;
+    }
+    
+    /* Improved mobile menu toggle button */
+    .mobile-menu-toggle {
+        display: block;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: transparent;
+        border: none;
+        color: var(--primary-color);
+        font-size: 1.5rem;
+        cursor: pointer;
+        z-index: 1010;
+        transition: all 0.3s ease;
+    }
+    
+    .mobile-menu-toggle:hover,
+    .mobile-menu-toggle.active {
+        color: var(--secondary-color);
+        transform: scale(1.1);
+    }
+    
+    /* Hero section mobile adjustments */
+    .hero {
+        min-height: 100vh;
+        padding: 2rem 1rem;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .cta-btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    /* Section adjustments */
+    .section-title {
+        font-size: 2.2rem;
+    }
+    
+    .section-title.bananium-logo {
+        font-size: 3.5rem;
+    }
+    
+    .about-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    /* Audio controls on mobile */
+    #audio-controls {
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    #mute-button {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+    
+    /* Prize pool mobile adjustments */
+    .prize-podium-wrapper {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        margin-top: 100px;
+    }
+    
+    .podium-place {
+        margin: 2rem 0;
+        height: 100px;
+    }
+    
+    .podium-content {
+        bottom: 120%;
+    }
+    
+    .prize-cards-wrapper {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Steps/flip tiles container for mobile */
+    .steps-container, 
+    .flip-tiles-container {
+        flex-direction: column;
+    }
+    
+    .step, 
+    .flip-tile {
+        width: 100%;
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Roadmap mobile adjustments */
+    .roadmap-line {
+        left: 20px;
+    }
+    
+    .roadmap-item {
+        width: 90%;
+        margin-left: 40px !important;
+    }
+    
+    .roadmap-item:nth-child(odd) .roadmap-content::before,
+    .roadmap-item:nth-child(even) .roadmap-content::before {
+        left: -40px;
+    }
+    
+    /* Starfield container adjustments */
+    .about-text .starfield-container {
+        height: 45vh;
+        min-height: 350px;
+    }
+    
+    .starfield-wrapper {
+        height: 350px;
+    }
+    
+    /* Character card adjustments */
+    .character-card {
+        left: 5%;
+        width: 90%;
+        min-width: 250px;
+        max-width: 90%;
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .section-title.bananium-logo {
+        font-size: 2.5rem;
+    }
+    
+    .ai-agents-text {
+        font-size: 1.8rem;
+    }
+    
+    .subtitle-text {
+        font-size: 1.2rem;
+    }
+    
+    .flip-tile {
+        height: 450px;
+    }
+    
+    .podium-place {
+        transform: scale(0.8);
+    }
+    
+    /* Ensure buttons are easily tappable */
+    .cta-btn,
+    .expand-btn, 
+    .collapse-btn,
+    .explore-agents-btn,
+    .nav-btn {
+        min-height: 44px;
+        min-width: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* Tablet devices */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .section-title.bananium-logo {
+        font-size: 6rem;
+    }
+    
+    .flip-tiles-container {
+        flex-wrap: wrap;
+    }
+    
+    .flip-tile {
+        width: calc(50% - 10px);
+        margin-bottom: 20px;
+    }
+    
+    .prize-cards-wrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Fix for iOS specific issues */
+@supports (-webkit-touch-callout: none) {
+    /* Fix for iOS full-height issues */
+    .hero {
+        height: -webkit-fill-available;
+    }
+    
+    /* Fix for iOS fixed position elements */
+    .navbar {
+        position: -webkit-sticky;
+    }
+    
+    /* Fix for mobile menu on iOS */
+    .nav-links.active {
+        max-height: -webkit-fill-available;
+    }
+}
+
+/* Landscape orientation adjustments */
+@media (max-width: 768px) and (orientation: landscape) {
+    .hero {
+        min-height: 450px;
+    }
+    
+    .flip-tile {
+        height: 400px;
+    }
+    
+    .nav-links.active {
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+}
+
+/* Touch-specific enhancements */
+.touch-device .flip-tile {
+    cursor: pointer;
+    transform: translateZ(0); /* Hardware acceleration */
+    -webkit-tap-highlight-color: transparent; /* Remove default highlight on tap */
+}
+
+.touch-device .flip-tile-inner {
+    will-change: transform; /* Hint for browser to optimize transforms */
+}
+
+/* Touch active state for better feedback */
+.touch-device .touch-active {
+    opacity: 0.8;
+    transform: scale(0.98);
+    transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+/* Use custom vh value to fix iOS 100vh issues */
+.touch-device .hero,
+.touch-device .starfield-wrapper.expanded {
+    height: calc(var(--vh, 1vh) * 100);
+}
+
+/* Improve scrolling on touch devices */
+.touch-device .flip-tile-back,
+.touch-device .character-description,
+.touch-device .nav-links.active {
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    overflow-y: auto;
+}
+
+/* Make touch targets more accessible */
+.touch-device .nav-links a,
+.touch-device .social-icons a,
+.touch-device .mobile-menu-toggle,
+.touch-device .cta-btn,
+.touch-device .nav-btn {
+    padding: 0.8rem;
+}
+
+/* Add visual cue for swipe-enabled elements */
+.touch-device .flip-tile:after {
+    content: '';
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 30px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    opacity: 0.7;
+    pointer-events: none;
+} 

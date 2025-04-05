@@ -14,6 +14,9 @@
     <!-- Main Site CSS -->
     <link rel="stylesheet" href="assets/css/styles.css">
     
+    <!-- Mobile-specific CSS -->
+    <link rel="stylesheet" href="assets/css/mobile.css">
+    
     <!-- Load original starfield CSS directly from the source -->
     <link rel="stylesheet" href="bananium-starfield/css/styles.css">
     
@@ -315,7 +318,7 @@
             <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
         </div>
         <!-- Mobile menu toggle -->
-        <button id="mobile-menu-toggle" class="mobile-menu-toggle">
+        <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
             <i class="fas fa-bars"></i>
         </button>
     </nav>
@@ -578,5 +581,8 @@
         </div>
         <p class="copyright" style="font-size: 1.125rem; color: rgba(255, 255, 255, 0.7);">© 2025 BANANIUM MAXIMUS. All rights reserved.</p>
     </footer>
+
+    <!-- Mobile-specific enhancements -->
+    <script src="assets/js/mobile.js"></script>
 </body>
 </html> 

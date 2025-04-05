@@ -280,6 +280,62 @@ document.addEventListener('DOMContentLoaded', function() {
     mobileMenuToggle.addEventListener('click', function() {
       navLinks.classList.toggle('active');
       this.classList.toggle('active');
+      
+      // Toggle aria-expanded for accessibility
+      const expanded = this.getAttribute('aria-expanded') === 'true' || false;
+      this.setAttribute('aria-expanded', !expanded);
+      
+      // Toggle icon between bars and times
+      const icon = this.querySelector('i');
+      if (icon) {
+        if (icon.classList.contains('fa-bars')) {
+          icon.classList.remove('fa-bars');
+          icon.classList.add('fa-times');
+        } else {
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
+        }
+      }
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+      if (navLinks.classList.contains('active') && 
+          !navLinks.contains(e.target) && 
+          e.target !== mobileMenuToggle && 
+          !mobileMenuToggle.contains(e.target)) {
+        navLinks.classList.remove('active');
+        mobileMenuToggle.classList.remove('active');
+        
+        // Reset icon
+        const icon = mobileMenuToggle.querySelector('i');
+        if (icon) {
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
+        }
+        
+        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+    
+    // Close menu when clicking on a nav link
+    const navLinkItems = navLinks.querySelectorAll('a');
+    navLinkItems.forEach(link => {
+      link.addEventListener('click', function() {
+        if (window.innerWidth <= 768) {
+          navLinks.classList.remove('active');
+          mobileMenuToggle.classList.remove('active');
+          
+          // Reset icon
+          const icon = mobileMenuToggle.querySelector('i');
+          if (icon) {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+          }
+          
+          mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
     });
   }
   

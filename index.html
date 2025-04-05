@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/styles.css">
+    <!-- Mobile-specific CSS -->
+    <link rel="stylesheet" href="assets/css/mobile.css">
     
     <!-- Critical styles for starfield -->
     <style>
@@ -378,7 +380,7 @@
             <a href="#" class="nav-link"><i class="fa-brands fa-x-twitter"></i></a>
         </div>
         <!-- Mobile menu toggle (hidden by default, shown on small screens) -->
-        <button id="mobile-menu-toggle" class="mobile-menu-toggle">
+        <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
             <i class="fas fa-bars"></i>
         </button>
     </nav>
@@ -1907,5 +1909,23 @@
             });
         });
     </script>
+
+    <script>
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            setTimeout(initPrizeMeterAnimation, 1000);
+        } else {
+            document.addEventListener('DOMContentLoaded', () => {
+                setTimeout(initPrizeMeterAnimation, 1000);
+            });
+        }
+
+        // Also run on window load to be extra safe
+        window.addEventListener('load', () => {
+            setTimeout(initPrizeMeterAnimation, 1000);
+        }); 
+    </script>
+    
+    <!-- Mobile-specific enhancements -->
+    <script src="assets/js/mobile.js"></script>
 </body>
 </html>
