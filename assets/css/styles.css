@@ -50,6 +50,7 @@ body {
     color: var(--primary-color);
     text-decoration: none;
     text-transform: uppercase;
+    padding-left: 30px; /* Added padding to move logo away from the edge */
 }
 
 .nav-links {
@@ -113,6 +114,7 @@ body {
 .social-icons {
     display: flex;
     gap: 1rem;
+    padding-right: 30px; /* Added padding to move icons away from the right edge */
 }
 
 .social-icons a {
