@@ -178,6 +178,46 @@ document.addEventListener('DOMContentLoaded', function() {
                 roadmapVideo.style.width = '100%';
             }
             
+            // Add enlarge indicator below the roadmap video on mobile
+            const roadmapVideoContainer = document.querySelector('.roadmap-video-container');
+            const roadmapVideoParent = roadmapVideoContainer ? roadmapVideoContainer.parentElement : null;
+            
+            if (roadmapVideoContainer && roadmapVideoParent) {
+                // Remove any existing tap hint if present
+                const existingTapHint = document.querySelector('.roadmap-tap-hint');
+                if (existingTapHint) {
+                    existingTapHint.remove();
+                }
+                
+                // Remove any existing indicator if present (for page refreshes)
+                const existingIndicator = document.querySelector('.roadmap-enlarge-indicator');
+                if (existingIndicator) {
+                    existingIndicator.remove();
+                }
+                
+                // Create enlarge indicator with magnify glass icon and text
+                const enlargeIndicator = document.createElement('div');
+                enlargeIndicator.className = 'roadmap-enlarge-indicator';
+                
+                // Add Font Awesome magnify glass icon
+                const magnifyIcon = document.createElement('i');
+                magnifyIcon.className = 'fas fa-search-plus';
+                enlargeIndicator.appendChild(magnifyIcon);
+                
+                // Add text
+                const textNode = document.createTextNode('Tap roadmap to enlarge');
+                enlargeIndicator.appendChild(textNode);
+                
+                // Insert after the video container
+                roadmapVideoParent.insertBefore(enlargeIndicator, roadmapVideoContainer.nextSibling);
+                
+                // Make the indicator also clickable to trigger the modal
+                enlargeIndicator.addEventListener('click', function() {
+                    // Simulate click on the video container to trigger the modal
+                    roadmapVideoContainer.click();
+                });
+            }
+            
             // Fix prize pool section
             const prizePool = document.querySelector('.prize-pool');
             if (prizePool) {

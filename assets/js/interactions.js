@@ -15,6 +15,9 @@ export function initInteractions() {
     
     // Initialize CTA button hover effects
     initButtonEffects();
+    
+    // Initialize roadmap video click-to-enlarge (mobile only)
+    initRoadmapVideoEnlarge();
 }
 
 /**
@@ -94,4 +97,59 @@ export function initRoadmapInteractions() {
             item.classList.toggle('expanded');
         });
     });
+}
+
+/**
+ * Initialize click-to-enlarge functionality for roadmap video (mobile only)
+ */
+function initRoadmapVideoEnlarge() {
+    const roadmapVideoContainer = document.querySelector('.roadmap-video-container');
+    const roadmapVideo = document.querySelector('.roadmap-video');
+    
+    if (roadmapVideoContainer && roadmapVideo) {
+        // Create modal elements for enlarged video
+        const modal = document.createElement('div');
+        modal.className = 'roadmap-video-modal';
+        modal.style.display = 'none';
+        
+        const modalContent = document.createElement('div');
+        modalContent.className = 'roadmap-video-modal-content';
+        
+        const closeBtn = document.createElement('span');
+        closeBtn.className = 'roadmap-video-modal-close';
+        closeBtn.innerHTML = '&times;';
+        
+        // Clone the video to use in the modal
+        const modalVideo = roadmapVideo.cloneNode(true);
+        modalVideo.className = 'roadmap-video-enlarged';
+        
+        // Append elements to DOM
+        modalContent.appendChild(closeBtn);
+        modalContent.appendChild(modalVideo);
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+        
+        // Add click event to roadmap video container (mobile only)
+        roadmapVideoContainer.addEventListener('click', function() {
+            // Only trigger on mobile devices
+            if (window.innerWidth <= 768) {
+                modal.style.display = 'block';
+                // Ensure the video plays in the modal
+                modalVideo.play();
+            }
+        });
+        
+        // Close modal when X is clicked
+        closeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            modal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside the content
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    }
 } 
