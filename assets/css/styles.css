@@ -44,6 +44,12 @@ body {
     pointer-events: all;
 }
 
+/* Structure for desktop navbar */
+.navbar-left {
+    display: flex;
+    align-items: center;
+}
+
 .logo {
     font-size: 2rem;
     font-weight: bold;
@@ -111,10 +117,16 @@ body {
     color: white;
 }
 
+/* Keep social icons on the right for desktop */
 .social-icons {
     display: flex;
     gap: 1rem;
     padding-right: 30px; /* Added padding to move icons away from the right edge */
+}
+
+/* Hide social icons in the navbar-left on desktop */
+.navbar-left .social-icons {
+    display: none;
 }
 
 .social-icons a {

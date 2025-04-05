@@ -46,27 +46,118 @@
     
     /* Improved mobile navigation */
     .navbar {
-        flex-direction: column;
-        padding: 0.8rem;
+        padding: 0;
         position: sticky;
         top: 0;
         z-index: 1000;
         width: 100% !important;
+        display: flex;
+        flex-direction: row !important;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        height: 60px;
+        box-sizing: border-box;
     }
     
+    /* Container for social icons on left side of header */
+    .navbar-left {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 5;
+        width: 15%;
+        justify-content: flex-start;
+        max-width: 40px;
+    }
+    
+    /* Perfectly center the logo */
     .logo {
-        font-size: 1.8rem;
-        padding-left: 10px;
-        margin-bottom: 0.5rem;
+        font-size: 1.7rem;
+        margin: 0;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 60%;
+        max-width: 180px;
+        padding: 0;
+        text-align: center;
+        z-index: 2;
+        display: block;
+        letter-spacing: -0.5px;
+        white-space: nowrap;
+        pointer-events: auto;
+    }
+    
+    .logo a {
+        display: inline-block;
+        text-align: center;
+        margin: 0 auto;
+        position: relative;
+        transform: none;
+        padding: 0 5px;
+    }
+    
+    /* Move social icons to the left side in mobile view */
+    .social-icons {
+        width: auto !important;
+        display: flex;
+        gap: 0.5rem;
+        padding: 0;
+        margin: 0;
+        order: -1;
+    }
+    
+    /* Hide the right-side social icons on mobile */
+    .navbar > .social-icons {
+        display: none !important;
+    }
+    
+    /* Show the left-side social icons on mobile */
+    .navbar-left .social-icons {
+        display: flex !important;
+        padding-left: 5px;
+    }
+    
+    /* Position mobile menu toggle to the right */
+    .mobile-menu-toggle {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 5;
+        width: 15%;
+        max-width: 40px;
+        text-align: right;
+        margin: 0;
+        padding-right: 5px;
+    }
+    
+    .social-icons a {
+        font-size: 1.1rem;
+        color: var(--primary-color);
     }
     
     .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
         flex-direction: column;
         width: 100%;
         gap: 0.8rem;
         display: none;
         padding: 1rem 0;
         transition: all 0.3s ease;
+        background-color: rgba(0, 0, 0, 0.9);
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
     
     .nav-links.active {
@@ -80,19 +171,9 @@
         text-align: center;
     }
     
-    .social-icons {
-        width: 100%;
-        justify-content: center;
-        padding: 0.5rem 0;
-        margin-top: 0.5rem;
-    }
-    
     /* Improved mobile menu toggle button */
     .mobile-menu-toggle {
         display: block;
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
         background: transparent;
         border: none;
         color: var(--primary-color);
@@ -105,7 +186,7 @@
     .mobile-menu-toggle:hover,
     .mobile-menu-toggle.active {
         color: var(--secondary-color);
-        transform: scale(1.1);
+        transform: translateY(-50%) scale(1.1);
     }
     
     /* Hero section mobile adjustments */
@@ -113,6 +194,19 @@
         min-height: 100vh;
         padding: 2rem 1rem;
         width: 100% !important;
+    }
+    
+    /* Center the AI AGENTS text and FIGHTING AND TWEETING on mobile */
+    .ai-agents-text, .subtitle-text {
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    
+    /* Hide the floating banana emojis at the bottom of the landing page */
+    .character-left,
+    .character-right {
+        display: none !important;
     }
     
     .hero-title {
@@ -128,10 +222,57 @@
         font-size: 1rem;
     }
     
-    /* Section adjustments */
-    .section-title {
-        font-size: 2.2rem;
-        width: 100% !important;
+    /* Add banana emojis on either side of the ENTER THE ARENA button */
+    #enter-arena-btn {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding-left: 3rem !important;
+        padding-right: 3rem !important;
+    }
+    
+    #enter-arena-btn::before,
+    #enter-arena-btn::after {
+        content: "🍌";
+        position: absolute;
+        font-size: 1.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+    #enter-arena-btn::before {
+        left: 0.5rem;
+    }
+    
+    #enter-arena-btn::after {
+        right: 0.5rem;
+    }
+    
+    /* Hide the large Bananium logo in the middle of mobile view */
+    .bananium-logo-container {
+        display: none !important;
+    }
+    
+    /* Keep the header Bananium logo visible */
+    .navbar .logo {
+        display: block !important;
+    }
+    
+    /* Ensure AI AGENTS text and FIGHTING AND TWEETING remain visible */
+    .ai-agents-text {
+        font-size: 2.5rem !important;
+        letter-spacing: 5px !important;
+        padding: 5px 10px !important;
+        display: block !important;
+    }
+    
+    .subtitle-text {
+        font-size: 1.8rem !important;
+        letter-spacing: 5px !important;
+        padding: 5px 10px !important;
+        word-spacing: 2px !important;
+        display: block !important;
     }
     
     .section-title.bananium-logo {
@@ -285,7 +426,7 @@
         padding: 0 !important;
     }
     
-    /* Fix for banana treadmills */
+    /* Fix for banana treadmills - hide them on mobile */
     .banana-treadmill.left,
     .banana-treadmill.right {
         display: none !important;
@@ -329,39 +470,63 @@
     }
     
     .ai-agents-text {
-        font-size: 1.8rem;
+        font-size: 1.8rem !important;
+        letter-spacing: 3px !important;
     }
     
     .subtitle-text {
+        font-size: 1.5rem !important;
+        letter-spacing: 2px !important;
+    }
+    
+    /* Make bananas smaller on very small screens */
+    #enter-arena-btn::before,
+    #enter-arena-btn::after {
         font-size: 1.2rem;
     }
     
+    #enter-arena-btn {
+        padding-left: 2.5rem !important;
+        padding-right: 2.5rem !important;
+    }
+    
     .flip-tile {
-        height: 450px;
+        min-height: 180px;
     }
     
     .podium-place {
-        transform: scale(0.8);
+        margin: 1.5rem 0;
     }
     
-    /* Ensure buttons are easily tappable */
     .cta-btn,
-    .expand-btn, 
-    .collapse-btn,
-    .explore-agents-btn,
-    .nav-btn {
-        min-height: 44px;
-        min-width: 44px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .nav-links a {
+        font-size: 0.9rem;
+    }
+    
+    /* Further adjustments for very small screens */
+    .social-icons {
+        gap: 0.4rem;
+    }
+    
+    .social-icons a {
+        font-size: 1rem;
+    }
+    
+    .logo {
+        font-size: 1.4rem;
+        width: 60%;
+        max-width: 160px;
+    }
+    
+    .logo a {
+        transform: none;
     }
 }
 
-/* Tablet devices */
+/* Medium devices (tablets) */
 @media (min-width: 769px) and (max-width: 1024px) {
     .section-title.bananium-logo {
-        font-size: 6rem;
+        font-size: 4.5rem;
     }
     
     .flip-tiles-container {
@@ -374,95 +539,75 @@
     }
     
     .prize-cards-wrapper {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
-}
-
-/* Fix for iOS specific issues */
-@supports (-webkit-touch-callout: none) {
-    /* Fix for iOS full-height issues */
+    
+    /* Adjust navbar for medium screens */
     .hero {
-        height: -webkit-fill-available;
+        min-height: 70vh;
     }
     
-    /* Fix for iOS fixed position elements */
     .navbar {
-        position: -webkit-sticky;
+        padding: 0.8rem 1.5rem;
     }
     
-    /* Fix for mobile menu on iOS */
     .nav-links.active {
-        max-height: -webkit-fill-available;
+        justify-content: center;
     }
 }
 
-/* Landscape orientation adjustments */
+/* Landscape orientation adjustments for mobile */
 @media (max-width: 768px) and (orientation: landscape) {
     .hero {
-        min-height: 450px;
+        min-height: 120vh;
     }
     
     .flip-tile {
-        height: 400px;
+        min-height: 170px;
     }
     
     .nav-links.active {
-        max-height: 70vh;
+        max-height: 80vh;
         overflow-y: auto;
     }
 }
 
-/* Touch-specific enhancements */
+/* Touch device optimizations */
 .touch-device .flip-tile {
     cursor: pointer;
-    transform: translateZ(0); /* Hardware acceleration */
-    -webkit-tap-highlight-color: transparent; /* Remove default highlight on tap */
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 .touch-device .flip-tile-inner {
-    will-change: transform; /* Hint for browser to optimize transforms */
+    transition: transform 0.6s ease;
 }
 
-/* Touch active state for better feedback */
 .touch-device .touch-active {
-    opacity: 0.8;
-    transform: scale(0.98);
-    transition: transform 0.1s ease, opacity 0.1s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px 5px rgba(255, 215, 0, 0.7) !important;
+    transform: scale(1.02);
 }
 
-/* Use custom vh value to fix iOS 100vh issues */
+/* Better scroll performance on touch devices */
 .touch-device .hero,
-.touch-device .starfield-wrapper.expanded {
-    height: calc(var(--vh, 1vh) * 100);
+.touch-device .about,
+.touch-device .roadmap {
+    -webkit-overflow-scrolling: touch;
 }
 
-/* Improve scrolling on touch devices */
 .touch-device .flip-tile-back,
-.touch-device .character-description,
-.touch-device .nav-links.active {
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-    overflow-y: auto;
+.touch-device .flip-tile-front {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
-/* Make touch targets more accessible */
 .touch-device .nav-links a,
-.touch-device .social-icons a,
-.touch-device .mobile-menu-toggle,
 .touch-device .cta-btn,
-.touch-device .nav-btn {
-    padding: 0.8rem;
+.touch-device .social-icons a {
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
-/* Add visual cue for swipe-enabled elements */
 .touch-device .flip-tile:after {
-    content: '';
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    width: 30px;
-    height: 5px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 5px;
-    opacity: 0.7;
-    pointer-events: none;
+    display: none;
 } 
