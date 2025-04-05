@@ -211,10 +211,47 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Insert after the video container
                 roadmapVideoParent.insertBefore(enlargeIndicator, roadmapVideoContainer.nextSibling);
                 
+                // Add touch feedback effect for the video
+                if (roadmapVideo) {
+                    // Add visual touch feedback
+                    roadmapVideo.addEventListener('touchstart', function() {
+                        roadmapVideoContainer.style.opacity = '0.8';
+                        roadmapVideoContainer.style.transition = 'opacity 0.2s ease';
+                    });
+                    
+                    roadmapVideo.addEventListener('touchend', function() {
+                        roadmapVideoContainer.style.opacity = '1';
+                    });
+                    
+                    roadmapVideo.addEventListener('touchcancel', function() {
+                        roadmapVideoContainer.style.opacity = '1';
+                    });
+                }
+                
                 // Make the indicator also clickable to trigger the modal
                 enlargeIndicator.addEventListener('click', function() {
                     // Simulate click on the video container to trigger the modal
-                    roadmapVideoContainer.click();
+                    console.log('Enlarge indicator clicked');
+                    
+                    // Create and dispatch a custom event to open the modal
+                    const openModalEvent = new CustomEvent('openRoadmapModal');
+                    document.dispatchEvent(openModalEvent);
+                    
+                    // As a fallback, also simulate click on the roadmap video container
+                    setTimeout(() => {
+                        if (roadmapVideoContainer) {
+                            console.log('Simulating click on roadmap video container');
+                            roadmapVideoContainer.click();
+                        }
+                    }, 100);
+                    
+                    // Remove any existing test buttons
+                    const testButtons = document.querySelectorAll('[data-testing-only="true"]');
+                    testButtons.forEach(button => {
+                        if (button.parentNode) {
+                            button.parentNode.removeChild(button);
+                        }
+                    });
                 });
             }
             
