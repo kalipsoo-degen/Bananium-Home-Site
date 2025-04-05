@@ -294,6 +294,8 @@
         justify-content: center;
         padding-left: 3rem !important;
         padding-right: 3rem !important;
+        width: 80% !important; /* Make button 20% shorter in mobile view */
+        max-width: 280px !important;
     }
     
     #enter-arena-btn::before,
@@ -386,13 +388,62 @@
         width: 100% !important;
     }
     
+    /* Add spacing between podium places */
+    .podium-wrapper {
+        display: flex !important;
+        justify-content: center !important;
+        gap: 15px !important;
+        padding-top: 180px !important;
+        margin-bottom: 30px !important;
+    }
+    
     .podium-place {
         margin: 2rem 0;
         height: 100px;
+        width: 100px !important;
+        position: relative;
     }
     
     .podium-content {
-        bottom: 120%;
+        position: absolute;
+        bottom: 170%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 10;
+    }
+    
+    /* Add specific styles for podium elements on mobile */
+    .podium-medal {
+        font-size: 2rem !important;
+        margin-bottom: 5px !important;
+    }
+    
+    .podium-rank {
+        font-size: 2.2rem !important;
+        margin-bottom: 5px !important;
+    }
+    
+    .podium-sol {
+        font-size: 1.5rem !important;
+    }
+    
+    /* First place should be slightly larger */
+    .first-place .podium-medal {
+        font-size: 2.3rem !important;
+    }
+    
+    .first-place .podium-rank {
+        font-size: 2.5rem !important;
+    }
+    
+    .first-place .podium-sol {
+        font-size: 1.8rem !important;
+    }
+    
+    .first-place .podium-content {
+        bottom: 175% !important;
     }
     
     .prize-cards-wrapper {
@@ -822,72 +873,107 @@
     }
     
     .ai-agents-text {
-        font-size: 1.8rem !important;
+        font-size: 2rem !important;
         letter-spacing: 3px !important;
     }
     
     .subtitle-text {
         font-size: 1.5rem !important;
-        letter-spacing: 2px !important;
+        letter-spacing: 3px !important;
     }
     
-    /* Make bananas smaller on very small screens */
     #enter-arena-btn::before,
     #enter-arena-btn::after {
         font-size: 1.2rem;
     }
     
     #enter-arena-btn {
-        padding-left: 2.5rem !important;
-        padding-right: 2.5rem !important;
-    }
-    
-    .flip-tile {
-        min-height: 180px;
-    }
-    
-    .podium-place {
-        margin: 1.5rem 0;
-    }
-    
-    .cta-btn,
-    .nav-links a {
         font-size: 0.9rem;
     }
     
-    /* Further adjustments for very small screens */
+    .flip-tile {
+        margin-bottom: 1rem;
+    }
+    
+    .podium-place {
+        width: 80px !important;
+        height: 80px !important;
+    }
+    
+    .podium-content {
+        bottom: 180% !important;
+    }
+    
+    .podium-bar {
+        width: 80px !important;
+    }
+    
+    .podium-wrapper {
+        padding-top: 200px !important;
+    }
+    
+    .podium-medal {
+        font-size: 1.6rem !important;
+    }
+    
+    .podium-rank {
+        font-size: 1.8rem !important;
+    }
+    
+    .podium-sol {
+        font-size: 1.2rem !important;
+    }
+    
+    .first-place .podium-medal {
+        font-size: 1.9rem !important;
+    }
+    
+    .first-place .podium-rank {
+        font-size: 2.1rem !important;
+    }
+    
+    .first-place .podium-sol {
+        font-size: 1.5rem !important;
+    }
+    
+    .cta-btn,
+    .roadmap-video-container {
+        width: 95% !important;
+        font-size: 1rem;
+        padding: 10px 15px;
+    }
+    
     .social-icons {
-        gap: 0.4rem;
+        padding-left: 2px !important;
     }
     
     .social-icons a {
-        font-size: 1rem;
+        font-size: 0.9rem !important;
     }
     
     .logo {
-        font-size: 1.4rem;
-        width: 60%;
-        max-width: 160px;
+        font-size: 1.4rem !important;
     }
     
     .logo a {
-        transform: none;
+        padding: 2px !important;
     }
     
-    /* Even smaller screens need more adjustments */
     .flip-tile-back p {
-        font-size: max(14px, min(1.6rem, 4.8vw)) !important;
-        padding: 15px !important;
+        font-size: max(14px, min(1.5rem, 4.2vw)) !important;
     }
     
-    .flip-tile-back p strong[style*="color: #FFD700"],
-    .flip-tile-back strong[style*="color: #FFD700"] {
-        font-size: max(16px, min(1.8rem, 5.2vw)) !important;
+    .flip-tile-back strong[style*="color: #FFD700"],
+    .flip-tile-back strong {
+        font-size: max(15px, min(1.7rem, 4.5vw)) !important;
     }
     
     .flip-tile-back p[style*="font-size: 1.92rem"] {
-        padding: 20px 15px !important;
-        font-size: max(14px, min(1.5rem, 4.3vw)) !important;
+        font-size: max(14px, min(1.5rem, 4.2vw)) !important;
+    }
+    
+    .first-place .podium-content {
+        bottom: 185% !important;
     }
 }
 
