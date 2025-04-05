@@ -957,130 +957,195 @@
     
     <!-- Starfield integration script -->
     <script>
-        // Wait until everything is fully loaded before initializing the starfield
-        window.addEventListener('load', function() {
-            // Debugging to verify scripts are loaded
-            console.log('Scripts loaded check:', typeof App, typeof THREE);
-            
-            // Hide intro panel after a shorter delay (2 seconds)
-            setTimeout(function() {
-                const intro = document.querySelector('.agents-intro');
-                if (intro) {
-                    intro.style.opacity = '0';
-                    // Remove from DOM after animation completes
-                    setTimeout(function() {
-                        intro.style.display = 'none';
-                    }, 500); // Match transition time
-                }
-            }, 2000); // Only show for 2 seconds
-            
-            // Reset body overflow to ensure scrolling works on main page
-            document.body.style.overflow = '';
-            
-            const starfieldWrapper = document.getElementById('starfield-wrapper');
-            const canvas = document.getElementById('canvas');
-            
-            // Completely disable pointer events on the canvas
-            if (canvas) {
-                canvas.style.pointerEvents = 'none';
-            }
-            
+        // Declare App initialization handlers
+        let appInitialized = false;
+        let enterArenaClicked = false;
+        
+        // Function to handle starfield resize
+        function handleStarfieldResize() {
             try {
-                // Override App init to use our canvas
-                if (typeof App !== 'undefined') {
-                    console.log('Initializing App with custom canvas');
-                    
-                    // Override canvas and UI references
-                    App.canvas = canvas;
-                    
-                    // Add error handling for App.interfaceElements
-                    App.interfaceElements = {
-                        searchInput: document.getElementById('searchInput') || { style: {} },
-                        searchDropdown: document.getElementById('searchDropdown') || { style: {} },
-                        characterCard: document.getElementById('characterCard') || { style: {} },
-                        characterName: document.getElementById('characterName') || { textContent: '' },
-                        characterImage: document.getElementById('characterImage') || { style: {} },
-                        characterImg: document.getElementById('characterImg') || { src: '' },
-                        characterDescription: document.getElementById('characterDescription') || { textContent: '' },
-                        homepageLink: document.getElementById('homepageLink') || { href: '' },
-                        randomBtn: document.getElementById('randomBtn') || { addEventListener: function(){} },
-                        cardPrevBtn: document.getElementById('cardPrevBtn') || { addEventListener: function(){} },
-                        cardNextBtn: document.getElementById('cardNextBtn') || { addEventListener: function(){} },
-                        cardRandomBtn: document.getElementById('cardRandomBtn') || { addEventListener: function(){} },
-                        closeCardBtn: document.getElementById('closeCard') || { addEventListener: function(){} },
-                        hoverInfo: document.getElementById('hoverInfo') || { style: {} },
-                        navigationContainer: document.getElementById('navigationContainer') || { style: {} }
-                    };
-                    
-                    // Initialize App directly - skips the window.onload check in the original app
-                    try {
-                        App.init();
-                        console.log('App initialized, renderer status:', App.renderer !== undefined);
-                        
-                        // Completely disable controls for the main page
-                        if (App.controls) {
-                            // Disable all controls
-                            App.controls.enabled = false;
-                            App.controls.enableRotate = false;
-                            App.controls.enableZoom = false;
-                            App.controls.enablePan = false;
-                            App.controls.enableDamping = false;
-                            App.controls.enableKeys = false;
+                if (!App.renderer) return;
+                
+                const starfieldWrapper = document.getElementById('starfield-wrapper');
+                if (!starfieldWrapper) {
+                    console.error('Starfield wrapper not found');
+                    return;
+                }
+                
+                const rect = starfieldWrapper.getBoundingClientRect();
+                const aspectRatio = rect.width / rect.height;
+                
+                // Update camera aspect ratio
+                App.camera.aspect = aspectRatio;
+                App.camera.updateProjectionMatrix();
+                
+                // Update renderer size
+                App.renderer.setSize(rect.width, rect.height);
+                App.renderer.setPixelRatio(window.devicePixelRatio);
+            } catch (error) {
+                console.error('Error in resize handler:', error);
+            }
+        }
+        
+        // Setup starfield interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                // Find starfield wrapper
+                const starfieldWrapper = document.getElementById('starfield-wrapper');
+                if (!starfieldWrapper) {
+                    console.error('Starfield wrapper not found');
+                    return;
+                }
+                
+                // Get the canvas
+                const canvas = document.getElementById('canvas');
+                if (!canvas) {
+                    console.error('Canvas not found');
+                    return;
+                }
+                
+                // Make sure the starfield has proper dimensions
+                canvas.width = starfieldWrapper.offsetWidth || window.innerWidth;
+                canvas.height = starfieldWrapper.offsetHeight || window.innerHeight;
+
+                // Pre-initialize the App to ensure it's ready when Enter Arena is clicked
+                try {
+                    // Ensure Three.js is loaded
+                    if (typeof THREE !== 'undefined') {
+                        // Override App init to use our canvas
+                        if (typeof App !== 'undefined') {
+                            console.log('Pre-initializing App with canvas');
                             
-                            // Nullify event handlers if possible
-                            App.controls.onMouseDown = function() { return false; };
-                            App.controls.onMouseMove = function() { return false; };
-                            App.controls.onMouseUp = function() { return false; };
-                            App.controls.onMouseWheel = function() { return false; };
-                            App.controls.onTouchStart = function() { return false; };
-                            App.controls.onTouchMove = function() { return false; };
-                            App.controls.onTouchEnd = function() { return false; };
+                            // Override canvas reference
+                            App.canvas = canvas;
                             
-                            console.log('All starfield controls disabled');
+                            // Initialize App components properly but keep stars hidden until button click
+                            if (!App.scene) {
+                                console.log('Initializing Three.js scene');
+                                
+                                // Initialize Three.js without visualization
+                                App.init();
+                                
+                                // Don't add stars yet but keep the setup ready
+                                if (App.starfield) {
+                                    App.scene.remove(App.starfield);
+                                    App.starfield = null;
+                                }
+                                
+                                if (App.characterStars) {
+                                    App.scene.remove(App.characterStars);
+                                    App.characterStars = null;
+                                }
+                                
+                                appInitialized = true;
+                                console.log("Three.js properly initialized, waiting for Enter Arena click");
+                                
+                                // If Enter Arena was already clicked, initialize stars
+                                if (enterArenaClicked) {
+                                    initializeStars();
+                                }
+                            }
                         }
-                        
-                        // Disable any click handlers on the canvas
-                        if (canvas) {
-                            const newCanvas = canvas.cloneNode(true);
-                            canvas.parentNode.replaceChild(newCanvas, canvas);
-                            App.canvas = newCanvas;
-                            
-                            // Add an invisible overlay to prevent any interaction while still allowing visibility
-                            const interactionBlocker = document.createElement('div');
-                            interactionBlocker.style.position = 'absolute';
-                            interactionBlocker.style.top = '0';
-                            interactionBlocker.style.left = '0';
-                            interactionBlocker.style.width = '100%';
-                            interactionBlocker.style.height = '100%';
-                            interactionBlocker.style.zIndex = '50';
-                            interactionBlocker.style.cursor = 'default';
-                            interactionBlocker.style.backgroundColor = 'transparent'; // Ensure it's transparent
-                            interactionBlocker.style.pointerEvents = 'all'; // Block interactions
-                            starfieldWrapper.appendChild(interactionBlocker);
-                        }
-                    } catch (appError) {
-                        console.error('Error during App initialization:', appError);
+                    }
+                } catch (error) {
+                    console.error('Error pre-initializing App:', error);
+                }
+                
+                // Initialize stars function with proper quality
+                function initializeStars() {
+                    if (!appInitialized) {
+                        console.log("Can't initialize stars yet, App not initialized");
+                        return;
                     }
                     
-                    // Use our enhanced resize handler
-                    handleStarfieldResize();
-                    
-                    // Listen for window resize
-                    window.addEventListener('resize', handleStarfieldResize);
-                } else {
-                    console.error('App is not defined! Check that bananium-starfield/js/app.js is loading correctly');
+                    try {
+                        // Initialize the stars with full quality if not done already
+                        if (!App.starfield) {
+                            console.log("Initializing high-quality stars");
+                            
+                            // Create full-quality galaxy starfield
+                            App.starfield = Starfield.createGalaxyStarfield();
+                            App.scene.add(App.starfield);
+                            
+                            // Create character stars with full quality
+                            App.characterStars = CharacterStars.createCharacterStars();
+                            App.scene.add(App.characterStars);
+                            
+                            // Set high quality rendering
+                            if (App.renderer) {
+                                App.renderer.setPixelRatio(window.devicePixelRatio);
+                                App.renderer.shadowMap.enabled = true;
+                                App.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Error initializing stars:', error);
+                    }
                 }
+                
+                // Make the Enter Arena button work immediately
+                const enterArenaBtn = document.getElementById('enter-arena-btn');
+                if (enterArenaBtn) {
+                    // Ensure the button works on first click
+                    enterArenaBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        
+                        console.log("Enter Arena clicked");
+                        enterArenaClicked = true;
+                        
+                        // Enable scrolling
+                        document.body.classList.add('scrolling-enabled');
+                        document.body.style.overflow = 'auto';
+                        document.body.style.position = 'relative';
+                        document.body.style.height = 'auto';
+                        document.body.style.maxHeight = 'none';
+                        
+                        // Show navbar
+                        const navbar = document.getElementById('main-navbar');
+                        if (navbar) navbar.classList.add('visible');
+                        
+                        // Make sure the mute button is visible
+                        const muteButton = document.getElementById('mute-button');
+                        if (muteButton) muteButton.style.display = 'flex';
+                        
+                        // Initialize stars if App is already initialized
+                        if (appInitialized) {
+                            initializeStars();
+                        }
+                        
+                        // Remove scroll prevention listeners
+                        document.removeEventListener('wheel', preventScroll, { passive: false });
+                        document.removeEventListener('touchmove', preventScroll, { passive: false });
+                        document.removeEventListener('keydown', preventKeyboardScroll, false);
+                    });
+                } else {
+                    console.error('Enter arena button not found in the DOM');
+                }
+                
+                // Prevent scroll functions from starfield script section
+                function preventScroll(e) {
+                    if (!document.body.classList.contains('scrolling-enabled')) {
+                        e.preventDefault();
+                        return false;
+                    }
+                }
+                
+                function preventKeyboardScroll(e) {
+                    if (!document.body.classList.contains('scrolling-enabled')) {
+                        const keys = [32, 33, 34, 35, 36, 37, 38, 39, 40];
+                        if (keys.includes(e.keyCode)) {
+                            e.preventDefault();
+                            return false;
+                        }
+                    }
+                }
+                
+                // Ensure resizing works properly with high-quality
+                window.addEventListener('resize', handleStarfieldResize);
+                
             } catch (error) {
                 console.error('Error initializing starfield:', error);
             }
-            
-            // Force resize after a short delay to ensure proper rendering
-            setTimeout(function() {
-                if (typeof handleStarfieldResize === 'function') {
-                    handleStarfieldResize();
-                    console.log('Forced resize after timeout');
-                }
-            }, 500);
         });
     </script>
 
@@ -1504,10 +1569,18 @@
                             App.renderer = new THREE.WebGLRenderer({
                                 canvas: canvas,
                                 antialias: true,
-                                alpha: true
+                                alpha: true,
+                                powerPreference: 'high-performance'
                             });
                             App.renderer.setSize(canvas.width, canvas.height);
-                            App.renderer.setPixelRatio(window.devicePixelRatio);
+                            
+                            // Use high pixel ratio for better quality
+                            const pixelRatio = Math.max(2, window.devicePixelRatio);
+                            App.renderer.setPixelRatio(pixelRatio);
+                            
+                            // Enable high-quality shadows
+                            App.renderer.shadowMap.enabled = true;
+                            App.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
                         }
                         
                         // Create scene if needed
@@ -1532,27 +1605,131 @@
                         if (App.renderer && App.scene && App.camera) {
                             // Make sure there are visible stars in the scene
                             if (App.scene.children.length === 0 || (App.scene.children.length < 10 && App.scene.children.every(child => child.type !== "Points"))) {
-                                console.log('No stars found in scene, creating default stars');
-                                // Create basic stars if none exist
-                                const starGeometry = new THREE.BufferGeometry();
-                                const vertices = [];
+                                console.log('No stars found in scene, creating high-quality default stars');
                                 
-                                // Create 1000 stars with random positions
-                                for (let i = 0; i < 1000; i++) {
-                                    const x = (Math.random() - 0.5) * 3000;
-                                    const y = (Math.random() - 0.5) * 3000;
-                                    const z = (Math.random() - 0.5) * 3000;
-                                    vertices.push(x, y, z);
+                                // Create high-quality star texture function
+                                function createHighQualityStarTexture() {
+                                    const size = 256;
+                                    const halfSize = size / 2;
+                                    const canvas = document.createElement('canvas');
+                                    canvas.width = size;
+                                    canvas.height = size;
+                                    const context = canvas.getContext('2d');
+                                    
+                                    // Clear the canvas with transparency
+                                    context.clearRect(0, 0, size, size);
+                                    
+                                    // Create a radial gradient for a soft-edged star
+                                    const gradient = context.createRadialGradient(
+                                        halfSize, halfSize, 0,
+                                        halfSize, halfSize, halfSize
+                                    );
+                                    
+                                    // Bright white center fading to transparent
+                                    gradient.addColorStop(0, 'rgba(255, 255, 255, 1.0)');
+                                    gradient.addColorStop(0.4, 'rgba(255, 255, 255, 0.8)');
+                                    gradient.addColorStop(0.8, 'rgba(255, 255, 255, 0.2)');
+                                    gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                                    
+                                    context.fillStyle = gradient;
+                                    context.fillRect(0, 0, size, size);
+                                    
+                                    // Add a subtle cross glow for a star effect
+                                    context.globalCompositeOperation = 'lighter';
+                                    
+                                    // Create the texture and set quality settings
+                                    const texture = new THREE.CanvasTexture(canvas);
+                                    texture.minFilter = THREE.LinearFilter;
+                                    texture.magFilter = THREE.LinearFilter;
+                                    texture.anisotropy = 16;
+                                    
+                                    return texture;
                                 }
                                 
-                                starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+                                // Create high-quality stars
+                                const starCount = 10000;
+                                const starGeometry = new THREE.BufferGeometry();
+                                const starPositions = new Float32Array(starCount * 3);
+                                const starColors = new Float32Array(starCount * 3);
+                                const starSizes = new Float32Array(starCount);
+                                
+                                // Create circular texture for stars
+                                const starTexture = createHighQualityStarTexture();
+                                
+                                // Create 10000 stars with visually interesting distribution
+                                for (let i = 0; i < starCount; i++) {
+                                    const i3 = i * 3;
+                                    
+                                    // Apply a galaxy-like distribution
+                                    let radius, theta;
+                                    
+                                    // Central concentration (30% of stars)
+                                    if (i < starCount * 0.3) {
+                                        radius = Math.random() * Math.random() * 500;
+                                        theta = Math.random() * Math.PI * 2;
+                                    } 
+                                    // Spiral arms (remaining stars)
+                                    else {
+                                        radius = 300 + Math.random() * 1500;
+                                        const arms = 3;
+                                        const arm = Math.floor(Math.random() * arms);
+                                        const armAngle = (arm / arms) * Math.PI * 2;
+                                        const radiusRatio = radius / 1800;
+                                        const revolutions = 2;
+                                        
+                                        // Angle based on logarithmic spiral
+                                        theta = armAngle + (radiusRatio * revolutions * Math.PI * 2);
+                                        
+                                        // Add randomness
+                                        theta += (Math.random() * 0.5 - 0.25) * (1 - Math.pow(radiusRatio, 2));
+                                    }
+                                    
+                                    // Convert polar to cartesian coordinates
+                                    starPositions[i3] = radius * Math.cos(theta);
+                                    starPositions[i3 + 1] = (Math.random() * 2 - 1) * 0.2 * radius;
+                                    starPositions[i3 + 2] = radius * Math.sin(theta);
+                                    
+                                    // Add random offset
+                                    starPositions[i3] += (Math.random() * 2 - 1) * 0.2 * radius;
+                                    starPositions[i3 + 1] += (Math.random() * 2 - 1) * 0.2 * radius;
+                                    starPositions[i3 + 2] += (Math.random() * 2 - 1) * 0.2 * radius;
+                                    
+                                    // Create color variation - brighter in center
+                                    const distanceFromCenter = Math.sqrt(
+                                        starPositions[i3] * starPositions[i3] + 
+                                        starPositions[i3 + 2] * starPositions[i3 + 2]
+                                    );
+                                    
+                                    // Warmer colors in center, cooler in outer regions
+                                    if (distanceFromCenter < 500) {
+                                        // Yellow-white for center
+                                        starColors[i3] = 1.0;
+                                        starColors[i3 + 1] = 0.9 + Math.random() * 0.1;
+                                        starColors[i3 + 2] = 0.7 + Math.random() * 0.3;
+                                    } else {
+                                        // Blue-white for outer regions
+                                        starColors[i3] = 0.8 + Math.random() * 0.2;
+                                        starColors[i3 + 1] = 0.8 + Math.random() * 0.2;
+                                        starColors[i3 + 2] = 0.9 + Math.random() * 0.1;
+                                    }
+                                    
+                                    // Vary star sizes - larger in center
+                                    starSizes[i] = (1 - Math.min(1, distanceFromCenter / 1500)) * 4 + Math.random() * 2;
+                                }
+                                
+                                starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+                                starGeometry.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
+                                starGeometry.setAttribute('size', new THREE.BufferAttribute(starSizes, 1));
                                 
                                 // Create material for stars
                                 const starMaterial = new THREE.PointsMaterial({
-                                    color: 0xffffff,
-                                    size: 3,
+                                    size: 5,
+                                    map: starTexture,
                                     transparent: true,
                                     opacity: 0.8,
+                                    depthWrite: false,
+                                    blending: THREE.AdditiveBlending,
+                                    vertexColors: true,
                                     sizeAttenuation: true
                                 });
                                 
@@ -1560,12 +1737,12 @@
                                 const stars = new THREE.Points(starGeometry, starMaterial);
                                 App.scene.add(stars);
                                 
-                                // Add simple rotation animation
+                                // Create a simple rotation animation
                                 if (!App.animate) {
                                     App.animate = function() {
                                         requestAnimationFrame(App.animate);
-                                        stars.rotation.x += 0.0005;
                                         stars.rotation.y += 0.0005;
+                                        stars.rotation.x = Math.sin(Date.now() * 0.00008) * 0.08;
                                         App.renderer.render(App.scene, App.camera);
                                     };
                                     App.animate();
@@ -1611,39 +1788,159 @@
             if (typeof App === 'undefined' || !App.scene || !App.renderer || App.scene.children.length === 0) {
                 console.log('Original App failed, creating fallback galaxy');
                 
-                // Create a new renderer
+                // Create a new high-quality renderer
                 const renderer = new THREE.WebGLRenderer({
                     canvas: canvas,
-                    antialias: true
+                    antialias: true,
+                    alpha: true,
+                    powerPreference: 'high-performance'
                 });
                 renderer.setSize(starfieldWrapper.clientWidth, starfieldWrapper.clientHeight);
+                
+                // Use high pixel ratio for better quality
+                const pixelRatio = Math.max(2, window.devicePixelRatio);
+                renderer.setPixelRatio(pixelRatio);
+                
+                // Enable shadows for better quality
+                renderer.shadowMap.enabled = true;
+                renderer.shadowMap.type = THREE.PCFSoftShadowMap;
                 
                 // Create a scene
                 const scene = new THREE.Scene();
                 scene.background = new THREE.Color(0x000000);
                 
                 // Create a camera
-                const camera = new THREE.PerspectiveCamera(60, starfieldWrapper.clientWidth / starfieldWrapper.clientHeight, 0.1, 10000);
+                const camera = new THREE.PerspectiveCamera(
+                    60, 
+                    starfieldWrapper.clientWidth / starfieldWrapper.clientHeight, 
+                    0.1, 
+                    10000
+                );
                 camera.position.z = 1000;
                 
-                // Create stars
-                const starCount = 2000;
+                // Create high-quality star texture
+                function createStarTexture() {
+                    const size = 256;
+                    const canvas = document.createElement('canvas');
+                    canvas.width = size;
+                    canvas.height = size;
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Clear canvas
+                    ctx.clearRect(0, 0, size, size);
+                    
+                    // Create radial gradient for star
+                    const gradient = ctx.createRadialGradient(
+                        size / 2, size / 2, 0,
+                        size / 2, size / 2, size / 2
+                    );
+                    
+                    gradient.addColorStop(0, 'rgba(255, 255, 255, 1.0)');
+                    gradient.addColorStop(0.4, 'rgba(255, 255, 255, 0.8)');
+                    gradient.addColorStop(0.8, 'rgba(240, 240, 255, 0.2)');
+                    gradient.addColorStop(1, 'rgba(240, 240, 255, 0.0)');
+                    
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(0, 0, size, size);
+                    
+                    const texture = new THREE.CanvasTexture(canvas);
+                    texture.minFilter = THREE.LinearFilter;
+                    texture.magFilter = THREE.LinearFilter;
+                    texture.anisotropy = 16;
+                    
+                    return texture;
+                }
+                
+                const starTexture = createStarTexture();
+                
+                // Create galaxy stars
+                const starCount = 8000; // More stars for better visuals
                 const starGeometry = new THREE.BufferGeometry();
                 const starPositions = new Float32Array(starCount * 3);
+                const starColors = new Float32Array(starCount * 3);
+                const starSizes = new Float32Array(starCount);
+                
+                // Galaxy parameters
+                const arms = 3;
+                const armWidth = 0.5;
+                const revolutions = 2;
                 
                 for (let i = 0; i < starCount; i++) {
                     const i3 = i * 3;
-                    starPositions[i3] = (Math.random() - 0.5) * 2000;
-                    starPositions[i3 + 1] = (Math.random() - 0.5) * 2000;
-                    starPositions[i3 + 2] = (Math.random() - 0.5) * 2000;
+                    
+                    let radius, theta;
+                    
+                    // Central bulge (30% of stars)
+                    if (i < starCount * 0.3) {
+                        radius = Math.random() * Math.random() * 300;
+                        theta = Math.random() * Math.PI * 2;
+                    } 
+                    // Spiral arms (70% of stars)
+                    else {
+                        radius = 300 + Math.random() * 700;
+                        
+                        // Choose which arm
+                        const arm = Math.floor(Math.random() * arms);
+                        
+                        // Base angle from arm
+                        const armAngle = (arm / arms) * Math.PI * 2;
+                        
+                        // Distance along arm
+                        const radiusRatio = radius / 1000;
+                        
+                        // Angle based on logarithmic spiral
+                        theta = armAngle + (radiusRatio * revolutions * Math.PI * 2);
+                        
+                        // Add randomness to the angle
+                        theta += (Math.random() * armWidth - armWidth/2) * (1 - Math.pow(radiusRatio, 2));
+                    }
+                    
+                    // Convert polar to cartesian coordinates
+                    starPositions[i3] = radius * Math.cos(theta);
+                    starPositions[i3 + 1] = (Math.random() * 2 - 1) * 0.1 * radius;
+                    starPositions[i3 + 2] = radius * Math.sin(theta);
+                    
+                    // Add random offset
+                    starPositions[i3] += (Math.random() * 2 - 1) * 0.15 * radius;
+                    starPositions[i3 + 1] += (Math.random() * 2 - 1) * 0.15 * radius;
+                    starPositions[i3 + 2] += (Math.random() * 2 - 1) * 0.15 * radius;
+                    
+                    // Color varies by distance from center
+                    const distanceFromCenter = Math.sqrt(
+                        starPositions[i3] * starPositions[i3] + 
+                        starPositions[i3 + 2] * starPositions[i3 + 2]
+                    );
+                    
+                    // Calculate color based on distance and angle
+                    if (distanceFromCenter < 300) {
+                        // Yellow-white for center
+                        starColors[i3] = 1.0; // R
+                        starColors[i3 + 1] = 0.9 + Math.random() * 0.1; // G
+                        starColors[i3 + 2] = 0.7 + Math.random() * 0.2; // B
+                    } else {
+                        // Bluer for outer regions
+                        starColors[i3] = 0.8 + Math.random() * 0.2; // R
+                        starColors[i3 + 1] = 0.8 + Math.random() * 0.2; // G
+                        starColors[i3 + 2] = 0.9 + Math.random() * 0.1; // B
+                    }
+                    
+                    // Star size varies with distance
+                    starSizes[i] = (1 - Math.min(1, distanceFromCenter / 1000)) * 4 + Math.random() * 2;
                 }
                 
                 starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+                starGeometry.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
+                starGeometry.setAttribute('size', new THREE.BufferAttribute(starSizes, 1));
                 
                 const starMaterial = new THREE.PointsMaterial({
-                    color: 0xffffff,
-                    size: 3,
-                    sizeAttenuation: true
+                    size: 5,
+                    sizeAttenuation: true,
+                    map: starTexture,
+                    transparent: true,
+                    depthWrite: false,
+                    vertexColors: true,
+                    blending: THREE.AdditiveBlending,
+                    opacity: 0.8
                 });
                 
                 const stars = new THREE.Points(starGeometry, starMaterial);
@@ -1652,8 +1949,8 @@
                 // Animation function
                 function animate() {
                     requestAnimationFrame(animate);
-                    stars.rotation.y += 0.0005;
-                    stars.rotation.z += 0.0003;
+                    stars.rotation.y += 0.001;
+                    stars.rotation.x = Math.sin(Date.now() * 0.0001) * 0.1;
                     renderer.render(scene, camera);
                 }
                 
@@ -1724,9 +2021,9 @@
             return;
         }
         
-        // Create a circular star texture
+        // Create a circular star texture with high quality
         function createCircleTexture() {
-            const size = 128;
+            const size = 256; // Increased from 128 for higher quality
             const canvas = document.createElement('canvas');
             canvas.width = size;
             canvas.height = size;
@@ -1751,6 +2048,12 @@
             // Create texture from canvas
             const texture = new THREE.CanvasTexture(canvas);
             texture.needsUpdate = true;
+            
+            // Apply high-quality texture settings
+            texture.minFilter = THREE.LinearFilter;
+            texture.magFilter = THREE.LinearFilter;
+            texture.anisotropy = 16; // Maximum anisotropic filtering
+            
             return texture;
         }
         
@@ -1774,18 +2077,27 @@
         camera.position.y = 400;
         camera.lookAt(0, 0, 0);
         
-        // Create renderer
+        // Create renderer with high-quality settings
         const renderer = new THREE.WebGLRenderer({
             canvas: canvas,
-            antialias: true
+            antialias: true,
+            alpha: true,
+            powerPreference: 'high-performance'
         });
         renderer.setSize(width, height);
-        renderer.setPixelRatio(window.devicePixelRatio);
+        
+        // Use high pixel ratio for better quality (at least 2 for retina-like display)
+        const pixelRatio = Math.max(2, window.devicePixelRatio);
+        renderer.setPixelRatio(pixelRatio);
+        
+        // Enable shadows for better visual quality
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         
         // Create a structured galaxy with spiral arms
         function createGalaxy() {
             const params = {
-                count: 30000,
+                count: 40000, // Increased from 30000 for more stars
                 size: 0.01,
                 radius: 10,
                 branches: 5,
@@ -1802,6 +2114,7 @@
             
             const positions = new Float32Array(params.count * 3);
             const colors = new Float32Array(params.count * 3);
+            const sizes = new Float32Array(params.count);
             
             const colorInside = new THREE.Color(params.insideColor);
             const colorOutside = new THREE.Color(params.outsideColor);
@@ -1828,31 +2141,28 @@
                 const mixedColor = colorInside.clone();
                 mixedColor.lerp(colorOutside, radius / params.radius);
                 
-                // Create brighter center
-                if (radius < params.radius * 0.2) {
-                    const centerFactor = 1 - (radius / (params.radius * 0.2));
-                    mixedColor.r += centerFactor * params.centerBrightness;
-                    mixedColor.g += centerFactor * params.centerBrightness;
-                    mixedColor.b += centerFactor * params.centerBrightness;
-                }
-                
                 colors[i3    ] = mixedColor.r;
                 colors[i3 + 1] = mixedColor.g;
                 colors[i3 + 2] = mixedColor.b;
+                
+                // Size increases towards the center
+                sizes[i] = (1 - radius / params.radius) * 3 + Math.random() * 1.5;
             }
             
             geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
             geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
             
             // Create galaxy material with custom shaders for better star appearance
             const material = new THREE.PointsMaterial({
-                size: params.size * 15,
+                size: 5, // Larger stars
                 sizeAttenuation: true,
                 depthWrite: false,
                 blending: THREE.AdditiveBlending,
                 vertexColors: true,
                 transparent: true,
-                map: starTexture // Use the circular texture for round points
+                map: starTexture, // Use the circular texture for round points
+                premultipliedAlpha: true,
             });
             
             // Create points system representing the galaxy
@@ -1886,9 +2196,10 @@
         // Create some background stars
         function createBackgroundStars() {
             const starsGeometry = new THREE.BufferGeometry();
-            const starCount = 5000;
+            const starCount = 8000; // Increased from 5000 for more stars
             const positions = new Float32Array(starCount * 3);
             const colors = new Float32Array(starCount * 3);
+            const sizes = new Float32Array(starCount);
             
             for (let i = 0; i < starCount; i++) {
                 const i3 = i * 3;
@@ -1902,23 +2213,29 @@
                 positions[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
                 positions[i3 + 2] = radius * Math.cos(phi);
                 
-                // White-blue tint for most stars
+                // White-blue tint for most stars with color variation
                 const blueShift = Math.random() * 0.2;
                 colors[i3    ] = 0.8 + Math.random() * 0.2; // R
                 colors[i3 + 1] = 0.8 + Math.random() * 0.2; // G
                 colors[i3 + 2] = 0.9 + blueShift; // B
+                
+                // Varied sizes
+                sizes[i] = 1.5 + Math.random() * 2.5;
             }
             
             starsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
             starsGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            starsGeometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
             
             const starsMaterial = new THREE.PointsMaterial({
-                size: 2,
+                size: 2.5, // Larger stars
                 sizeAttenuation: true,
                 vertexColors: true,
                 transparent: true,
                 opacity: 0.8,
-                map: starTexture // Use the circular texture for round background stars too
+                blending: THREE.AdditiveBlending,
+                map: starTexture, // Use the circular texture for round background stars too
+                premultipliedAlpha: true,
             });
             
             return new THREE.Points(starsGeometry, starsMaterial);

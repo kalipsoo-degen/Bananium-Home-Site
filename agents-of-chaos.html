@@ -481,6 +481,110 @@
     <script src="bananium-starfield/js/animation.js"></script>
     <script src="bananium-starfield/js/app.js"></script>
     
+    <!-- High-quality rendering enhancement script -->
+    <script>
+        // Ensure high-quality rendering for starfield
+        document.addEventListener('DOMContentLoaded', function() {
+            // Override App init to enforce high-quality rendering
+            if (typeof App !== 'undefined') {
+                // Store original init function
+                const originalInitThree = App.initThree;
+                
+                // Override initThree with enhanced version
+                App.initThree = function() {
+                    // Call original function
+                    originalInitThree.call(this);
+                    
+                    // If renderer was created successfully
+                    if (this.renderer) {
+                        console.log('Enhancing renderer quality');
+                        
+                        // Force high device pixel ratio (at least 2 for retina-like quality)
+                        const pixelRatio = Math.max(2, window.devicePixelRatio);
+                        this.renderer.setPixelRatio(pixelRatio);
+                        
+                        // Enable high-quality shadows
+                        this.renderer.shadowMap.enabled = true;
+                        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+                        
+                        // Set high-quality rendering parameters
+                        this.renderer.antialias = true;
+                        this.renderer.alpha = true;
+                        this.renderer.powerPreference = 'high-performance';
+                        
+                        // Apply higher quality textures
+                        if (typeof Starfield !== 'undefined' && Starfield.createGalaxyStarfield) {
+                            // Store original createGalaxyStarfield function
+                            const originalCreateGalaxyStarfield = Starfield.createGalaxyStarfield;
+                            
+                            // Override with enhanced version
+                            Starfield.createGalaxyStarfield = function() {
+                                // Create starfield
+                                const starfield = originalCreateGalaxyStarfield.call(this);
+                                
+                                // Enhance material quality
+                                if (starfield && starfield.material) {
+                                    starfield.material.size = 5; // Larger stars
+                                    
+                                    // Make sure we're using additive blending for better glow effect
+                                    starfield.material.blending = THREE.AdditiveBlending;
+                                    
+                                    // Add high-quality properties to the material
+                                    starfield.material.premultipliedAlpha = true;
+                                    starfield.material.sizeAttenuation = true;
+                                    
+                                    // Enhance texture filtering
+                                    if (starfield.material.map) {
+                                        starfield.material.map.minFilter = THREE.LinearFilter;
+                                        starfield.material.map.magFilter = THREE.LinearFilter;
+                                        starfield.material.map.anisotropy = 16; // Maximum anisotropic filtering
+                                    }
+                                }
+                                
+                                return starfield;
+                            };
+                        }
+                    }
+                };
+                
+                // If App is already initialized, apply high quality settings now
+                if (App.renderer) {
+                    console.log('Applying high quality settings to existing renderer');
+                    
+                    // Apply high pixel ratio
+                    const pixelRatio = Math.max(2, window.devicePixelRatio);
+                    App.renderer.setPixelRatio(pixelRatio);
+                    
+                    // Enable high-quality shadows
+                    App.renderer.shadowMap.enabled = true;
+                    App.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+                    
+                    // Force a resize to update dimensions
+                    App.renderer.setSize(window.innerWidth, window.innerHeight);
+                    
+                    // Update camera aspect ratio
+                    if (App.camera) {
+                        App.camera.aspect = window.innerWidth / window.innerHeight;
+                        App.camera.updateProjectionMatrix();
+                    }
+                    
+                    // If starfield exists, enhance its material
+                    if (App.starfield && App.starfield.material) {
+                        App.starfield.material.size = 5;
+                        App.starfield.material.blending = THREE.AdditiveBlending;
+                        App.starfield.material.sizeAttenuation = true;
+                        
+                        if (App.starfield.material.map) {
+                            App.starfield.material.map.minFilter = THREE.LinearFilter;
+                            App.starfield.material.map.magFilter = THREE.LinearFilter;
+                            App.starfield.material.map.anisotropy = 16;
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    
     <!-- Main site JavaScript -->
     <script>
         // Handle mobile menu toggle

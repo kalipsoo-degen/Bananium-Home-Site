@@ -30,12 +30,21 @@ function handleEnterArena(e) {
   // Enable scrolling by adding the class to body
   document.body.classList.add('scrolling-enabled');
   
+  // Also update these critical CSS properties directly
+  document.body.style.overflow = 'auto';
+  document.body.style.position = 'relative';
+  document.body.style.height = 'auto';
+  document.body.style.maxHeight = 'none';
+  
   // Remove scroll prevention event listeners
   document.removeEventListener('wheel', preventScroll, { passive: false });
   document.removeEventListener('touchmove', preventScroll, { passive: false });
+  document.removeEventListener('keydown', preventKeyboardScroll, false);
   
   // Show navbar with a simple fade-in
-  navbar.classList.add('visible');
+  if (navbar) {
+    navbar.classList.add('visible');
+  }
   
   // Make sure the mute button is visible
   if (muteButton) {
@@ -85,12 +94,29 @@ function handleEnterArena(e) {
     console.error("No audio element found with id 'background-music'");
   }
   
-  // Scroll to the about section
-  aboutSection.scrollIntoView({ behavior: 'smooth' });
-  
-  // Add history entry for proper back button behavior
-  history.pushState(null, null, '#about');
+  // Scroll to the about section if it exists
+  if (aboutSection) {
+    aboutSection.scrollIntoView({ behavior: 'smooth' });
+    
+    // Add history entry for proper back button behavior
+    history.pushState(null, null, '#about');
+  }
 }
+
+// Prevent keyboard scrolling (arrow keys, spacebar, page up/down)
+function preventKeyboardScroll(e) {
+  // If scrolling is not enabled yet
+  if (!document.body.classList.contains('scrolling-enabled')) {
+    const keys = [32, 33, 34, 35, 36, 37, 38, 39, 40]; // Space, PageUp, PageDown, End, Home, Left, Up, Right, Down
+    if (keys.includes(e.keyCode)) {
+      e.preventDefault();
+      return false;
+    }
+  }
+}
+
+// Add keyboard scroll prevention
+document.addEventListener('keydown', preventKeyboardScroll, false);
 
 // Function to toggle music
 function toggleMusic() {

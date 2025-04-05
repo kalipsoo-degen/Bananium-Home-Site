@@ -31,31 +31,50 @@ const App = {
   
   // Initialize THREE.js components
   initThree() {
-    // Scene setup
-    this.scene = new THREE.Scene();
-    
-    // Add fog to the scene
-    const fogColor = 0x000000;
-    this.scene.fog = new THREE.FogExp2(fogColor, 0.00025);
-    
-    // Camera setup
-    this.camera = new THREE.PerspectiveCamera(
-      75, 
-      window.innerWidth / window.innerHeight, 
-      1, // Increased near plane
-      5000 // Increased far plane for better distance rendering
-    );
-    this.camera.position.z = CONFIG.INITIAL_CAMERA_POSITION.z;
-    
-    // Renderer setup
-    this.renderer = new THREE.WebGLRenderer({ 
-      canvas: document.getElementById('canvas'), 
-      antialias: true,
-      alpha: true
-    });
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
-    this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.setClearColor(0x000000, 1);
+    try {
+      // Scene setup
+      this.scene = new THREE.Scene();
+      
+      // Add fog to the scene
+      const fogColor = 0x000000;
+      this.scene.fog = new THREE.FogExp2(fogColor, 0.00025);
+      
+      // Get the canvas element
+      const canvas = document.getElementById('canvas');
+      if (!canvas) {
+        console.error('Canvas element not found');
+        return;
+      }
+      
+      // Make sure canvas has dimensions
+      if (!canvas.width || canvas.width === 0) {
+        canvas.width = window.innerWidth;
+      }
+      if (!canvas.height || canvas.height === 0) {
+        canvas.height = window.innerHeight;
+      }
+      
+      // Camera setup
+      this.camera = new THREE.PerspectiveCamera(
+        75, 
+        canvas.width / canvas.height, 
+        1, // Increased near plane
+        5000 // Increased far plane for better distance rendering
+      );
+      this.camera.position.z = CONFIG.INITIAL_CAMERA_POSITION.z;
+      
+      // Renderer setup
+      this.renderer = new THREE.WebGLRenderer({ 
+        canvas: canvas, 
+        antialias: true,
+        alpha: true
+      });
+      this.renderer.setSize(canvas.width, canvas.height);
+      this.renderer.setPixelRatio(window.devicePixelRatio);
+      this.renderer.setClearColor(0x000000, 1);
+    } catch (error) {
+      console.error('Error in initThree:', error);
+    }
   },
   
   // Initialize the stars
