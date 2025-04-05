@@ -60,7 +60,7 @@ function handleEnterArena(e) {
     
     // Set audio properties
     backgroundMusic.loop = false;
-    backgroundMusic.volume = 0.7;
+    backgroundMusic.volume = 0.7; // Start at full volume
     backgroundMusic.muted = false; // Set to unmuted
     isMuted = false; // Update muted state
     
@@ -71,6 +71,11 @@ function handleEnterArena(e) {
     
     // Give the audio a moment to initialize
     setTimeout(() => {
+      // Check if the duration is available and the audio can play
+      if (!isNaN(backgroundMusic.duration) || backgroundMusic.readyState >= 2) {
+        console.log(`Audio ready for playback. Duration: ${backgroundMusic.duration}s`);
+      }
+      
       // Try to play the audio
       const playPromise = backgroundMusic.play();
       if (playPromise !== undefined) {
@@ -89,7 +94,7 @@ function handleEnterArena(e) {
           }
         });
       }
-    }, 100); // Short delay to ensure audio is loaded
+    }, 300); // Longer delay to ensure audio is loaded
   } else {
     console.error("No audio element found with id 'background-music'");
   }
@@ -130,6 +135,9 @@ function toggleMusic() {
     isMuted = !isMuted;
     
     if (!isMuted) {
+      // Set initial volume to normal level before unmuting to prevent sudden sound
+      backgroundMusic.volume = 0.7;
+      
       // Ensure the audio is loaded
       backgroundMusic.load();
       
@@ -224,11 +232,27 @@ document.addEventListener('DOMContentLoaded', function() {
   if (backgroundMusic) {
     // Set specific source directly if needed
     if (!backgroundMusic.querySelector('source[src]')) {
-      console.log("No source elements found, creating one");
-      const source = document.createElement('source');
-      source.src = 'assets/audio/bananas.mp3';
-      source.type = 'audio/mpeg';
-      backgroundMusic.appendChild(source);
+      console.log("No source elements found, creating sources for all available audio files");
+      
+      // Add all three audio files as sources for better compatibility and fallback
+      const audioFiles = [
+        'assets/audio/Bananas in the Night.mp3',
+        'assets/audio/bananas.mp3',
+        'assets/audio/music.mp3'
+      ];
+      
+      // Clear any existing sources
+      while (backgroundMusic.firstChild) {
+        backgroundMusic.removeChild(backgroundMusic.firstChild);
+      }
+      
+      // Add each audio file as a source
+      audioFiles.forEach(file => {
+        const source = document.createElement('source');
+        source.src = file;
+        source.type = 'audio/mpeg';
+        backgroundMusic.appendChild(source);
+      });
     }
     
     console.log("Audio sources available:", 
@@ -249,6 +273,26 @@ document.addEventListener('DOMContentLoaded', function() {
       isMuted = true;
       if (muteButton) {
         muteButton.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+      }
+    });
+    
+    // Add timeupdate event listener for fade-out effect in the last second
+    backgroundMusic.addEventListener('timeupdate', () => {
+      // Only proceed if audio is ready and duration is available
+      if (isNaN(backgroundMusic.duration) || backgroundMusic.muted) return;
+      
+      const timeRemaining = backgroundMusic.duration - backgroundMusic.currentTime;
+      const fadeOutDuration = 3; // Increase fade-out to 3 seconds for more noticeable effect
+      
+      // Start fade-out when there's fadeOutDuration seconds or less remaining
+      if (timeRemaining <= fadeOutDuration && timeRemaining > 0) {
+        // Calculate volume level - goes from normal volume (0.7) to 0 linearly
+        const newVolume = 0.7 * (timeRemaining / fadeOutDuration);
+        backgroundMusic.volume = Math.max(0, newVolume);
+        console.log(`Fading out: ${timeRemaining.toFixed(2)}s remaining, volume: ${newVolume.toFixed(2)}`);
+      } else if (timeRemaining > fadeOutDuration && backgroundMusic.volume !== 0.7 && !backgroundMusic.muted) {
+        // Reset volume to normal if we're not in the fade-out period
+        backgroundMusic.volume = 0.7;
       }
     });
     
