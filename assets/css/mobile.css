@@ -7,6 +7,43 @@
         overflow-x: hidden;
     }
     
+    /* Fix width issues - ensure content fills screen width */
+    [style*="width: calc(100vw - 4cm)"],
+    [style*="width: calc(((100vw - 4cm)"],
+    .about-content,
+    .app-integration,
+    .section-title.bananium-logo,
+    .starfield-container,
+    .steps-container,
+    .roadmap-video-container,
+    .prize-podium-container,
+    .prize-cards-container,
+    .prize-info,
+    .about-text,
+    .galaxy-section > div {
+        width: 92% !important;
+        max-width: 92% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        left: 0 !important;
+        right: 0 !important;
+        transform: none !important;
+    }
+    
+    /* Set proper margins for centered content */
+    .section-title,
+    .section-title.bananium-logo,
+    .flip-tiles-container,
+    .colusseum-image-container,
+    .starfield-container,
+    #app-container,
+    #starfield-container {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        width: 92% !important;
+        max-width: 100% !important;
+    }
+    
     /* Improved mobile navigation */
     .navbar {
         flex-direction: column;
@@ -14,6 +51,7 @@
         position: sticky;
         top: 0;
         z-index: 1000;
+        width: 100% !important;
     }
     
     .logo {
@@ -74,6 +112,7 @@
     .hero {
         min-height: 100vh;
         padding: 2rem 1rem;
+        width: 100% !important;
     }
     
     .hero-title {
@@ -92,15 +131,21 @@
     /* Section adjustments */
     .section-title {
         font-size: 2.2rem;
+        width: 100% !important;
     }
     
     .section-title.bananium-logo {
         font-size: 3.5rem;
+        width: 92% !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
     }
     
     .about-content {
         flex-direction: column;
         gap: 1rem;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
     }
     
     /* Audio controls on mobile */
@@ -116,11 +161,16 @@
     }
     
     /* Prize pool mobile adjustments */
+    .prize-pool {
+        padding: 3rem 0.5rem !important;
+    }
+    
     .prize-podium-wrapper {
         flex-direction: column;
         align-items: center;
         height: auto;
         margin-top: 100px;
+        width: 100% !important;
     }
     
     .podium-place {
@@ -134,12 +184,21 @@
     
     .prize-cards-wrapper {
         grid-template-columns: 1fr;
+        width: 100% !important;
+        justify-content: center;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 15px;
     }
     
     /* Steps/flip tiles container for mobile */
     .steps-container, 
     .flip-tiles-container {
         flex-direction: column;
+        width: 92% !important;
+        max-width: 92% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
     }
     
     .step, 
@@ -148,9 +207,42 @@
         margin-bottom: 1.5rem;
     }
     
+    /* Videos and media */
+    video {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .colusseum-image {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
     /* Roadmap mobile adjustments */
     .roadmap-line {
         left: 20px;
+    }
+    
+    #about-roadmap {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+    }
+    
+    .roadmap-video-container {
+        width: 92% !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    
+    .roadmap-video-container > div {
+        width: 100% !important;
+    }
+    
+    .roadmap-video {
+        width: 100% !important;
     }
     
     .roadmap-item {
@@ -164,13 +256,39 @@
     }
     
     /* Starfield container adjustments */
-    .about-text .starfield-container {
+    .about-text .starfield-container,
+    #starfield-container {
         height: 45vh;
         min-height: 350px;
+        width: 100% !important;
+        max-width: 100% !important;
     }
     
     .starfield-wrapper {
         height: 350px;
+        width: 100% !important;
+    }
+    
+    #galaxy-starfield,
+    #galaxy-starfield > div {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    
+    #app-container {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Fix for banana treadmills */
+    .banana-treadmill.left,
+    .banana-treadmill.right {
+        display: none !important;
     }
     
     /* Character card adjustments */
@@ -179,6 +297,24 @@
         width: 90%;
         min-width: 250px;
         max-width: 90%;
+    }
+    
+    /* Fix whitepaper section */
+    #whitepaper {
+        width: 100% !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    
+    /* Footer adjustments */
+    .footer {
+        padding: 2rem 1rem;
+    }
+    
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
     }
 }
 

@@ -9,6 +9,126 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.classList.add('touch-device');
     }
 
+    // Fix mobile layout issues with inline styles
+    function fixMobileLayout() {
+        if (window.innerWidth <= 768) {
+            // Fix width issues on elements with inline styles using calc(100vw - 4cm)
+            document.querySelectorAll('[style*="width: calc(100vw - 4cm)"]').forEach(el => {
+                el.style.width = '92%';
+                el.style.maxWidth = '92%';
+                el.style.marginLeft = 'auto';
+                el.style.marginRight = 'auto';
+            });
+            
+            // Fix container width with calc width
+            document.querySelectorAll('[style*="width: calc(((100vw - 4cm)"]').forEach(el => {
+                el.style.width = '92%';
+                el.style.maxWidth = '92%';
+                el.style.marginLeft = 'auto';
+                el.style.marginRight = 'auto';
+                el.style.left = '0';
+                el.style.right = '0';
+            });
+            
+            // Make sure elements fill width properly
+            const fullWidthElements = [
+                '.about-content',
+                '.app-integration',
+                '.section-title.bananium-logo',
+                '.starfield-container',
+                '.steps-container',
+                '.roadmap-video-container',
+                '.prize-podium-container',
+                '.prize-cards-container',
+                '.prize-info',
+                '.about-text',
+                '.galaxy-section > div',
+                '#app-container',
+                '#starfield-container'
+            ];
+            
+            fullWidthElements.forEach(selector => {
+                document.querySelectorAll(selector).forEach(el => {
+                    // Ensure width and centered positioning
+                    el.style.width = '92%';
+                    el.style.maxWidth = '92%';
+                    el.style.marginLeft = 'auto';
+                    el.style.marginRight = 'auto';
+                    el.style.left = '';
+                    el.style.right = '';
+                });
+            });
+            
+            // Fix colusseum image size
+            const colusseumImage = document.querySelector('.colusseum-image');
+            if (colusseumImage) {
+                colusseumImage.style.width = '100%';
+                colusseumImage.style.maxWidth = '100%';
+            }
+            
+            // Fix banner animations
+            const bananaLeft = document.querySelector('.banana-treadmill.left');
+            const bananaRight = document.querySelector('.banana-treadmill.right');
+            if (bananaLeft) bananaLeft.style.display = 'none';
+            if (bananaRight) bananaRight.style.display = 'none';
+            
+            // Fix roadmap
+            const roadmapSection = document.querySelector('#about-roadmap');
+            if (roadmapSection) {
+                roadmapSection.style.width = '100%';
+                roadmapSection.style.maxWidth = '100%';
+                roadmapSection.style.padding = '0';
+            }
+            
+            // Fix roadmap video
+            const roadmapVideo = document.querySelector('.roadmap-video');
+            if (roadmapVideo) {
+                roadmapVideo.style.width = '100%';
+            }
+            
+            // Fix prize pool section
+            const prizePool = document.querySelector('.prize-pool');
+            if (prizePool) {
+                prizePool.style.padding = '3rem 0.5rem';
+            }
+            
+            // Fix whitepaper section
+            const whitepaper = document.querySelector('#whitepaper');
+            if (whitepaper) {
+                whitepaper.style.width = '100%';
+                whitepaper.style.paddingLeft = '1rem';
+                whitepaper.style.paddingRight = '1rem';
+            }
+            
+            // Fix starfield containment
+            const galaxyStarfield = document.querySelector('#galaxy-starfield');
+            if (galaxyStarfield) {
+                galaxyStarfield.style.width = '100%';
+                galaxyStarfield.style.maxWidth = '100%';
+                galaxyStarfield.style.marginLeft = '0';
+                galaxyStarfield.style.marginRight = '0';
+                galaxyStarfield.style.paddingLeft = '1rem';
+                galaxyStarfield.style.paddingRight = '1rem';
+            }
+            
+            // Adjust prize podium
+            const podiumWrapper = document.querySelector('.podium-wrapper');
+            if (podiumWrapper) {
+                podiumWrapper.style.width = '100%';
+            }
+            
+            // Fix prize cards
+            const prizeCardsWrapper = document.querySelector('.prize-cards-wrapper');
+            if (prizeCardsWrapper) {
+                prizeCardsWrapper.style.width = '100%';
+                prizeCardsWrapper.style.display = 'flex';
+                prizeCardsWrapper.style.flexWrap = 'wrap';
+                prizeCardsWrapper.style.justifyContent = 'center';
+                prizeCardsWrapper.style.gap = '15px';
+            }
+        }
+    }
+
     // Improve scrolling behavior on mobile
     function preventRubberBandEffect(event) {
         // Only prevent default if the scroll has reached its limits
@@ -130,4 +250,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 50);
         });
     }
+    
+    // Fix layout immediately and on resize
+    fixMobileLayout();
+    window.addEventListener('resize', fixMobileLayout);
 }); 
