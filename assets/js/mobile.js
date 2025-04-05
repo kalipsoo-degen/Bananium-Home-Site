@@ -1,6 +1,58 @@
 /**
  * Mobile-specific enhancements for Bananium website
  */
+
+// Apply mobile fixes immediately when script loads
+(function() {
+    // Apply critical mobile fixes immediately
+    function applyCriticalMobileFixes() {
+        if (window.innerWidth <= 768) {
+            // CRITICAL: Hide Bananium logo in hero section
+            const bananiumLogoElements = document.querySelectorAll('.bananium-logo-container, .bananium-logo-outline, h1.bananium-logo');
+            bananiumLogoElements.forEach(el => {
+                el.style.display = 'none';
+                el.style.visibility = 'hidden';
+                el.style.opacity = '0';
+                el.style.height = '0';
+                el.style.overflow = 'hidden';
+                el.style.pointerEvents = 'none';
+            });
+            
+            // CRITICAL: Fix navbar at top
+            const navbar = document.querySelector('#main-navbar');
+            if (navbar) {
+                navbar.style.position = 'fixed';
+                navbar.style.top = '0';
+                navbar.style.left = '0';
+                navbar.style.right = '0';
+                navbar.style.zIndex = '2000';
+                navbar.style.width = '100%';
+                navbar.style.background = 'rgba(0, 0, 0, 0.95)';
+                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.7)';
+                
+                // Add padding to body
+                document.body.style.paddingTop = (navbar.offsetHeight + 10) + 'px';
+                
+                // Ensure logo is perfectly centered
+                const logo = navbar.querySelector('.logo');
+                if (logo) {
+                    logo.style.position = 'absolute';
+                    logo.style.left = '50%';
+                    logo.style.top = '50%';
+                    logo.style.transform = 'translate(-50%, -50%)';
+                    logo.style.padding = '0';
+                    logo.style.margin = '0';
+                    logo.style.width = 'auto';
+                    logo.style.textAlign = 'center';
+                }
+            }
+        }
+    }
+    
+    // Run immediately
+    applyCriticalMobileFixes();
+})();
+
 document.addEventListener('DOMContentLoaded', function() {
     // Detect if device is touch-enabled
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -12,6 +64,46 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fix mobile layout issues with inline styles
     function fixMobileLayout() {
         if (window.innerWidth <= 768) {
+            // CRITICAL: Hide Bananium logo in hero section
+            const bananiumLogoElements = document.querySelectorAll('.bananium-logo-container, .bananium-logo-outline, h1.bananium-logo');
+            bananiumLogoElements.forEach(el => {
+                el.style.display = 'none';
+                el.style.visibility = 'hidden';
+                el.style.opacity = '0';
+                el.style.height = '0';
+                el.style.overflow = 'hidden';
+                el.style.pointerEvents = 'none';
+            });
+            
+            // CRITICAL: Fix navbar at top
+            const navbar = document.querySelector('#main-navbar');
+            if (navbar) {
+                navbar.style.position = 'fixed';
+                navbar.style.top = '0';
+                navbar.style.left = '0';
+                navbar.style.right = '0';
+                navbar.style.zIndex = '2000';
+                navbar.style.width = '100%';
+                navbar.style.background = 'rgba(0, 0, 0, 0.95)';
+                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.7)';
+                
+                // Add padding to body
+                document.body.style.paddingTop = (navbar.offsetHeight + 10) + 'px';
+                
+                // Ensure logo is perfectly centered
+                const logo = navbar.querySelector('.logo');
+                if (logo) {
+                    logo.style.position = 'absolute';
+                    logo.style.left = '50%';
+                    logo.style.top = '50%';
+                    logo.style.transform = 'translate(-50%, -50%)';
+                    logo.style.padding = '0';
+                    logo.style.margin = '0';
+                    logo.style.width = 'auto';
+                    logo.style.textAlign = 'center';
+                }
+            }
+            
             // Fix width issues on elements with inline styles using calc(100vw - 4cm)
             document.querySelectorAll('[style*="width: calc(100vw - 4cm)"]').forEach(el => {
                 el.style.width = '92%';
@@ -126,6 +218,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 prizeCardsWrapper.style.justifyContent = 'center';
                 prizeCardsWrapper.style.gap = '15px';
             }
+        } else {
+            // Reset for desktop view
+            const navbar = document.querySelector('#main-navbar');
+            if (navbar) {
+                navbar.style.position = '';
+                navbar.style.top = '';
+                navbar.style.left = '';
+                navbar.style.right = '';
+                navbar.style.zIndex = '';
+                navbar.style.boxShadow = '';
+                document.body.style.paddingTop = '';
+            }
+            
+            // Show bananium logo on desktop
+            const bananiumLogoElements = document.querySelectorAll('.bananium-logo-container, .bananium-logo-outline, h1.bananium-logo');
+            bananiumLogoElements.forEach(el => {
+                el.style.display = '';
+                el.style.visibility = '';
+                el.style.opacity = '';
+                el.style.height = '';
+                el.style.overflow = '';
+                el.style.pointerEvents = '';
+            });
         }
     }
 
@@ -194,33 +309,96 @@ document.addEventListener('DOMContentLoaded', function() {
         );
     });
     
-    // Add tap functionality enhancements
-    function enhanceTapTargets() {
-        // 1. Buttons - make touch targets larger
-        const smallButtons = document.querySelectorAll('.nav-btn, .homepage-btn, .cta-btn, .mobile-menu-toggle');
-        smallButtons.forEach(button => {
-            // Only add padding if it's not already large enough (min size should be 44x44px)
-            if (button.offsetWidth < 44 || button.offsetHeight < 44) {
-                button.style.minWidth = '44px';
-                button.style.minHeight = '44px';
-                button.style.display = 'flex';
-                button.style.alignItems = 'center';
-                button.style.justifyContent = 'center';
-            }
-        });
+    // Mobile menu toggle functionality
+    function initMobileMenu() {
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
         
-        // 2. Add active tap state for better feedback
-        const allTappableElements = document.querySelectorAll('a, button, .flip-tile');
-        allTappableElements.forEach(element => {
-            element.addEventListener('touchstart', () => {
-                element.classList.add('touch-active');
-            }, { passive: true });
+        if (mobileMenuToggle && navLinks) {
+            // Direct click handler with stopPropagation to prevent document click from closing immediately
+            mobileMenuToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navLinks.classList.toggle('active');
+                mobileMenuToggle.classList.toggle('active');
+                
+                // Log status for debugging
+                console.log('Mobile menu toggle clicked, active:', navLinks.classList.contains('active'));
+                
+                if (navLinks.classList.contains('active')) {
+                    navLinks.style.display = 'flex';
+                    
+                    // Make sure the JOIN THE BATTLE link is properly styled
+                    const battleLink = document.querySelector('.nav-links a.battle-link');
+                    if (battleLink) {
+                        battleLink.style.backgroundColor = '#FFD700';
+                        battleLink.style.color = '#000000';
+                        battleLink.style.fontWeight = 'bold';
+                        battleLink.style.marginTop = '10px';
+                        battleLink.style.padding = '12px 20px';
+                    }
+                } else {
+                    navLinks.style.display = 'none';
+                }
+            });
             
-            element.addEventListener('touchend', () => {
-                setTimeout(() => {
-                    element.classList.remove('touch-active');
-                }, 150); // Short delay for visual feedback
-            }, { passive: true });
+            // Close menu when clicking outside or on a link
+            document.addEventListener('click', (e) => {
+                if (navLinks.classList.contains('active') && !navLinks.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                    navLinks.classList.remove('active');
+                    mobileMenuToggle.classList.remove('active');
+                }
+            });
+            
+            // Close menu when clicking on a nav link
+            const navLinkItems = document.querySelectorAll('.nav-links a');
+            navLinkItems.forEach(link => {
+                link.addEventListener('click', () => {
+                    // Remove active class from all links
+                    navLinkItems.forEach(item => item.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    link.classList.add('active');
+                    
+                    // Close the menu
+                    navLinks.classList.remove('active');
+                    mobileMenuToggle.classList.remove('active');
+                });
+            });
+            
+            // Force apply active class to menu toggle when testing on mobile
+            if (window.innerWidth <= 768) {
+                mobileMenuToggle.style.display = 'block';
+                
+                // Ensure menu toggle is visible and clickable
+                mobileMenuToggle.style.pointerEvents = 'auto';
+                mobileMenuToggle.style.cursor = 'pointer';
+                mobileMenuToggle.style.opacity = '1';
+            }
+        } else {
+            console.error('Mobile menu elements not found:', {
+                mobileMenuToggle: !!mobileMenuToggle,
+                navLinks: !!navLinks
+            });
+        }
+    }
+    
+    // Enhance tap targets for touch devices
+    function enhanceTapTargets() {
+        // Add active state to button elements on touch
+        const touchTargets = document.querySelectorAll('.flip-tile, .cta-btn, .nav-link');
+        
+        touchTargets.forEach(target => {
+            target.addEventListener('touchstart', function() {
+                this.classList.add('touch-active');
+            }, {passive: true});
+            
+            target.addEventListener('touchend', function() {
+                this.classList.remove('touch-active');
+            }, {passive: true});
+            
+            target.addEventListener('touchcancel', function() {
+                this.classList.remove('touch-active');
+            }, {passive: true});
         });
     }
     
@@ -254,4 +432,52 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fix layout immediately and on resize
     fixMobileLayout();
     window.addEventListener('resize', fixMobileLayout);
+    
+    // Initialize mobile menu functionality
+    initMobileMenu();
+});
+
+// Fix on window load too, in case the DOM is slow to load
+window.addEventListener('load', function() {
+    // CRITICAL: Hide Bananium logo in hero section for mobile
+    if (window.innerWidth <= 768) {
+        const bananiumLogoElements = document.querySelectorAll('.bananium-logo-container, .bananium-logo-outline, h1.bananium-logo');
+        bananiumLogoElements.forEach(el => {
+            el.style.display = 'none';
+            el.style.visibility = 'hidden';
+            el.style.opacity = '0';
+            el.style.height = '0';
+            el.style.overflow = 'hidden';
+            el.style.pointerEvents = 'none';
+        });
+        
+        // CRITICAL: Fix navbar at top
+        const navbar = document.querySelector('#main-navbar');
+        if (navbar) {
+            navbar.style.position = 'fixed';
+            navbar.style.top = '0';
+            navbar.style.left = '0';
+            navbar.style.right = '0';
+            navbar.style.zIndex = '2000';
+            navbar.style.width = '100%';
+            navbar.style.background = 'rgba(0, 0, 0, 0.95)';
+            navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.7)';
+            
+            // Add padding to body
+            document.body.style.paddingTop = (navbar.offsetHeight + 10) + 'px';
+            
+            // Ensure logo is perfectly centered
+            const logo = navbar.querySelector('.logo');
+            if (logo) {
+                logo.style.position = 'absolute';
+                logo.style.left = '50%';
+                logo.style.top = '50%';
+                logo.style.transform = 'translate(-50%, -50%)';
+                logo.style.padding = '0';
+                logo.style.margin = '0';
+                logo.style.width = 'auto';
+                logo.style.textAlign = 'center';
+            }
+        }
+    }
 }); 

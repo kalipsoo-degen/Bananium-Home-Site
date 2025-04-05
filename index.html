@@ -341,6 +341,147 @@
             justify-content: center !important;
             align-items: center !important;
         }
+
+        /* CRITICAL MOBILE STYLES APPLIED IMMEDIATELY */
+        @media (max-width: 768px) {
+            /* Hide the Bananium logo immediately on mobile */
+            .bananium-logo-container, 
+            .bananium-logo-outline, 
+            h1.bananium-logo {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+                height: 0 !important;
+                overflow: hidden !important;
+                pointer-events: none !important;
+            }
+            
+            /* Fix navbar immediately for mobile */
+            .navbar {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                z-index: 2000 !important;
+                width: 100% !important;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.7) !important;
+                background: rgba(0, 0, 0, 0.95) !important;
+                height: 60px !important;
+            }
+            
+            /* Center the navbar logo perfectly */
+            .navbar .logo {
+                position: absolute !important;
+                left: 50% !important;
+                top: 50% !important;
+                transform: translate(-50%, -50%) !important;
+                width: auto !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                font-size: 1.7rem !important;
+                text-align: center !important;
+            }
+            
+            /* Make sure mobile menu toggle is visible and functional */
+            .mobile-menu-toggle {
+                display: block !important;
+                position: absolute !important;
+                right: 10px !important;
+                top: 50% !important;
+                transform: translateY(-50%) !important;
+                cursor: pointer !important;
+                z-index: 1010 !important;
+                color: #FFD700 !important; /* Gold color for visibility */
+                font-size: 1.5rem !important;
+                background: transparent !important;
+                border: none !important;
+                padding-right: 5px !important;
+                opacity: 1 !important;
+                pointer-events: auto !important;
+            }
+            
+            /* Nav links dropdown styling */
+            .nav-links {
+                position: fixed !important;
+                top: 60px !important;
+                left: 0 !important;
+                right: 0 !important;
+                width: 100% !important;
+                background-color: rgba(0, 0, 0, 0.95) !important;
+                flex-direction: column !important;
+                padding: 1rem 0 !important;
+                z-index: 1999 !important;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+                display: none !important;
+            }
+            
+            /* Critical style for showing nav links when active */
+            .nav-links.active {
+                display: flex !important;
+            }
+            
+            /* Style nav links */
+            .nav-links a {
+                padding: 0.5rem 1rem !important;
+                text-align: center !important;
+                width: auto !important;
+                margin: 0 auto !important;
+                display: inline-block !important;
+                color: #FFD700 !important;
+            }
+            
+            /* Special styling for the JOIN THE BATTLE link */
+            .nav-links a.battle-link {
+                background-color: #FFD700 !important;
+                color: #000000 !important;
+                font-weight: bold !important;
+                margin-top: 10px !important;
+                padding: 12px 20px !important;
+                border-radius: 8px !important;
+                box-shadow: 0 0 10px rgba(255, 215, 0, 0.5) !important;
+                transition: all 0.3s ease !important;
+                width: 80% !important;
+                max-width: 250px !important;
+                text-shadow: none !important;
+                border: 2px solid #FFD700 !important;
+            }
+            
+            /* Style for active link with custom underline that matches text width */
+            .nav-links a.active {
+                color: #FFFFFF !important;
+                font-weight: bold !important;
+                position: relative !important;
+            }
+            
+            .nav-links a.active::after {
+                content: '' !important;
+                position: absolute !important;
+                left: 50% !important;
+                bottom: -2px !important;
+                width: 80% !important; /* Match approximate text width */
+                height: 2px !important;
+                background-color: #FFD700 !important;
+                transform: translateX(-50%) !important;
+                border-radius: 1px !important;
+            }
+            
+            /* Add padding to body for fixed navbar */
+            body {
+                padding-top: 70px !important;
+            }
+            
+            /* Ensure the AI AGENTS text and subtitle are visible and properly positioned */
+            .ai-agents-text {
+                margin-top: 1rem !important;
+                font-size: 2.5rem !important;
+                letter-spacing: 5px !important;
+            }
+            
+            .subtitle-text {
+                font-size: 1.8rem !important;
+                letter-spacing: 5px !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -364,14 +505,17 @@
     </div>
     
     <!-- Navigation -->
-    <nav class="navbar" id="main-navbar" style="background: rgba(0, 0, 0, 0.8); z-index: 1000; width: 100%; padding: 15px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+    <nav class="navbar" id="main-navbar" style="background: rgba(0, 0, 0, 0.8); z-index: 1000; width: 100%; padding: 15px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.5); position: sticky; top: 0;">
         <div class="navbar-left">
             <div class="social-icons">
                 <a href="#" class="nav-link"><i class="fa-solid fa-link"></i></a>
                 <a href="#" class="nav-link"><i class="fa-brands fa-x-twitter"></i></a>
             </div>
-            <a href="#" class="logo" style="padding-left: 10px;">BANANIUM</a>
         </div>
+        
+        <!-- Logo moved out of navbar-left to be centered properly -->
+        <a href="#" class="logo" style="padding-left: 10px;">BANANIUM</a>
+        
         <div class="nav-links">
             <a href="#home" class="nav-link">HOME</a>
             <a href="#about" class="nav-link">ABOUT</a>
@@ -379,7 +523,7 @@
             <a href="#prize-pool" class="nav-link">PRIZE POOL</a>
             <a href="agents-of-chaos.html" class="nav-link">AGENTS OF CHAOS</a>
             <a href="#whitepaper" class="nav-link">WHITEPAPER</a>
-            <a href="https://magiceden.us/" target="_blank" class="nav-link">JOIN THE BATTLE</a>
+            <a href="https://magiceden.us/" target="_blank" class="nav-link battle-link">JOIN THE BATTLE</a>
         </div>
         <div class="social-icons" style="padding-right: 30px;">
             <a href="#" class="nav-link"><i class="fa-solid fa-link"></i></a>
@@ -413,8 +557,8 @@
             <span style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; display: inline-block;">🍌</span>
         </div>
         
-        <!-- Bananium logo styled to match reference -->
-        <div class="bananium-logo-container">
+        <!-- Bananium logo styled to match reference - only visible on desktop -->
+        <div class="bananium-logo-container" style="display: block; visibility: visible; opacity: 1;">
             <div class="bananium-logo-outline"></div>
             <h1 class="bananium-logo">BANANIUM</h1>
         </div>
@@ -1933,5 +2077,95 @@
     
     <!-- Mobile-specific enhancements -->
     <script src="assets/js/mobile.js"></script>
+    
+    <!-- Critical Mobile Menu Fix -->
+    <script>
+        // Ensure mobile menu toggle works immediately
+        (function() {
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuToggle && navLinks && window.innerWidth <= 768) {
+                // Force correct styles for mobile devices
+                mobileMenuToggle.style.display = 'block';
+                mobileMenuToggle.style.position = 'absolute';
+                mobileMenuToggle.style.right = '10px';
+                mobileMenuToggle.style.top = '50%';
+                mobileMenuToggle.style.transform = 'translateY(-50%)';
+                mobileMenuToggle.style.cursor = 'pointer';
+                mobileMenuToggle.style.zIndex = '1010';
+                
+                // Add direct click handler
+                mobileMenuToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Toggle menu visibility
+                    navLinks.classList.toggle('active');
+                    mobileMenuToggle.classList.toggle('active');
+                    
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.style.display = 'flex';
+                        
+                        // Make sure the JOIN THE BATTLE link is properly styled
+                        const battleLink = document.querySelector('.nav-links a.battle-link');
+                        if (battleLink) {
+                            battleLink.style.backgroundColor = '#FFD700';
+                            battleLink.style.color = '#000000';
+                            battleLink.style.fontWeight = 'bold';
+                            battleLink.style.marginTop = '10px';
+                            battleLink.style.padding = '12px 20px';
+                            battleLink.style.borderRadius = '8px';
+                            battleLink.style.boxShadow = '0 0 10px rgba(255, 215, 0, 0.5)';
+                            battleLink.style.width = '80%';
+                            battleLink.style.maxWidth = '250px';
+                            battleLink.style.border = '2px solid #FFD700';
+                        }
+                    } else {
+                        setTimeout(function() {
+                            navLinks.style.display = 'none';
+                        }, 300); // Match transition time
+                    }
+                });
+                
+                // Set up nav link clicks with proper active states
+                const navLinkItems = document.querySelectorAll('.nav-links a');
+                navLinkItems.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        // For links that target the current page
+                        if (link.getAttribute('href').startsWith('#')) {
+                            // Remove active from all links
+                            navLinkItems.forEach(item => item.classList.remove('active'));
+                            
+                            // Add active to clicked link
+                            link.classList.add('active');
+                        }
+                        
+                        // Close the menu
+                        navLinks.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                        
+                        setTimeout(function() {
+                            navLinks.style.display = 'none';
+                        }, 300); // Match transition time
+                    });
+                });
+                
+                // Close when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (navLinks.classList.contains('active') && 
+                        !navLinks.contains(e.target) && 
+                        !mobileMenuToggle.contains(e.target)) {
+                        navLinks.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                        
+                        setTimeout(function() {
+                            navLinks.style.display = 'none';
+                        }, 300); // Match transition time
+                    }
+                });
+            }
+        })();
+    </script>
 </body>
 </html>
