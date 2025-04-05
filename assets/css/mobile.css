@@ -551,6 +551,120 @@
         transform: scale(1.05) !important;
         box-shadow: 0 0 15px rgba(255, 215, 0, 0.8) !important;
     }
+    
+    /* Hide floating arrow in mobile view */
+    .hero + div [class*="fa-chevron-down"],
+    i.fas.fa-chevron-down {
+        display: none !important;
+    }
+    
+    /* Make Colusseum image larger in mobile view */
+    .colusseum-image-container {
+        width: 100% !important;
+        margin: 0 auto !important;
+    }
+    
+    .colusseum-image {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        display: block !important;
+        margin: 0 auto !important;
+        object-fit: cover !important;
+    }
+    
+    /* Mobile-specific styling for whitepaper text in flip-tiles */
+    .flip-tile-back p {
+        padding: 25px !important; /* Increased padding for more space between text and borders */
+    }
+    
+    /* Improved styling for all flip-tile-back elements to ensure proper text display */
+    .flip-tile-back {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        height: 100% !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        padding: 15px !important;
+    }
+    
+    /* Improved container styling for all flip-tile divs */
+    .flip-tile-back > div {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        height: 100% !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        padding: 10px !important;
+    }
+    
+    /* Better text sizing for all paragraphs */
+    .flip-tile-back p {
+        font-size: max(15px, min(1.8rem, 4.8vw)) !important;
+        line-height: 1.4 !important;
+        text-align: center !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        padding: 10px !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Better styling for highlighted text in yellow (like 4096 AI CHARACTERS) */
+    .flip-tile-back strong[style*="color: #FFD700"] {
+        font-size: max(16px, min(2.1rem, 5.2vw)) !important;
+        display: inline-block !important;
+        line-height: 1.3 !important;
+        margin: 5px 0 !important;
+        letter-spacing: 0.5px !important;
+    }
+    
+    /* Ensure all flip tiles maintain proper dimensions and spacing in mobile view */
+    .flip-tile {
+        margin: 10px 0 !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Specific styles for READ THE F***ING WHITEPAPER */
+    .flip-tile-back p[style*="font-size: 3rem"] {
+        font-size: max(18px, min(2.2rem, 5.5vw)) !important;
+        padding: 20px !important;
+        line-height: 1.3 !important;
+    }
+    
+    /* Target the borders for the flip-tile with "READ THE F***ING WHITEPAPER" */
+    .flip-tile-inner[style*="border: 3px solid #FFA500"] {
+        border-width: 4px !important; /* Slightly thicker border for visibility */
+    }
+    
+    /* Enhanced styling for whitepaper section in mobile view */
+    #whitepaper {
+        width: 100% !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        margin: 0 auto !important;
+        text-align: center !important;
+    }
+    
+    #whitepaper .section-title {
+        padding: 15px 10px !important;
+        text-align: center !important;
+        width: 100% !important;
+        margin: 0 auto 1rem auto !important;
+        display: block !important;
+    }
+    
+    #whitepaper .about-content {
+        padding: 0 15px !important;
+    }
+    
+    #whitepaper .about-text {
+        padding: 15px !important;
+    }
 }
 
 /* Small mobile devices */
@@ -614,6 +728,22 @@
     
     .logo a {
         transform: none;
+    }
+    
+    /* Even smaller screens need more adjustments */
+    .flip-tile-back p {
+        font-size: max(14px, min(1.6rem, 4.8vw)) !important;
+        padding: 15px !important;
+    }
+    
+    .flip-tile-back p strong[style*="color: #FFD700"],
+    .flip-tile-back strong[style*="color: #FFD700"] {
+        font-size: max(16px, min(1.8rem, 5.2vw)) !important;
+    }
+    
+    .flip-tile-back p[style*="font-size: 1.92rem"] {
+        padding: 20px 15px !important;
+        font-size: max(14px, min(1.5rem, 4.3vw)) !important;
     }
 }
 
