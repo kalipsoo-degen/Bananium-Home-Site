@@ -894,10 +894,10 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-links">
-            <a href="#">Terms & Conditions</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">FAQ</a>
-            <a href="#">Contact</a>
+            <a href="terms-and-conditions.html">Terms & Conditions</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="faq.html">FAQ</a>
+            <a href="contact.html">Contact</a>
         </div>
         <p class="copyright" style="font-size: 1.125rem; color: rgba(255, 255, 255, 0.7);">© 2025 BANANIUM MAXIMUS. All rights reserved.</p>
     </footer>
@@ -1740,7 +1740,8 @@
                                     App.animate = function() {
                                         requestAnimationFrame(App.animate);
                                         stars.rotation.y += 0.0005;
-                                        stars.rotation.x = Math.sin(Date.now() * 0.00008) * 0.08;
+                                        // Remove wobble effect that causes twinkling
+                                        // stars.rotation.x = Math.sin(Date.now() * 0.00008) * 0.08;
                                         App.renderer.render(App.scene, App.camera);
                                     };
                                     App.animate();
@@ -2264,10 +2265,10 @@
             galacticCore.rotation.y += 0.0008;
             coreGlow.rotation.y += 0.0008;
             
-            // Slightly tilt and wobble for dynamic effect (reduced intensity)
-            galaxy.rotation.x = Math.sin(Date.now() * 0.00008) * 0.08;
-            galacticCore.rotation.x = galaxy.rotation.x;
-            coreGlow.rotation.x = galaxy.rotation.x;
+            // Remove wobble effect that causes twinkling
+            // galaxy.rotation.x = Math.sin(Date.now() * 0.00008) * 0.08;
+            // galacticCore.rotation.x = galaxy.rotation.x;
+            // coreGlow.rotation.x = galaxy.rotation.x;
             
             // Rotate background stars very slowly
             backgroundStars.rotation.y += 0.0001;

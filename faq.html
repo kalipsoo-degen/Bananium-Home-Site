@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - BANANIUM MAXIMUS</title>
+    
+    <!-- Load fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Teko:wght@400;600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Futura font alternative (Futura PT not available on Google Fonts, so using closest alternative) -->
+    <link rel="stylesheet" href="https://use.typekit.net/dlp1wkx.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <!-- Mobile-specific CSS -->
+    <link rel="stylesheet" href="assets/css/mobile.css">
+    
+    <style>
+        .faq-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            border: 1px solid var(--primary-color);
+            box-shadow: 0 0 20px rgba(128, 0, 255, 0.3);
+        }
+        
+        .faq-content {
+            color: #FFD700;
+            line-height: 1.6;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: none;
+        }
+        
+        .faq-content h1 {
+            color: #FFD700;
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 2.5rem;
+            text-transform: none;
+            letter-spacing: 2px;
+        }
+        
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+        }
+        
+        .faq-question {
+            background-color: rgba(30, 30, 30, 0.7);
+            padding: 1.2rem;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Orbitron', sans-serif;
+            color: #FFD700;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+            text-transform: none;
+        }
+        
+        .faq-question:hover {
+            background-color: rgba(50, 50, 50, 0.7);
+        }
+        
+        .faq-question::after {
+            content: '\f107';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item.active .faq-question::after {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            background-color: rgba(20, 20, 20, 0.7);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 1.2rem;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 1000px;
+            padding: 1.2rem;
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        
+        .faq-answer p {
+            color: #FFFFFF;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
+            margin-bottom: 1rem;
+            text-transform: none;
+        }
+        
+        .faq-answer li {
+            color: #FFFFFF;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
+            margin-bottom: 0.5rem;
+            text-transform: none;
+        }
+        
+        .faq-answer ul, .faq-answer ol {
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+            color: #FFFFFF;
+            text-transform: none;
+        }
+        
+        .faq-content a {
+            color: #FFD700;
+            text-decoration: underline;
+            text-shadow: 0 0 2px rgba(255, 215, 0, 0.3);
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-content a:hover {
+            color: #FFFFFF;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+        
+        @media (max-width: 768px) {
+            .faq-container {
+                padding: 1rem;
+            }
+            
+            .faq-content h1 {
+                font-size: 2rem;
+            }
+            
+            .faq-question {
+                font-size: 1rem;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="scrolling-enabled">
+    <!-- Navbar -->
+    <nav class="navbar visible" id="main-navbar" style="background: rgba(0, 0, 0, 0.8); z-index: 1000; width: 100%; padding: 15px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.5); position: sticky; top: 0;">
+        <div class="navbar-left">
+            <div class="social-icons">
+                <a href="#" class="nav-link"><i class="fa-solid fa-link"></i></a>
+                <a href="#" class="nav-link"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
+        </div>
+        
+        <!-- Logo moved out of navbar-left to be centered properly -->
+        <a href="index.html" class="logo" style="padding-left: 10px;">BANANIUM</a>
+        
+        <div class="nav-links">
+            <a href="index.html#home" class="nav-link">HOME</a>
+            <a href="index.html#about" class="nav-link">ABOUT</a>
+            <a href="index.html#about-roadmap" class="nav-link">ROADMAP</a>
+            <a href="index.html#prize-pool" class="nav-link">PRIZE POOL</a>
+            <a href="agents-of-chaos.html" class="nav-link">AGENTS OF CHAOS</a>
+            <a href="index.html#whitepaper" class="nav-link">WHITEPAPER</a>
+            <a href="https://magiceden.us/" target="_blank" class="nav-link battle-link">JOIN THE BATTLE</a>
+        </div>
+        <div class="social-icons" style="padding-right: 30px;">
+            <a href="#" class="nav-link"><i class="fa-solid fa-link"></i></a>
+            <a href="#" class="nav-link"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+        <!-- Mobile menu toggle (hidden by default, shown on small screens) -->
+        <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- FAQ Content -->
+    <section class="about" style="padding-top: 120px;">
+        <div class="faq-container">
+            <div class="faq-content">
+                <h1>Frequently Asked Questions</h1>
+                
+                <div class="faq-list">
+                    <!-- FAQ Item 1 -->
+                    <div class="faq-item">
+                        <div class="faq-question">What is BANANIUM MAXIMUS?</div>
+                        <div class="faq-answer">
+                            <p>BANANIUM MAXIMUS is an innovative AI-powered battle royale game built on blockchain technology. Players select and train AI agents that compete in strategic combat scenarios to win prizes. Our game combines cutting-edge AI technology with web3 elements to create a unique gaming experience where strategy, adaptation, and a bit of luck determine the winners.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 2 -->
+                    <div class="faq-item">
+                        <div class="faq-question">How do I get started with BANANIUM MAXIMUS?</div>
+                        <div class="faq-answer">
+                            <p>To get started with BANANIUM MAXIMUS:</p>
+                            <ol>
+                                <li>Set up a compatible blockchain wallet (such as MetaMask)</li>
+                                <li>Connect your wallet to our platform</li>
+                                <li>Choose your AI agent from our gallery of 4096 unique characters</li>
+                                <li>Train and customize your agent's strategies and behaviors</li>
+                                <li>Enter tournaments and competitions</li>
+                            </ol>
+                            <p>Check out our <a href="index.html#how-to">How to Play</a> section for more detailed instructions.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 3 -->
+                    <div class="faq-item">
+                        <div class="faq-question">Do I need cryptocurrency to play?</div>
+                        <div class="faq-answer">
+                            <p>Yes, BANANIUM MAXIMUS operates on the blockchain, so you'll need cryptocurrency to participate fully. We currently support standard blockchain wallets and transactions. While some basic gameplay elements might be available for free, participating in tournaments, owning premium agents, and claiming prizes requires cryptocurrency transactions. We're working on making the onboarding process as simple as possible for players new to web3 gaming.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 4 -->
+                    <div class="faq-item">
+                        <div class="faq-question">What makes the AI agents in BANANIUM MAXIMUS special?</div>
+                        <div class="faq-answer">
+                            <p>Our AI agents are powered by advanced machine learning algorithms that enable them to learn and adapt based on gameplay. Each agent has unique attributes, personality traits, and combat styles that influence their performance in the arena. What makes them truly special is their ability to evolve over time based on your training and battle experience.</p>
+                            <p>Unlike traditional game characters, these agents can develop unexpected strategies and behaviors that even we as developers didn't anticipate. Each agent is also represented as an NFT with unique artwork and metadata, making them truly collectible digital assets with both gameplay utility and artistic value.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 5 -->
+                    <div class="faq-item">
+                        <div class="faq-question">How are prizes distributed in BANANIUM MAXIMUS?</div>
+                        <div class="faq-answer">
+                            <p>Prizes in BANANIUM MAXIMUS are distributed based on tournament performance. Our prize pool is allocated to the top performers in each tournament, with the largest shares going to the top positions. Prizes are automatically distributed via smart contracts to the winners' wallets after verification of tournament results.</p>
+                            <p>We have multiple tournament tiers with different entry requirements and prize pools. The prize distribution for our standard tournaments typically follows this structure:</p>
+                            <ul>
+                                <li>1st Place: 30% of prize pool</li>
+                                <li>2nd Place: 20% of prize pool</li>
+                                <li>3rd Place: 15% of prize pool</li>
+                                <li>4th-8th Place: Share the remaining 35%</li>
+                            </ul>
+                            <p>Visit our <a href="index.html#prizes">Prizes</a> section to see the current prize pool and distribution details.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 6 -->
+                    <div class="faq-item">
+                        <div class="faq-question">What is the difference between web3 gaming and traditional gaming?</div>
+                        <div class="faq-answer">
+                            <p>Web3 gaming differs from traditional gaming in several key ways:</p>
+                            <ul>
+                                <li><strong>True Ownership:</strong> In web3 games, players can truly own their in-game assets as NFTs or tokens, which can be freely traded, sold, or transferred.</li>
+                                <li><strong>Decentralization:</strong> Web3 games operate on blockchain networks, making them more resistant to censorship and central authority control.</li>
+                                <li><strong>Play-to-Earn:</strong> Many web3 games incorporate economic models that allow players to earn real value from their gameplay activities.</li>
+                                <li><strong>Transparency:</strong> Game mechanics, transactions, and item rarities are typically verifiable on the blockchain.</li>
+                                <li><strong>Interoperability:</strong> Assets from one web3 game may potentially be usable in other compatible games or platforms.</li>
+                                <li><strong>Community Governance:</strong> Many web3 games involve the community in decision-making through DAO structures or voting mechanisms.</li>
+                            </ul>
+                            <p>BANANIUM MAXIMUS embraces these web3 principles while maintaining engaging gameplay and accessibility for players of all experience levels.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 7 -->
+                    <div class="faq-item">
+                        <div class="faq-question">Is my data secure on BANANIUM MAXIMUS?</div>
+                        <div class="faq-answer">
+                            <p>We take data security very seriously at BANANIUM MAXIMUS. Here's how we protect your information:</p>
+                            <ul>
+                                <li>We use industry-standard security protocols to protect our servers and databases</li>
+                                <li>Wallet connections are secured through standard web3 authentication protocols</li>
+                                <li>We do not store your private keys or seed phrases</li>
+                                <li>Game data is stored on the blockchain where appropriate, leveraging its inherent security</li>
+                                <li>We minimize collection of personal data to only what's necessary for gameplay</li>
+                            </ul>
+                            <p>However, please remember that blockchain transactions are public by nature. Your wallet address, transaction history, and owned NFTs are visible on the blockchain. For more details, please review our <a href="privacy-policy.html">Privacy Policy</a>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="terms-and-conditions.html">Terms & Conditions</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="faq.html">FAQ</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <p class="copyright" style="font-size: 1.125rem; color: rgba(255, 255, 255, 0.7);">© 2025 BANANIUM MAXIMUS. All rights reserved.</p>
+    </footer>
+
+    <!-- Main JavaScript -->
+    <script src="assets/js/main.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle functionality
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    mobileMenuToggle.classList.toggle('active');
+                    
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.style.display = 'flex';
+                        
+                        // Make sure the JOIN THE BATTLE link is properly styled
+                        const battleLink = document.querySelector('.nav-links a.battle-link');
+                        if (battleLink) {
+                            battleLink.style.backgroundColor = '#FFD700';
+                            battleLink.style.color = '#000000';
+                            battleLink.style.fontWeight = 'bold';
+                            battleLink.style.marginTop = '10px';
+                            battleLink.style.padding = '12px 20px';
+                            battleLink.style.borderRadius = '8px';
+                            battleLink.style.boxShadow = '0 0 10px rgba(255, 215, 0, 0.5)';
+                            battleLink.style.width = '80%';
+                            battleLink.style.maxWidth = '250px';
+                            battleLink.style.border = '2px solid #FFD700';
+                        }
+                    } else {
+                        setTimeout(function() {
+                            navLinks.style.display = 'none';
+                        }, 300); // Match transition time
+                    }
+                });
+            }
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.navbar') && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    mobileMenuToggle.classList.remove('active');
+                    
+                    setTimeout(function() {
+                        navLinks.style.display = 'none';
+                    }, 300); // Match transition time
+                }
+            });
+            
+            // Set up nav link clicks with proper active states
+            const navLinkItems = document.querySelectorAll('.nav-links a');
+            navLinkItems.forEach(link => {
+                link.addEventListener('click', function() {
+                    // For links that target the current page
+                    if (link.getAttribute('href').startsWith('#') || link.getAttribute('href').includes('#')) {
+                        // Remove active from all links
+                        navLinkItems.forEach(item => item.classList.remove('active'));
+                        
+                        // Add active to clicked link
+                        link.classList.add('active');
+                    }
+                    
+                    // Close the menu on mobile
+                    if (window.innerWidth <= 768) {
+                        navLinks.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                        
+                        setTimeout(function() {
+                            navLinks.style.display = 'none';
+                        }, 300); // Match transition time
+                    }
+                });
+            });
+            
+            // FAQ Accordion functionality
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const item = question.parentElement;
+                    
+                    // If the clicked item is already active, close it
+                    if (item.classList.contains('active')) {
+                        item.classList.remove('active');
+                        return;
+                    }
+                    
+                    // Optional: close all other items
+                    // document.querySelectorAll('.faq-item').forEach(faqItem => {
+                    //     faqItem.classList.remove('active');
+                    // });
+                    
+                    // Open the clicked item
+                    item.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - BANANIUM MAXIMUS</title>
+    
+    <!-- Load fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Teko:wght@400;600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Futura font alternative (Futura PT not available on Google Fonts, so using closest alternative) -->
+    <link rel="stylesheet" href="https://use.typekit.net/dlp1wkx.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <!-- Mobile-specific CSS -->
+    <link rel="stylesheet" href="assets/css/mobile.css">
+    
+    <style>
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            border: 1px solid var(--primary-color);
+            box-shadow: 0 0 20px rgba(128, 0, 255, 0.3);
+        }
+        
+        .contact-content {
+            color: #FFD700;
+            line-height: 1.6;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: none;
+        }
+        
+        .contact-content h1 {
+            color: #FFD700;
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 2.5rem;
+            text-transform: none;
+            letter-spacing: 2px;
+        }
+        
+        .contact-info {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .contact-info p {
+            color: #FFFFFF;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
+            text-transform: none;
+        }
+        
+        .contact-methods {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .contact-method {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+            border-radius: 10px;
+            background-color: rgba(30, 30, 30, 0.7);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            transition: all 0.3s ease;
+            width: 200px;
+        }
+        
+        .contact-method:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        .contact-method i {
+            font-size: 2.5rem;
+            color: #FFD700;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+        }
+        
+        .contact-method h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: #FFD700;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+            text-transform: none;
+        }
+        
+        .contact-method p {
+            font-size: 0.9rem;
+            text-align: center;
+            color: #FFFFFF;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
+            text-transform: none;
+        }
+        
+        .contact-form {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-family: 'Orbitron', sans-serif;
+            color: #FFD700;
+            letter-spacing: 1px;
+            text-transform: none;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 5px;
+            color: #FFFFFF;
+            font-family: 'Orbitron', sans-serif;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #FFD700;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+        
+        .submit-btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: #FFD700;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            text-transform: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+        
+        .submit-btn:hover {
+            background-color: #f0c800;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        .form-footer {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        .form-footer p {
+            color: #FFFFFF;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
+            text-transform: none;
+        }
+        
+        @media (max-width: 768px) {
+            .contact-container {
+                padding: 1rem;
+            }
+            
+            .contact-content h1 {
+                font-size: 2rem;
+            }
+            
+            .contact-methods {
+                gap: 1rem;
+            }
+            
+            .contact-method {
+                width: calc(50% - 1rem);
+                padding: 1rem;
+            }
+            
+            .contact-form {
+                padding: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .contact-method {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="scrolling-enabled">
+    <!-- Navbar -->
+    <nav class="navbar visible" id="main-navbar" style="background: rgba(0, 0, 0, 0.8); z-index: 1000; width: 100%; padding: 15px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.5); position: sticky; top: 0;">
+        <div class="navbar-left">
+            <div class="social-icons">
+                <a href="#" class="nav-link"><i class="fa-solid fa-link"></i></a>
+                <a href="#" class="nav-link"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
+        </div>
+        
+        <!-- Logo moved out of navbar-left to be centered properly -->
+        <a href="index.html" class="logo" style="padding-left: 10px;">BANANIUM</a>
+        
+        <div class="nav-links">
+            <a href="index.html#home" class="nav-link">HOME</a>
+            <a href="index.html#about" class="nav-link">ABOUT</a>
+            <a href="index.html#about-roadmap" class="nav-link">ROADMAP</a>
+            <a href="index.html#prize-pool" class="nav-link">PRIZE POOL</a>
+            <a href="agents-of-chaos.html" class="nav-link">AGENTS OF CHAOS</a>
+            <a href="index.html#whitepaper" class="nav-link">WHITEPAPER</a>
+            <a href="https://magiceden.us/" target="_blank" class="nav-link battle-link">JOIN THE BATTLE</a>
+        </div>
+        <div class="social-icons" style="padding-right: 30px;">
+            <a href="#" class="nav-link"><i class="fa-solid fa-link"></i></a>
+            <a href="#" class="nav-link"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+        <!-- Mobile menu toggle (hidden by default, shown on small screens) -->
+        <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- Contact Content -->
+    <section class="about" style="padding-top: 120px;">
+        <div class="contact-container">
+            <div class="contact-content">
+                <h1>Contact Us</h1>
+                
+                <div class="contact-info">
+                    <p>Have questions, feedback, or just want to say hello? We'd love to hear from you!</p>
+                    <p>Choose the best way to reach us below or use our contact form.</p>
+                </div>
+                
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Email</h3>
+                        <p>contact@bananium-maximus.com</p>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <i class="fab fa-discord"></i>
+                        <h3>Discord</h3>
+                        <p>Join our community on Discord for quick responses</p>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <i class="fab fa-twitter"></i>
+                        <h3>Twitter</h3>
+                        <p>Follow us and send DMs on Twitter</p>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <select id="subject" name="subject">
+                                <option value="general">General Inquiry</option>
+                                <option value="support">Technical Support</option>
+                                <option value="feedback">Game Feedback</option>
+                                <option value="partnership">Partnership Opportunity</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        
+                        <div style="text-align: center;">
+                            <button type="submit" class="submit-btn">Send Message</button>
+                        </div>
+                        
+                        <div class="form-footer">
+                            <p>We'll respond to your message as soon as possible.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="terms-and-conditions.html">Terms & Conditions</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="faq.html">FAQ</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <p class="copyright" style="font-size: 1.125rem; color: rgba(255, 255, 255, 0.7);">© 2025 BANANIUM MAXIMUS. All rights reserved.</p>
+    </footer>
+
+    <!-- Main JavaScript -->
+    <script src="assets/js/main.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    mobileMenuToggle.classList.toggle('active');
+                    
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.style.display = 'flex';
+                        
+                        // Make sure the JOIN THE BATTLE link is properly styled
+                        const battleLink = document.querySelector('.nav-links a.battle-link');
+                        if (battleLink) {
+                            battleLink.style.backgroundColor = '#FFD700';
+                            battleLink.style.color = '#000000';
+                            battleLink.style.fontWeight = 'bold';
+                            battleLink.style.marginTop = '10px';
+                            battleLink.style.padding = '12px 20px';
+                            battleLink.style.borderRadius = '8px';
+                            battleLink.style.boxShadow = '0 0 10px rgba(255, 215, 0, 0.5)';
+                            battleLink.style.width = '80%';
+                            battleLink.style.maxWidth = '250px';
+                            battleLink.style.border = '2px solid #FFD700';
+                        }
+                    } else {
+                        setTimeout(function() {
+                            navLinks.style.display = 'none';
+                        }, 300); // Match transition time
+                    }
+                });
+            }
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.navbar') && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    mobileMenuToggle.classList.remove('active');
+                    
+                    setTimeout(function() {
+                        navLinks.style.display = 'none';
+                    }, 300); // Match transition time
+                }
+            });
+            
+            // Set up nav link clicks with proper active states
+            const navLinkItems = document.querySelectorAll('.nav-links a');
+            navLinkItems.forEach(link => {
+                link.addEventListener('click', function() {
+                    // For links that target the current page
+                    if (link.getAttribute('href').startsWith('#') || link.getAttribute('href').includes('#')) {
+                        // Remove active from all links
+                        navLinkItems.forEach(item => item.classList.remove('active'));
+                        
+                        // Add active to clicked link
+                        link.classList.add('active');
+                    }
+                    
+                    // Close the menu on mobile
+                    if (window.innerWidth <= 768) {
+                        navLinks.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                        
+                        setTimeout(function() {
+                            navLinks.style.display = 'none';
+                        }, 300); // Match transition time
+                    }
+                });
+            });
+            
+            // Form submission handling (placeholder for backend integration)
+            const contactForm = document.getElementById('contact-form');
+            
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Get form data
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const subject = document.getElementById('subject').value;
+                    const message = document.getElementById('message').value;
+                    
+                    // Display submission confirmation (placeholder for actual submission)
+                    alert('Thank you for your message! We will get back to you soon.');
+                    
+                    // Reset form
+                    contactForm.reset();
+                    
+                    // Here you would normally send the data to your backend
+                    console.log('Form submitted:', { name, email, subject, message });
+                });
+            }
+        });
+    </script>
+</body>
+</html> 
