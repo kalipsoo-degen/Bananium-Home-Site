@@ -105,6 +105,34 @@ function handleEnterArena(e) {
     
     // Add history entry for proper back button behavior
     history.pushState(null, null, '#about');
+    
+    // Initialize scroll animations immediately
+    initScrollAnimations();
+    
+    // Try to play videos in the about section's flip tiles
+    // Use setTimeout to allow scroll to start before finding elements
+    setTimeout(() => {
+        const aboutFlipTiles = aboutSection.querySelectorAll('.flip-tile video');
+        if (aboutFlipTiles.length > 0) {
+            console.log('Attempting to play videos in About section flip tiles...');
+            aboutFlipTiles.forEach(video => {
+                // Ensure videos are muted, loop, and play inline for autoplay compatibility
+                video.muted = true;
+                video.loop = true;
+                video.playsInline = true;
+                // Attempt to play
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        // Log errors but don't stop other scripts
+                        console.warn('Could not autoplay flip tile video:', error);
+                    });
+                }
+            });
+        } else {
+            console.log('No flip tile videos found in About section to play.');
+        }
+    }, 100); // Small delay after scroll starts
   }
 }
 
@@ -226,6 +254,21 @@ function initScrollAnimations() {
   });
 }
 
+// --- MOVED LISTENER ATTACHMENT OUTSIDE DOMContentLoaded ---
+// Add event listener for enter arena button
+if (enterArenaBtn) {
+  enterArenaBtn.addEventListener('click', handleEnterArena);
+} else {
+  // Attempt to find the button again, just in case it wasn't ready initially
+  const btn = document.getElementById('enter-arena-btn');
+  if (btn) {
+      btn.addEventListener('click', handleEnterArena);
+  } else {
+      console.error('Enter arena button not found in the DOM even after delay');
+  }
+}
+// --- END MOVED LISTENER ---
+
 // Event listeners
 document.addEventListener('DOMContentLoaded', function() {
   // Directly create or update audio element for maximum compatibility
@@ -323,9 +366,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // Check initial state
   checkInitialState();
   
-  // Init animations
-  initScrollAnimations();
-  
   // Set up the mute button with muted icon
   if (muteButton) {
     muteButton.style.display = 'flex';
@@ -333,13 +373,6 @@ document.addEventListener('DOMContentLoaded', function() {
     muteButton.addEventListener('click', toggleMusic);
   } else {
     console.error('Mute button not found in the DOM');
-  }
-  
-  // Add event listener for enter arena button
-  if (enterArenaBtn) {
-    enterArenaBtn.addEventListener('click', handleEnterArena);
-  } else {
-    console.error('Enter arena button not found in the DOM');
   }
   
   // Mobile menu toggle
