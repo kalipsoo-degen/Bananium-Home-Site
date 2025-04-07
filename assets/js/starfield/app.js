@@ -13,6 +13,18 @@ const App = {
   
   // Initialize the 3D scene
   init() {
+    // --- Add check for canvas element --- 
+    const canvas = document.getElementById('canvas');
+    if (!canvas) {
+        console.warn('Starfield canvas element with id "canvas" not found. Skipping starfield initialization.');
+        // Optionally check for alternative ID if needed, e.g., 'starfield-canvas'
+        // const alternativeCanvas = document.getElementById('starfield-canvas');
+        // if (!alternativeCanvas) return; 
+        // canvas = alternativeCanvas; // Use the alternative if found
+        return; // Stop initialization if no canvas found
+    }
+    // --- End check --- 
+    
     // Scene setup
     this.scene = new THREE.Scene();
     
@@ -31,7 +43,7 @@ const App = {
     
     // Renderer setup
     this.renderer = new THREE.WebGLRenderer({ 
-      canvas: document.getElementById('canvas'), 
+      canvas: canvas, // Use the canvas variable we found
       antialias: true,
       alpha: true
     });
