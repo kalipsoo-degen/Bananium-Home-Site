@@ -352,31 +352,36 @@
             
             .navigation-container {
                 position: fixed !important;
-                top: 80px !important;
-                left: 0 !important;
-                right: 0 !important;
-                width: 92% !important;
-                max-width: 92% !important;
-                margin-left: auto !important;
-                margin-right: auto !important;
+                top: 80px !important;      /* Position below navbar */
+                left: 50% !important;      /* Position left edge at screen center */
+                transform: translateX(-50%) !important; /* Shift back by half its width */
+                width: 90% !important;     /* Keep the width */
+                max-width: 400px;          /* Keep the max-width */
+                /* Removed right, margin-left, margin-right */
                 z-index: 100 !important;
                 display: flex !important;
                 flex-direction: column !important;
                 align-items: center !important;
+                gap: 10px;
+                padding: 0 !important;
+                box-sizing: border-box !important;
             }
             
-            /* Ensure the search input and button are centered properly */
             .navigation-container .search-row,
             .navigation-container .button-row,
             .navigation-container .search-wrapper {
                 width: 100% !important;
                 display: flex !important;
                 justify-content: center !important;
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box !important;
             }
             
             .navigation-container .search-input,
             .navigation-container .btn.full-width {
                 width: 100% !important;
+                box-sizing: border-box !important;
                 text-align: center !important;
             }
             
@@ -398,11 +403,19 @@
             }
             
             .character-card {
-                width: 92% !important;
-                max-width: 92% !important;
-                left: 4% !important;
-                right: 4% !important;
-                margin: 0 auto !important;
+                position: fixed !important; /* Keep card fixed */
+                top: 60px !important;      /* Position below 60px mobile navbar */
+                left: 0 !important;        /* Align to left edge */
+                right: 0 !important;       /* Align to right edge */
+                bottom: 0 !important;      /* Stretch to bottom */
+                width: 100% !important;    /* Full width */
+                height: calc(100vh - 60px) !important; /* Full remaining height */
+                max-width: none !important; /* Override any max-width */
+                margin: 0 !important;      /* Remove margins */
+                border-radius: 0 !important; /* Optional: Remove border-radius for full screen */
+                z-index: 1500 !important;  /* Ensure it's above other elements but below navbar */
+                /* display: none; /* Initially hidden, JS toggles to flex */ 
+                /* The JS (`displayCharacterCard`) will set display: flex */
             }
             
             .agents-title {

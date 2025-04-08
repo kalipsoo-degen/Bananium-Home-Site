@@ -29,6 +29,15 @@ const UI = {
   raycaster: null,
   currentCharacterIndex: null,
   
+  // Touch interaction variables
+  isTouchDragging: false,
+  touchStartTime: 0,
+  touchStartPos: { x: 0, y: 0 },
+  lastTouchPos: { x: 0, y: 0 },
+  touchDistance: 0,
+  isPinching: false,
+  previousPinchDistance: 0,
+  
   // Initialize UI interactions
   init() {
     // Set up raycaster and mouse
@@ -54,6 +63,11 @@ const UI = {
     window.addEventListener('mouseup', this.onMouseUp.bind(this));
     window.addEventListener('wheel', this.onWheel.bind(this), { passive: false });
     window.addEventListener('keydown', this.onKeyDown.bind(this)); // Add keyboard event listener
+    
+    // Touch events for mobile interactions
+    window.addEventListener('touchstart', this.onTouchStart.bind(this), { passive: false });
+    window.addEventListener('touchmove', this.onTouchMove.bind(this), { passive: false });
+    window.addEventListener('touchend', this.onTouchEnd.bind(this));
     
     // Define global mouse up handler as a bound function to ensure proper 'this' context
     this.onGlobalMouseUp = this.onGlobalMouseUp.bind(this);
@@ -826,5 +840,159 @@ const UI = {
         console.log("Dropdown rect:", rect);
       }, 100);
     }
-  }
+  },
+
+  // --- Touch Event Handlers ---
+
+  onTouchStart(event) {
+    // Allow default behavior (like clicking buttons or focusing input) if touch starts within the navigation container
+    if (this.elements.navigationContainer && this.elements.navigationContainer.contains(event.target)) {
+      // Explicitly DO NOT prevent default for elements inside the nav container
+      // Let the browser handle clicks, input focus, etc.
+      return; 
+    }
+    // Prevent interfering with card interactions if the card is visible
+    if (this.elements.characterCard && this.elements.characterCard.style.display !== 'none' && this.elements.characterCard.contains(event.target)) {
+      return; 
+    }
+    
+    // If touch is not on UI elements, prevent default page scroll/zoom for starfield interaction
+    event.preventDefault(); 
+
+    this.touchStartTime = Date.now();
+    this.touchDistance = 0;
+
+    if (event.touches.length === 1) {
+      this.isTouchDragging = true;
+      this.isPinching = false;
+      this.touchStartPos = { x: event.touches[0].clientX, y: event.touches[0].clientY };
+      this.lastTouchPos = { ...this.touchStartPos };
+      this.elements.hoverInfo.style.display = 'none'; // Hide hover info on touch
+    } else if (event.touches.length === 2) {
+      this.isTouchDragging = false;
+      this.isPinching = true;
+      this.previousPinchDistance = this.getPinchDistance(event.touches);
+    }
+  },
+
+  onTouchMove(event) {
+    // Allow default scroll/interaction if touch moves over the navigation container elements
+    if (this.elements.navigationContainer && this.elements.navigationContainer.contains(event.target)) {
+       // Allow default behavior (like text selection in input)
+      return;
+    }
+    // Prevent interfering with card interactions if the card is visible
+    if (this.elements.characterCard && this.elements.characterCard.style.display !== 'none' && this.elements.characterCard.contains(event.target)) {
+        return;
+    }
+    
+    // If touch move is not over UI elements, prevent default page scroll/zoom
+    event.preventDefault();
+
+    if (this.isPinching && event.touches.length === 2) {
+      // Handle Pinch Zoom
+      const currentPinchDistance = this.getPinchDistance(event.touches);
+      const zoomFactor = currentPinchDistance / this.previousPinchDistance;
+
+      // Calculate new zoom based on pinch factor
+      const newZoom = Animation.currentZoom / zoomFactor; // Divide because pinch out = larger distance = zoom in
+      
+      // Clamp to current range
+      Animation.currentZoom = Math.max(
+        Animation.currentZoomRange.min,
+        Math.min(Animation.currentZoomRange.max, newZoom)
+      );
+      
+      // Apply zoom
+      const direction = new THREE.Vector3()
+        .subVectors(App.camera.position, Animation.currentFocusPoint)
+        .normalize();
+      App.camera.position.copy(Animation.currentFocusPoint)
+        .add(direction.multiplyScalar(Animation.currentZoom));
+      App.camera.lookAt(Animation.currentFocusPoint.x, Animation.currentFocusPoint.y, Animation.currentFocusPoint.z);
+      
+      this.previousPinchDistance = currentPinchDistance; // Update for next move event
+
+    } else if (this.isTouchDragging && event.touches.length === 1) {
+      // Handle Touch Drag
+      const currentTouchPos = { x: event.touches[0].clientX, y: event.touches[0].clientY };
+      const deltaX = (currentTouchPos.x - this.lastTouchPos.x) * CONFIG.DRAG_ROTATION_SPEED;
+      const deltaY = (currentTouchPos.y - this.lastTouchPos.y) * CONFIG.DRAG_ROTATION_SPEED;
+      
+      // Rotation logic (same as mouse drag)
+      const cameraRight = new THREE.Vector3(1, 0, 0);
+      const cameraUp = new THREE.Vector3(0, 1, 0);
+      cameraRight.applyQuaternion(App.camera.quaternion);
+      cameraUp.applyQuaternion(App.camera.quaternion);
+      const rotationX = new THREE.Quaternion().setFromAxisAngle(cameraUp, -deltaX);
+      const rotationY = new THREE.Quaternion().setFromAxisAngle(cameraRight, -deltaY);
+      const combinedRotation = rotationX.multiply(rotationY);
+      const cameraOffset = new THREE.Vector3().subVectors(App.camera.position, Animation.currentFocusPoint);
+      cameraOffset.applyQuaternion(combinedRotation);
+      App.camera.position.copy(Animation.currentFocusPoint).add(cameraOffset);
+      App.camera.lookAt(Animation.currentFocusPoint.x, Animation.currentFocusPoint.y, Animation.currentFocusPoint.z);
+      
+      // Update touch distance and last position
+      this.touchDistance += Math.sqrt(
+          Math.pow(currentTouchPos.x - this.lastTouchPos.x, 2) + 
+          Math.pow(currentTouchPos.y - this.lastTouchPos.y, 2)
+      );
+      this.lastTouchPos = currentTouchPos;
+    }
+  },
+
+  onTouchEnd(event) {
+      // Prevent interfering with card interactions - check target of the ended touch
+      if (event.changedTouches.length > 0 && this.elements.characterCard.contains(event.changedTouches[0].target)) return;
+      
+      const touchDuration = Date.now() - this.touchStartTime;
+
+      // Check for Tap: only if not pinching, drag was short, and only one touch ended
+      if (!this.isPinching && this.isTouchDragging && touchDuration < 300 && this.touchDistance < 10 && event.changedTouches.length === 1) {
+          this.handleTap(event.changedTouches[0]);
+      }
+
+      // Reset flags when touches end
+      if (event.touches.length === 0) {
+          this.isTouchDragging = false;
+          this.isPinching = false;
+          this.previousPinchDistance = 0;
+      } else if (event.touches.length === 1) {
+          // If one touch remains after pinching, reset to dragging mode
+          this.isTouchDragging = true;
+          this.isPinching = false;
+          this.lastTouchPos = { x: event.touches[0].clientX, y: event.touches[0].clientY };
+      }
+  },
+
+  // Helper function to calculate distance between two touches
+  getPinchDistance(touches) {
+      const dx = touches[0].clientX - touches[1].clientX;
+      const dy = touches[0].clientY - touches[1].clientY;
+      return Math.sqrt(dx * dx + dy * dy);
+  },
+
+  // Handle tap on star
+  handleTap(touch) {
+      // Only allow taps if not animating
+      if (Animation.isAnimating) return;
+
+      // Calculate normalized device coordinates from touch
+      this.mouse.x = (touch.clientX / window.innerWidth) * 2 - 1;
+      this.mouse.y = -(touch.clientY / window.innerHeight) * 2 + 1;
+
+      // Perform raycast
+      this.raycaster.setFromCamera(this.mouse, App.camera);
+      const intersects = this.raycaster.intersectObject(CharacterStars.characterStars);
+
+      if (intersects.length > 0) {
+          const index = intersects[0].index;
+          // Only proceed if the star is in filtered characters and isn't already selected
+          if (filteredCharacters.includes(characterData[index]) && index !== CharacterStars.selectedStarIndex) {
+              this.displayCharacterCard(characterData[index]);
+          }
+      }
+  },
+
+  // --- End Touch Event Handlers ---
 };
