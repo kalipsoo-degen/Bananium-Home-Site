@@ -481,6 +481,34 @@
                 font-size: 1.8rem !important;
                 letter-spacing: 5px !important;
             }
+
+            /* Ensure videos in flip tiles cover their container */
+            .flip-tiles-container .flip-tile-front video {
+                width: 100% !important; 
+                height: 100% !important; 
+                object-fit: cover !important; 
+                position: absolute !important;
+                top: 0 !important;
+                left: 0 !important;
+                border-radius: inherit !important; /* Inherit border-radius from parent */
+            }
+            
+            /* Add padding to body for fixed navbar */
+            body {
+                padding-top: 60px !important; /* Adjust body padding for 60px navbar */
+            }
+            
+            /* Ensure the AI AGENTS text and subtitle are visible and properly positioned */
+            .ai-agents-text {
+                margin-top: 1rem !important;
+                font-size: 2.5rem !important;
+                letter-spacing: 5px !important;
+            }
+            
+            .subtitle-text {
+                font-size: 1.8rem !important;
+                letter-spacing: 5px !important;
+            }
         }
     </style>
 </head>
