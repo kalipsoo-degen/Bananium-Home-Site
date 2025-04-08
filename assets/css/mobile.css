@@ -147,16 +147,23 @@
     /* Position mobile menu toggle to the right */
     .mobile-menu-toggle {
         position: absolute !important;
-        right: 10px !important;
+        right: 15px !important;
         top: 50% !important;
         transform: translateY(-50%) !important;
-        z-index: 5 !important;
-        width: 15% !important;
+        z-index: 2010 !important;
+        width: auto !important;
         max-width: 40px !important;
-        text-align: right !important;
+        text-align: center !important;
         margin: 0 !important;
-        padding-right: 5px !important;
-        display: none !important; /* Hide by default on desktop */
+        padding: 0 !important;
+        display: none !important;
+        color: #FFD700 !important;
+        font-size: 1.5rem !important;
+        background: transparent !important;
+        border: none !important;
+        cursor: pointer !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
     }
     
     /* Only show mobile menu toggle on mobile screens */
@@ -406,7 +413,7 @@
     
     .podium-content {
         position: absolute;
-        bottom: 170%;
+        bottom: 205%;
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -443,7 +450,7 @@
     }
     
     .first-place .podium-content {
-        bottom: 175% !important;
+        bottom: 210% !important;
     }
     
     .prize-cards-wrapper {
@@ -901,7 +908,7 @@
     }
     
     .podium-content {
-        bottom: 180% !important;
+        bottom: 200% !important;
     }
     
     .podium-bar {
@@ -973,7 +980,7 @@
     }
     
     .first-place .podium-content {
-        bottom: 185% !important;
+        bottom: 205% !important;
     }
 }
 

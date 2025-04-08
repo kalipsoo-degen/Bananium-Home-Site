@@ -390,59 +390,43 @@ document.addEventListener('DOMContentLoaded', function() {
     function initMobileMenu() {
         const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
         const navLinks = document.querySelector('.nav-links');
-        
-        if (mobileMenuToggle && navLinks) {
-            // Direct click handler with stopPropagation to prevent document click from closing immediately
+        const navbar = document.querySelector('#main-navbar'); // Get the navbar element
+
+        if (mobileMenuToggle && navLinks && navbar) {
+            // Toggle menu visibility on button click
             mobileMenuToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
+                // No stopPropagation needed
                 navLinks.classList.toggle('active');
                 mobileMenuToggle.classList.toggle('active');
-                
-                // Log status for debugging
-                console.log('Mobile menu toggle clicked, active:', navLinks.classList.contains('active'));
-                
-                if (navLinks.classList.contains('active')) {
-                    navLinks.style.display = 'flex';
-                    
-                    // Make sure the JOIN THE BATTLE link is properly styled
-                    const battleLink = document.querySelector('.nav-links a.battle-link');
-                    if (battleLink) {
-                        battleLink.style.backgroundColor = '#FFD700';
-                        battleLink.style.color = '#000000';
-                        battleLink.style.fontWeight = 'bold';
-                        battleLink.style.marginTop = '10px';
-                        battleLink.style.padding = '12px 20px';
-                    }
-                } else {
-                    navLinks.style.display = 'none';
-                }
+                console.log('Mobile menu toggle clicked. navLinks active:', navLinks.classList.contains('active'));
             });
-            
-            // Close menu when clicking outside or on a link
+
+            /* // Temporarily disable document click listener for debugging
+            // Close menu when clicking outside the entire navbar
             document.addEventListener('click', (e) => {
-                if (navLinks.classList.contains('active') && !navLinks.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                // Check if the menu is active AND the click target is not the navbar or one of its children
+                if (navLinks.classList.contains('active') && !navbar.contains(e.target)) {
+                    console.log('Clicked outside navbar, closing menu.');
                     navLinks.classList.remove('active');
                     mobileMenuToggle.classList.remove('active');
                 }
             });
-            
+            */
+
             // Close menu when clicking on a nav link
             const navLinkItems = document.querySelectorAll('.nav-links a');
             navLinkItems.forEach(link => {
                 link.addEventListener('click', () => {
-                    // Remove active class from all links
-                    navLinkItems.forEach(item => item.classList.remove('active'));
-                    
-                    // Add active class to clicked link
-                    link.classList.add('active');
-                    
-                    // Close the menu
-                    navLinks.classList.remove('active');
-                    mobileMenuToggle.classList.remove('active');
+                    if (navLinks.classList.contains('active')) { // Only run if menu is open
+                        console.log('Nav link clicked, closing menu.');
+                        // Close the menu
+                        navLinks.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    }
                 });
             });
-            
-            // Force apply active class to menu toggle when testing on mobile
+
+            // Force display block for menu toggle when testing on mobile
             if (window.innerWidth <= 768) {
                 mobileMenuToggle.style.display = 'block';
                 
@@ -454,7 +438,8 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             console.error('Mobile menu elements not found:', {
                 mobileMenuToggle: !!mobileMenuToggle,
-                navLinks: !!navLinks
+                navLinks: !!navLinks,
+                navbar: !!navbar
             });
         }
     }

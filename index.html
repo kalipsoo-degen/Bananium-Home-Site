@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BANANIUM MAXIMUS - AI Battle Royale</title>
+    <title>Bananium - AI Battle Royale</title>
     
     <!-- Load fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Teko:wght@400;600&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -525,7 +525,7 @@
         </div>
         <div class="social-icons" style="padding-right: 30px;">
             <a href="#" class="nav-link"><i class="fa-solid fa-link"></i></a>
-            <a href="#" class="nav-link"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://x.com/BananiumSOL" class="nav-link" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
         </div>
         <!-- Mobile menu toggle (hidden by default, shown on small screens) -->
         <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
@@ -895,7 +895,7 @@
             <a href="faq.html">FAQ</a>
             <a href="contact.html">Contact</a>
         </div>
-        <p class="copyright" style="font-size: 1.125rem; color: rgba(255, 255, 255, 0.7);">© 2025 BANANIUM MAXIMUS. All rights reserved.</p>
+        <p class="copyright" style="font-size: 1.125rem; color: rgba(255, 255, 255, 0.7);">© 2025 Bananium. All rights reserved.</p>
     </footer>
 
     <!-- Load Three.js and original starfield scripts directly -->
@@ -1696,96 +1696,6 @@
     <!-- Mobile-specific enhancements -->
     <script src="assets/js/mobile.js"></script>
     
-    <!-- Critical Mobile Menu Fix -->
-    <script>
-        // Ensure mobile menu toggle works immediately
-        (function() {
-            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-            const navLinks = document.querySelector('.nav-links');
-            
-            if (mobileMenuToggle && navLinks && window.innerWidth <= 768) {
-                // Force correct styles for mobile devices
-                mobileMenuToggle.style.display = 'block';
-                mobileMenuToggle.style.position = 'absolute';
-                mobileMenuToggle.style.right = '10px';
-                mobileMenuToggle.style.top = '50%';
-                mobileMenuToggle.style.transform = 'translateY(-50%)';
-                mobileMenuToggle.style.cursor = 'pointer';
-                mobileMenuToggle.style.zIndex = '1010';
-                
-                // Add direct click handler
-                mobileMenuToggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    // Toggle menu visibility
-                    navLinks.classList.toggle('active');
-                    mobileMenuToggle.classList.toggle('active');
-                    
-                    if (navLinks.classList.contains('active')) {
-                        navLinks.style.display = 'flex';
-                        
-                        // Make sure the JOIN THE BATTLE link is properly styled
-                        const battleLink = document.querySelector('.nav-links a.battle-link');
-                        if (battleLink) {
-                            battleLink.style.backgroundColor = '#FFD700';
-                            battleLink.style.color = '#000000';
-                            battleLink.style.fontWeight = 'bold';
-                            battleLink.style.marginTop = '10px';
-                            battleLink.style.padding = '12px 20px';
-                            battleLink.style.borderRadius = '8px';
-                            battleLink.style.boxShadow = '0 0 10px rgba(255, 215, 0, 0.5)';
-                            battleLink.style.width = '80%';
-                            battleLink.style.maxWidth = '250px';
-                            battleLink.style.border = '2px solid #FFD700';
-                        }
-                    } else {
-                        setTimeout(function() {
-                            navLinks.style.display = 'none';
-                        }, 300); // Match transition time
-                    }
-                });
-                
-                // Set up nav link clicks with proper active states
-                const navLinkItems = document.querySelectorAll('.nav-links a');
-                navLinkItems.forEach(link => {
-                    link.addEventListener('click', function(e) {
-                        // For links that target the current page
-                        if (link.getAttribute('href').startsWith('#')) {
-                            // Remove active from all links
-                            navLinkItems.forEach(item => item.classList.remove('active'));
-                            
-                            // Add active to clicked link
-                            link.classList.add('active');
-                        }
-                        
-                        // Close the menu
-                        navLinks.classList.remove('active');
-                        mobileMenuToggle.classList.remove('active');
-                        
-                        setTimeout(function() {
-                            navLinks.style.display = 'none';
-                        }, 300); // Match transition time
-                    });
-                });
-                
-                // Close when clicking outside
-                document.addEventListener('click', function(e) {
-                    if (navLinks.classList.contains('active') && 
-                        !navLinks.contains(e.target) && 
-                        !mobileMenuToggle.contains(e.target)) {
-                        navLinks.classList.remove('active');
-                        mobileMenuToggle.classList.remove('active');
-                        
-                        setTimeout(function() {
-                            navLinks.style.display = 'none';
-                        }, 300); // Match transition time
-                    }
-                });
-            }
-        })();
-    </script>
-
     <!-- Main site JavaScript module imports -->
     <script type="module" src="assets/js/app.js"></script>
     <script type="module" src="assets/js/mobile.js"></script>
