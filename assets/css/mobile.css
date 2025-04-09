@@ -824,6 +824,28 @@
         max-width: 100% !important;
         box-sizing: border-box !important;
     }
+
+    /* Remove borders and ensure content fills tiles on mobile - Reverted border/shadow removal */
+    /* .flip-tile-inner {
+        border: none !important;
+        box-shadow: none !important;
+    } */
+
+    .flip-tile-front video,
+    .flip-tile-back img {
+        border-radius: 15px !important; /* Match the original tile radius */
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        /* Remove potential extra padding/margin added by inline styles */
+        margin: 0 !important;
+        padding: 0 !important;
+        /* Ensure videos aren't slightly scaled causing gaps */
+        transform: none !important; 
+        position: absolute !important; /* Ensure they cover the area */
+        top: 0 !important;
+        left: 0 !important;
+    }
     
     /* Specific styles for READ THE F***ING WHITEPAPER */
     .flip-tile-back p[style*="font-size: 3rem"] {
