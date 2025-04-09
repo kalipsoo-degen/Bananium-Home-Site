@@ -566,8 +566,11 @@
     <!-- Script to enable scrolling was removed from here -->
     
     <!-- Audio element with simple filename first -->
-    <audio id="background-music" preload="auto" crossorigin="anonymous">
-        <source src="assets/audio/Bananas in the Night.mp3" type="audio/mpeg">
+    <audio id="background-music" loop>
+        <!-- Provide multiple sources for broader browser compatibility -->
+        <source src="assets/audio/bananas.mp3" type="audio/mpeg">
+        <!-- Add other formats if available, e.g., OGG -->
+        <!-- <source src="path/to/your/audio.ogg" type="audio/ogg"> -->
     </audio>
     
     <!-- Mute button with label -->

@@ -278,10 +278,10 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log("No source elements found, creating sources for all available audio files");
       
       // Add all three audio files as sources for better compatibility and fallback
-      const audioFiles = [
-        'assets/audio/Bananas in the Night.mp3',
+      const audioSources = [
         'assets/audio/bananas.mp3',
-        'assets/audio/music.mp3'
+        // Add more paths if you have multiple audio files or formats
+        // 'assets/audio/another-song.ogg',
       ];
       
       // Clear any existing sources
@@ -290,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       
       // Add each audio file as a source
-      audioFiles.forEach(file => {
+      audioSources.forEach(file => {
         const source = document.createElement('source');
         source.src = file;
         source.type = 'audio/mpeg';
