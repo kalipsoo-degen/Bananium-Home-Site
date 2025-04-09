@@ -128,6 +128,8 @@
             display: flex;
             gap: 1.5rem;
             align-items: center;
+            justify-content: center;
+            flex-grow: 1;
         }
         
         .nav-links a {
@@ -148,22 +150,39 @@
             transform: scale(1.05);
         }
         
+        /* Update active link styling to use purple color and glow */
         .nav-links a.active {
-            color: white;
+            color: #9932CC !important; /* Purple color */
+            text-shadow: 0 0 10px rgba(153, 50, 204, 0.7), 0 0 15px rgba(153, 50, 204, 0.5) !important; /* Purple glow */
             position: relative;
+            text-decoration: none !important; /* Force remove underline */
+            border-bottom: none !important; /* Explicitly remove bottom border */
         }
         
+        /* Add visible purple underline pseudo-element */
         .nav-links a.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background-color: var(--primary-color);
-            box-shadow: 0 0 5px var(--primary-color);
+            display: block !important; /* Show the underline */
+            content: '' !important;
+            position: absolute !important;
+            bottom: -3px !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 2px !important;
+            background-color: #9932CC !important; /* Purple underline */
+            box-shadow: 0 0 10px rgba(153, 50, 204, 0.7) !important; /* Glow effect */
         }
         
+        /* BROAD RULE: Ensure no underline/border on ANY nav link or its pseudo-elements */
+        .nav-links a,
+        .nav-links a::before {
+            text-decoration: none !important;
+            border-bottom: none !important;
+        }
+        .nav-links a::before {
+            content: none !important; /* Also remove content */
+            display: none !important;
+        }
+
         .nav-links a[href="https://magiceden.us/"] {
             padding: 0.5rem 1rem;
             background-color: var(--primary-color);

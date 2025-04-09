@@ -41,11 +41,38 @@
             height: 100% !important;
         }
         
-        /* Active Link Styling - Match agents page */
+        /* Active Link Styling - Updated to use purple color and glow */
         .nav-links a.active {
-            color: var(--primary-color);
-            text-shadow: 0 0 10px var(--primary-color);
+            color: #9932CC !important; /* Purple color */
+            text-shadow: 0 0 10px rgba(153, 50, 204, 0.7), 0 0 15px rgba(153, 50, 204, 0.5) !important; /* Purple glow */
             font-weight: bold;
+            text-decoration: none !important; /* Force remove underline */
+            position: relative; /* Keep for potential future pseudo-elements if needed */
+            border-bottom: none !important; /* Explicitly remove bottom border */
+        }
+        
+        /* Ensure ::after pseudo-element is displayed for active links */
+        .nav-links a.active::after {
+            display: block !important; /* Show the underline */
+            content: '' !important;
+            position: absolute !important;
+            bottom: -3px !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 2px !important;
+            background-color: #9932CC !important; /* Purple underline */
+            box-shadow: 0 0 10px rgba(153, 50, 204, 0.7) !important; /* Glow effect */
+        }
+        
+        /* BROAD RULE: Ensure no underline/border on ANY nav link or its pseudo-elements */
+        .nav-links a,
+        .nav-links a::before {
+            text-decoration: none !important;
+            border-bottom: none !important;
+        }
+        .nav-links a::before {
+            content: none !important; /* Also remove content */
+            display: none !important;
         }
         
         /* Fix for flip tiles */
@@ -599,7 +626,7 @@
             <!-- Nav Links -->
             <a href="#home" class="nav-link">HOME</a>
             <a href="#about" class="nav-link">ABOUT</a>
-            <a href="#about-roadmap" class="nav-link">ROADMAP</a>
+            <a href="#roadmap" class="nav-link">ROADMAP</a>
             <a href="#prize-pool" class="nav-link">PRIZE POOL</a>
             <a href="agents-of-chaos.html" class="nav-link">AGENTS OF CHAOS</a>
             <a href="https://app.gitbook.com/o/9ZnpHDUG7efPKkYqKuZ1/s/NG5bbbgrg2I2mVKQG083/" class="nav-link" target="_blank">WHITEPAPER</a>
@@ -725,7 +752,7 @@
             </div>
             
             <!-- Roadmap Section (Moved above the interactive galaxy) -->
-            <div id="about-roadmap" style="margin: 3rem 0;">
+            <div id="roadmap" style="margin: 3rem 0;">
                 <h2 class="section-title animate-on-scroll">ROADMAP</h2>
                 
                 <!-- Roadmap Animation Video with Banana animations -->
@@ -1094,10 +1121,11 @@
                 }
             }
             
-            // Run on page load
-            setActiveLinks();
+            // Run on page load - REMOVED, scroll listener handles this
+            // setActiveLinks();
             
-            // Update when clicking links
+            // Update when clicking links - REMOVED THIS BLOCK TO PREVENT FLICKER
+            /*
             const navLinks = document.querySelectorAll('.nav-links a');
             navLinks.forEach(link => {
                 link.addEventListener('click', function() {
@@ -1107,9 +1135,10 @@
                     this.classList.add('active');
                 });
             });
+            */
             
-            // Update when hash changes
-            window.addEventListener('hashchange', setActiveLinks);
+            // Update when hash changes - REMOVING THIS LISTENER
+            // window.addEventListener('hashchange', setActiveLinks);
         });
         
         // Removed auto-enablement code
@@ -1214,43 +1243,164 @@
 
     <!-- Script for handling navigation active states -->
     <script>
+        // Flag to prevent scroll detection from changing active link during click-initiated scrolling
+        let isScrollingFromClick = false;
+        
+        // Debounce function to limit how often the scroll event fires
+        function debounce(func, wait) {
+            let timeout;
+            return function() {
+                const context = this;
+                const args = arguments;
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(context, args), wait);
+            };
+        }
+        
         // Function to highlight active navigation links based on scroll position
         function updateActiveNavLink() {
-            const sections = document.querySelectorAll('section, #about-roadmap');
+            // Skip active link updates during click-initiated scrolling
+            if (isScrollingFromClick) return;
+            
+            const sections = document.querySelectorAll('section, #roadmap');
             const navLinks = document.querySelectorAll('.nav-links a');
             
             // Get current scroll position
             let scrollPosition = window.scrollY;
-            
-            // Check each section to see if it's in view
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 100; // Offset by navbar height
-                const sectionBottom = sectionTop + section.offsetHeight;
-                const sectionId = section.getAttribute('id');
-                
-                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                    // Remove active class from all links
-                    navLinks.forEach(link => {
-                        link.classList.remove('active');
-                    });
-                    
-                    // Add active class to corresponding link
-                    const correspondingLink = document.querySelector(`.nav-links a[href="#${sectionId}"]`);
-                    if (correspondingLink) {
-                        correspondingLink.classList.add('active');
-                    }
-                }
+            let activeLinkFound = false;
+            let closestSection = null;
+            let closestDistance = Infinity;
+
+            // Remove active class from all links first
+            navLinks.forEach(link => {
+                link.classList.remove('active');
             });
+
+            // Handle top of page specifically for Home link
+            if (scrollPosition < 100) { 
+                const homeLink = document.querySelector('.nav-links a[href="#home"]');
+                if (homeLink) {
+                    homeLink.classList.add('active');
+                    return; // Exit early if we're at the top
+                }
+            }
+
+            // Find the section closest to the current scroll position
+            for (const section of sections) {
+                const sectionTop = section.offsetTop - 120; // Increased offset for better detection
+                const sectionHeight = section.offsetHeight;
+                const sectionMiddle = sectionTop + (sectionHeight / 2);
+                
+                // Calculate distance from current scroll to the section's middle point
+                const distance = Math.abs(scrollPosition - sectionMiddle);
+                
+                // If this section is closer than any we've found so far, save it
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestSection = section;
+                }
+            }
+            
+            // Highlight the link for the closest section
+            if (closestSection) {
+                const sectionId = closestSection.getAttribute('id');
+                const correspondingLink = document.querySelector(`.nav-links a[href="#${sectionId}"]`);
+                if (correspondingLink) {
+                    correspondingLink.classList.add('active');
+                }
+            }
         }
         
         // Call on page load
         document.addEventListener('DOMContentLoaded', function() {
-            // Set home as active by default
-            document.querySelector('.nav-links a[href="#home"]').classList.add('active');
+            // Update on scroll with debounce to prevent rapid firing
+            window.addEventListener('scroll', debounce(updateActiveNavLink, 50));
             
-            // Update on scroll
-            window.addEventListener('scroll', updateActiveNavLink);
-            updateActiveNavLink();
+            // Force an initial update to set correct active link
+            setTimeout(updateActiveNavLink, 100);
+            
+            // Catch any hashchange events that might interfere with our navigation
+            window.addEventListener('hashchange', function(e) {
+                // If the hashchange wasn't from our click handler, handle it
+                if (!isScrollingFromClick) {
+                    // Get the new hash from the URL
+                    const newHash = window.location.hash;
+                    if (newHash) {
+                        // Manually set the active link based on the hash
+                        const links = document.querySelectorAll('.nav-links a');
+                        links.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === newHash) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                }
+                
+                // Prevent the default hashchange behavior to avoid flickering
+                e.preventDefault();
+            }, false);
+            
+            // Add click handler to navbar links for smoother active state changes
+            document.querySelectorAll('.nav-links a[href^="#"]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Skip external links
+                    if (!this.getAttribute('href').startsWith('#')) return;
+                    
+                    e.preventDefault(); // Prevent default anchor behavior
+                    
+                    // Set this link as active immediately
+                    document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Set the flag to prevent scroll listener from changing active link
+                    isScrollingFromClick = true;
+                    
+                    // Get the target element
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        // Custom smooth scroll implementation
+                        const navbarHeight = 70; // Adjust for your navbar height
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+                        const startPosition = window.pageYOffset;
+                        const distance = targetPosition - startPosition;
+                        const duration = 1000; // ms
+                        let startTimestamp = null;
+                        
+                        function step(timestamp) {
+                            if (!startTimestamp) startTimestamp = timestamp;
+                            const progress = timestamp - startTimestamp;
+                            
+                            // Easing function - easeInOutQuad
+                            let t = progress / duration;
+                            t = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+                            
+                            window.scrollTo(0, startPosition + distance * t);
+                            
+                            if (progress < duration) {
+                                window.requestAnimationFrame(step);
+                            } else {
+                                // Exactly set to final position to avoid rounding errors
+                                window.scrollTo(0, targetPosition);
+                                
+                                // Allow the scroll listener to work again after animation completes
+                                setTimeout(() => {
+                                    isScrollingFromClick = false;
+                                }, 500); // Short delay after scroll completes
+                            }
+                        }
+                        
+                        window.requestAnimationFrame(step);
+                    } else {
+                        // If target not found, re-enable scroll listener after a delay
+                        setTimeout(() => {
+                            isScrollingFromClick = false;
+                        }, 1500);
+                    }
+                });
+            });
         });
     </script>
 

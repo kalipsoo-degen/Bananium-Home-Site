@@ -216,17 +216,30 @@
         padding: 0.5rem 1rem !important;
     }
     
-    /* Create custom underline that matches text width */
-    .nav-links a.active::after {
+    /* Style for active link */
+    .nav-links > a.active {
+        color: #9932CC !important; /* Make this purple to match desktop */
+        font-weight: bold !important;
+        position: relative !important;
+    }
+
+    .nav-links > a.active::after {
         content: '' !important;
         position: absolute !important;
         left: 50% !important;
         bottom: -2px !important;
         width: 80% !important; /* Match approximate text width */
         height: 2px !important;
-        background-color: #FFD700 !important;
+        background-color: #9932CC !important; /* Make this purple to match desktop */
         transform: translateX(-50%) !important;
         border-radius: 1px !important;
+        box-shadow: 0 0 10px rgba(153, 50, 204, 0.7) !important; /* Matching glow effect */
+        display: block !important; /* Ensure it's visible */
+    }
+    
+    /* Create custom underline that matches text width - HIDING THIS */
+    .nav-links a.active::after {
+        display: none !important; /* Hide the pseudo-element */
     }
     
     /* Ensure regular menu items are properly aligned */
@@ -896,6 +909,17 @@
         visibility: hidden !important;
         opacity: 0 !important;
         pointer-events: none !important;
+    }
+    
+    /* BROAD RULE: Ensure no underline/border on ANY nav link or its pseudo-elements */
+    .nav-links a,
+    .nav-links a::before {
+        text-decoration: none !important;
+        border-bottom: none !important;
+    }
+    .nav-links a::before {
+        content: none !important; /* Also remove content */
+        display: none !important;
     }
 }
 
