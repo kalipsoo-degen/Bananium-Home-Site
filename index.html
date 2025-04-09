@@ -588,6 +588,43 @@
             }
         }
     </style>
+    
+    <!-- Add site-wide styles -->
+    <style>
+        /* Global site configuration */
+        :root {
+            --primary-color: #FFD700; /* Gold */
+            --secondary-color: #FFA500; /* Orange */
+            --accent-color: #9932CC; /* Purple */
+            --text-color: #FFFFFF;
+            --background-color: #000000;
+            --hover-color: #FFFFFF;
+            --cta-color: #FFD700;
+            --navbar-bg: rgba(0, 0, 0, 0.8);
+            --section-spacing: 6rem;
+            --content-width: 1200px;
+        }
+    </style>
+    
+    <!-- Lightweight background video loading -->
+    <script>
+        // Lightweight video hint loading - doesn't block the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wait until after page is displayed to start background loading
+            setTimeout(() => {
+                const videos = document.querySelectorAll('video');
+                videos.forEach(video => {
+                    // Make sure preload is set to auto
+                    video.setAttribute('preload', 'auto');
+                    
+                    // Force video to start buffering (browser hint)
+                    if (video.load) {
+                        video.load();
+                    }
+                });
+            }, 500); // Wait for page to be visible first
+        });
+    </script>
 </head>
 <body>
     <!-- Script to enable scrolling was removed from here -->
@@ -649,7 +686,7 @@
         
         <!-- Background video with reduced opacity -->
         <div class="background-video-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1;">
-            <video autoplay loop muted playsinline style="position: absolute; width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 0.5; left: 0; top: 0;">
+            <video id="hero-video" autoplay loop muted playsinline preload="auto" style="position: absolute; width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 0.5; left: 0; top: 0;">
                 <source src="assets/videos/BananNium.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -700,7 +737,7 @@
                 <div class="flip-tile" style="border-radius: 15px; overflow: visible;">
                     <div class="flip-tile-inner" style="border: 3px solid #00FFFF; box-shadow: 0 0 15px rgba(0, 255, 255, 0.6); border-radius: 15px;">
                         <div class="flip-tile-front" style="border-radius: 15px; overflow: hidden; background-color: transparent; display: flex; flex-direction: column; justify-content: flex-end; align-items: center;">
-                            <video autoplay loop muted playsinline style="position: absolute; width: 102%; height: 102%; object-fit: cover; z-index: 1; border-radius: 15px; overflow: hidden; object-position: center; top: -1%; left: -1%;">
+                            <video id="video-cheetah" autoplay loop muted playsinline preload="auto" style="position: absolute; width: 102%; height: 102%; object-fit: cover; z-index: 1; border-radius: 15px; overflow: hidden; object-position: center; top: -1%; left: -1%;">
                                 <source src="assets/videos/CheetahFurry.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
@@ -718,7 +755,7 @@
                 <div class="flip-tile" style="border-radius: 15px; overflow: visible;">
                     <div class="flip-tile-inner" style="border: 3px solid #FFA500; box-shadow: 0 0 15px rgba(255, 165, 0, 0.6); border-radius: 15px;">
                         <div class="flip-tile-front" style="border-radius: 15px; overflow: hidden; background-color: transparent; display: flex; flex-direction: column; justify-content: flex-end; align-items: center;">
-                            <video autoplay loop muted playsinline style="position: absolute; width: 102%; height: 102%; object-fit: cover; z-index: 1; border-radius: 15px; overflow: hidden; object-position: center; top: -1%; left: -1%;">
+                            <video id="video-banana" autoplay loop muted playsinline preload="auto" style="position: absolute; width: 102%; height: 102%; object-fit: cover; z-index: 1; border-radius: 15px; overflow: hidden; object-position: center; top: -1%; left: -1%;">
                                 <source src="assets/videos/BananaCannonDick.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
@@ -735,7 +772,7 @@
                 <div class="flip-tile" style="border-radius: 15px; overflow: visible;">
                     <div class="flip-tile-inner" style="border: 3px solid #FF00FF; box-shadow: 0 0 15px rgba(255, 0, 255, 0.6); border-radius: 15px;">
                         <div class="flip-tile-front" style="border-radius: 15px; overflow: hidden; background-color: transparent; display: flex; flex-direction: column; justify-content: flex-end; align-items: center;">
-                            <video autoplay loop muted playsinline style="position: absolute; width: 102%; height: 102%; object-fit: cover; z-index: 1; border-radius: 15px; overflow: hidden; object-position: center; top: -1%; left: -1%;">
+                            <video id="video-habibo" autoplay loop muted playsinline preload="auto" style="position: absolute; width: 102%; height: 102%; object-fit: cover; z-index: 1; border-radius: 15px; overflow: hidden; object-position: center; top: -1%; left: -1%;">
                                 <source src="assets/videos/HabiboCamel.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
@@ -791,7 +828,7 @@
                     
                     <div class="roadmap-video-container animate-on-scroll" style="border-radius: 15px; box-shadow: 0 0 20px 5px rgba(128, 0, 255, 0.7); overflow: visible; margin: 20px 0; position: relative; background-color: #000; font-size: 0;">
                         <div style="border-radius: 15px; overflow: hidden; background-color: #000; line-height: 0; font-size: 0; position: relative;">
-                            <video class="roadmap-video" autoplay loop muted playsinline style="width:100%; height:100%; display:block; border-radius: 15px; margin: 0; padding: 0; transform: scale(1.015); transform-origin: center;">
+                            <video id="roadmap-video" class="roadmap-video" autoplay loop muted playsinline preload="auto" style="width:100%; height:100%; display:block; border-radius: 15px; margin: 0; padding: 0; transform: scale(1.015); transform-origin: center;">
                                 <source src="assets/videos/RoadmapAnimated.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
@@ -1884,30 +1921,134 @@
                 document.removeEventListener('keydown', preventKeyboardScroll, false);
                 document.removeEventListener('touchmove', preventTouchScroll, { passive: false });
                 
-                // Smooth scroll to the about section
-                const aboutSection = document.getElementById('about');
-                aboutSection.scrollIntoView({ behavior: 'smooth' });
-            });
-            
-            // Smooth scroll for navigation links once scrolling is enabled
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    // Only handle hash links, not external or other page links
-                    if (this.getAttribute('href').startsWith('#') && document.body.classList.contains('scrolling-enabled')) {
-                        e.preventDefault();
-                        const targetId = this.getAttribute('href');
-                        if (targetId !== '#') {
-                            const targetElement = document.querySelector(targetId);
-                            if (targetElement) {
-                                targetElement.scrollIntoView({ behavior: 'smooth' });
-                            }
-                        } else {
-                            // For the home link or # links, scroll to top
-                            window.scrollTo({ top: 0, behavior: 'smooth' });
-                        }
+                // Update the active navigation link to "ABOUT"
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#about') {
+                        link.classList.add('active');
                     }
                 });
+                
+                // Set the scroll flag to prevent unwanted updates
+                isScrollingFromClick = true;
+                
+                // Get the about section
+                const targetElement = document.getElementById('about');
+                if (targetElement) {
+                    // Use a more optimized approach for smoothest possible scrolling
+                    
+                    // Create an overlay to prevent any interference during animation
+                    const overlay = document.createElement('div');
+                    overlay.style.position = 'fixed';
+                    overlay.style.top = '0';
+                    overlay.style.left = '0';
+                    overlay.style.width = '100%';
+                    overlay.style.height = '100%';
+                    overlay.style.zIndex = '9999';
+                    overlay.style.backgroundColor = 'rgba(0,0,0,0)';
+                    overlay.style.pointerEvents = 'all';
+                    document.body.appendChild(overlay);
+                    
+                    // Calculate target position, accounting for the navbar
+                    const navbarHeight = 70;
+                    const targetPosition = targetElement.getBoundingClientRect().top - navbarHeight;
+                    
+                    // Use a transition for smoother animation
+                    document.documentElement.style.scrollBehavior = 'auto';
+                    
+                    // Calculate the final scroll position
+                    const finalPosition = window.pageYOffset + targetPosition;
+                    
+                    // First freeze the current state with overlay
+                    const screenshot = document.createElement('div');
+                    screenshot.style.position = 'fixed';
+                    screenshot.style.top = '0';
+                    screenshot.style.left = '0';
+                    screenshot.style.width = '100%';
+                    screenshot.style.height = '100%';
+                    screenshot.style.zIndex = '9998';
+                    screenshot.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.01), rgba(0,0,0,0.01))`;
+                    document.body.appendChild(screenshot);
+                    
+                    // Use the best possible animation approach - direct CSS transition
+                    const duration = 1200; // Longer duration for smoother animation
+                    
+                    // Temporarily disable all conflicting event handlers
+                    const oldScroll = window.onscroll;
+                    window.onscroll = function(e) { e.preventDefault(); };
+                    
+                    // Add a scroll handler that prevents other actions during animation
+                    const blockScrollHandler = function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return false;
+                    };
+                    window.addEventListener('scroll', blockScrollHandler, { passive: false });
+                    
+                    // Create a wrapper for the animation
+                    const scrollAnimation = function() {
+                        // Use the best animation frame timing
+                        return new Promise(resolve => {
+                            let startTime = null;
+                            let currentPosition = window.pageYOffset;
+                            
+                            const easeInOutCubic = t => t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1;
+                            
+                            const animation = timestamp => {
+                                if (!startTime) startTime = timestamp;
+                                const elapsed = timestamp - startTime;
+                                const progress = Math.min(elapsed / duration, 1);
+                                const easedProgress = easeInOutCubic(progress);
+                                
+                                const newPosition = currentPosition + (targetPosition * easedProgress);
+                                window.scrollTo(0, newPosition);
+                                
+                                if (progress < 1) {
+                                    requestAnimationFrame(animation);
+                                } else {
+                                    // Ensure we're exactly at the right position at the end
+                                    window.scrollTo(0, finalPosition);
+                                    resolve();
+                                }
+                            };
+                            
+                            requestAnimationFrame(animation);
+                        });
+                    };
+                    
+                    // Run the animation and clean up after
+                    scrollAnimation().then(() => {
+                        // Clean up
+                        setTimeout(() => {
+                            // Remove overlay and screenshot
+                            document.body.removeChild(overlay);
+                            document.body.removeChild(screenshot);
+                            
+                            // Restore normal scrolling
+                            document.documentElement.style.scrollBehavior = '';
+                            window.onscroll = oldScroll;
+                            window.removeEventListener('scroll', blockScrollHandler, { passive: false });
+                            
+                            // Reset flag after everything is done
+                            isScrollingFromClick = false;
+                        }, 100);
+                    });
+                } else {
+                    // Fallback if target not found
+                    setTimeout(() => {
+                        isScrollingFromClick = false;
+                    }, 100);
+                }
             });
+            
+            // --- REMOVED redundant smooth scroll handler for nav links --- 
+            /*
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // ... (code was here)
+                });
+            });
+            */
         });
     </script>
 
