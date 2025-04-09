@@ -849,7 +849,7 @@
         border-radius: 15px !important; /* Match the original tile radius */
         width: 100% !important;
         height: 100% !important;
-        object-fit: cover !important;
+        object-fit: fill !important;
         /* Remove potential extra padding/margin added by inline styles */
         margin: 0 !important;
         padding: 0 !important;

@@ -556,7 +556,7 @@
             .flip-tiles-container .flip-tile-front video {
                 width: 100% !important; 
                 height: 100% !important; 
-                object-fit: cover !important; 
+                object-fit: fill !important; 
                 position: absolute !important;
                 top: 0 !important;
                 left: 0 !important;
@@ -595,6 +595,7 @@
             /* Ensure videos are displayed on desktop */
             .steps-container .flip-tile .flip-tile-back video {
                 display: block !important;
+                object-fit: fill !important;
             }
         }
     </style>
@@ -747,7 +748,7 @@
                 <div class="flip-tile" style="border-radius: 15px; overflow: visible;">
                     <div class="flip-tile-inner" style="border: 3px solid #00FFFF; box-shadow: 0 0 15px rgba(0, 255, 255, 0.6); border-radius: 15px;">
                         <div class="flip-tile-front" style="border-radius: 15px; overflow: hidden; background-color: transparent; display: flex; flex-direction: column; justify-content: flex-end; align-items: center;">
-                            <video id="video-cheetah" autoplay loop muted playsinline preload="auto" style="position: absolute; width: 102%; height: 102%; object-fit: cover; z-index: 1; border-radius: 15px; overflow: hidden; object-position: center; top: -1%; left: -1%;">
+                            <video id="video-cheetah" autoplay loop muted playsinline preload="auto" style="position: absolute; width: 102%; height: 102%; object-fit: fill; z-index: 1; border-radius: 15px; overflow: hidden; object-position: center; top: -1%; left: -1%;">
                                 <source src="assets/videos/CheetahFurry.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
@@ -765,7 +766,7 @@
                 <div class="flip-tile" style="border-radius: 15px; overflow: visible;">
                     <div class="flip-tile-inner" style="border: 3px solid #FFA500; box-shadow: 0 0 15px rgba(255, 165, 0, 0.6); border-radius: 15px;">
                         <div class="flip-tile-front" style="border-radius: 15px; overflow: hidden; background-color: transparent; display: flex; flex-direction: column; justify-content: flex-end; align-items: center;">
-                            <video id="video-banana" autoplay loop muted playsinline preload="auto" style="position: absolute; width: 102%; height: 102%; object-fit: cover; z-index: 1; border-radius: 15px; overflow: hidden; object-position: center; top: -1%; left: -1%;">
+                            <video id="video-banana" autoplay loop muted playsinline preload="auto" style="position: absolute; width: 102%; height: 102%; object-fit: fill; z-index: 1; border-radius: 15px; overflow: hidden; object-position: center; top: -1%; left: -1%;">
                                 <source src="assets/videos/BananaCannonDick.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
@@ -782,7 +783,7 @@
                 <div class="flip-tile" style="border-radius: 15px; overflow: visible;">
                     <div class="flip-tile-inner" style="border: 3px solid #FF00FF; box-shadow: 0 0 15px rgba(255, 0, 255, 0.6); border-radius: 15px;">
                         <div class="flip-tile-front" style="border-radius: 15px; overflow: hidden; background-color: transparent; display: flex; flex-direction: column; justify-content: flex-end; align-items: center;">
-                            <video id="video-habibo" autoplay loop muted playsinline preload="auto" style="position: absolute; width: 102%; height: 102%; object-fit: cover; z-index: 1; border-radius: 15px; overflow: hidden; object-position: center; top: -1%; left: -1%;">
+                            <video id="video-habibo" autoplay loop muted playsinline preload="auto" style="position: absolute; width: 102%; height: 102%; object-fit: fill; z-index: 1; border-radius: 15px; overflow: hidden; object-position: center; top: -1%; left: -1%;">
                                 <source src="assets/videos/HabiboCamel.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
@@ -838,7 +839,7 @@
                     
                     <div class="roadmap-video-container animate-on-scroll" style="border-radius: 15px; box-shadow: 0 0 20px 5px rgba(128, 0, 255, 0.7); overflow: visible; margin: 20px 0; position: relative; background-color: #000; font-size: 0;">
                         <div style="border-radius: 15px; overflow: hidden; background-color: #000; line-height: 0; font-size: 0; position: relative;">
-                            <video id="roadmap-video" class="roadmap-video" autoplay loop muted playsinline preload="auto" style="width:100%; height:100%; display:block; border-radius: 15px; margin: 0; padding: 0; transform: scale(1.015); transform-origin: center;">
+                            <video id="roadmap-video" class="roadmap-video" autoplay loop muted playsinline preload="auto" style="width:100%; height:100%; display:block; border-radius: 15px; margin: 0; padding: 0; transform: scale(1.015); transform-origin: center; object-fit: fill;">
                                 <source src="assets/videos/RoadmapAnimated.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
@@ -866,7 +867,7 @@
                     <p style="margin: 5px 0; font-family: 'futura-pt', sans-serif; font-weight: 400; text-transform: none; font-size: 1.1rem; line-height: 1.4; color: rgba(255, 255, 255, 0.8); text-align: center;">1 warrior grants instant entry</p>
                 </div>
                 <div class="flip-tile-back" style="background-color: #000000; border-radius: 15px; overflow: hidden; padding: 0; box-sizing: border-box; position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: rotateY(180deg); border: none;">
-                    <video src="assets/videos/Woodman.mp4" autoplay loop muted playsinline preload="auto" style="width: 100%; height: 100%; object-fit: contain; display: block !important; margin: 0; padding: 0; position: absolute; top: 0; left: 0; z-index: 2;"></video>
+                    <video src="assets/videos/Woodman.mp4" autoplay loop muted playsinline preload="auto" style="width: 100%; height: 100%; object-fit: fill; display: block !important; margin: 0; padding: 0; position: absolute; top: 0; left: 0; z-index: 2;"></video>
                 </div>
             </div>
         </div>
@@ -880,7 +881,7 @@
                     <p style="margin: 5px 0; font-family: 'futura-pt', sans-serif; font-weight: 400; text-transform: none; font-size: 1.1rem; line-height: 1.4; color: rgba(255, 255, 255, 0.8); text-align: center;">Maximum army size per wallet</p>
                 </div>
                 <div class="flip-tile-back" style="background-color: #000000; border-radius: 15px; overflow: hidden; padding: 0; box-sizing: border-box; position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: rotateY(180deg); border: none;">
-                    <video src="assets/videos/SeniorSac.mp4" autoplay loop muted playsinline preload="auto" style="width: 100%; height: 100%; object-fit: contain; display: block !important; margin: 0; padding: 0; position: absolute; top: 0; left: 0; z-index: 2;"></video>
+                    <video src="assets/videos/SeniorSac.mp4" autoplay loop muted playsinline preload="auto" style="width: 100%; height: 100%; object-fit: fill; display: block !important; margin: 0; padding: 0; position: absolute; top: 0; left: 0; z-index: 2;"></video>
                 </div>
             </div>
         </div>
@@ -894,7 +895,7 @@
                     <p style="margin: 5px 0; font-family: 'futura-pt', sans-serif; font-weight: 400; text-transform: none; font-size: 1.1rem; line-height: 1.4; color: rgba(255, 255, 255, 0.8); text-align: center;">All characters have an equal chance</p>
                 </div>
                 <div class="flip-tile-back" style="background-color: #000000; border-radius: 15px; overflow: hidden; padding: 0; box-sizing: border-box; position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: rotateY(180deg); border: none;">
-                    <video src="assets/videos/PumpkinBot.mp4" autoplay loop muted playsinline preload="auto" style="width: 100%; height: 100%; object-fit: contain; display: block !important; margin: 0; padding: 0; position: absolute; top: 0; left: 0; z-index: 2;"></video>
+                    <video src="assets/videos/PumpkinBot.mp4" autoplay loop muted playsinline preload="auto" style="width: 100%; height: 100%; object-fit: fill; display: block !important; margin: 0; padding: 0; position: absolute; top: 0; left: 0; z-index: 2;"></video>
                 </div>
             </div>
         </div>
@@ -908,7 +909,7 @@
                     <p style="margin: 5px 0; font-family: 'futura-pt', sans-serif; font-weight: 400; text-transform: none; font-size: 1.1rem; line-height: 1.4; color: rgba(255, 255, 255, 0.8); text-align: center;">Fastest blockchain for gaming</p>
                 </div>
                 <div class="flip-tile-back" style="background-color: #000000; border-radius: 15px; overflow: hidden; padding: 0; box-sizing: border-box; position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: rotateY(180deg); border: none;">
-                    <video src="assets/videos/CrabMab.mp4" autoplay loop muted playsinline preload="auto" style="width: 100%; height: 100%; object-fit: contain; display: block !important; margin: 0; padding: 0; position: absolute; top: 0; left: 0; z-index: 2;"></video>
+                    <video src="assets/videos/CrabMab.mp4" autoplay loop muted playsinline preload="auto" style="width: 100%; height: 100%; object-fit: fill; display: block !important; margin: 0; padding: 0; position: absolute; top: 0; left: 0; z-index: 2;"></video>
                 </div>
             </div>
         </div>
