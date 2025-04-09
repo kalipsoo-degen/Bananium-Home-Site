@@ -1734,6 +1734,12 @@ body {
     font-weight: bold;
 }
 
+/* Target the specific flip tiles for 1:1 aspect ratio */
+.flip-tiles-container .flip-tile {
+    aspect-ratio: 1;
+    height: auto; /* Override the fixed height */
+}
+
 /* Responsive styling for tiles */
 @media (max-width: 768px) {
     .flip-tiles-container {
