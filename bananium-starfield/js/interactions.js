@@ -657,6 +657,9 @@ const UI = {
   
   // Display character card function
   displayCharacterCard(character) {
+    // Add class to body for mobile CSS rule
+    document.body.classList.add('character-card-visible');
+
     // Safety check
     if (!character) return;
     
@@ -779,6 +782,9 @@ const UI = {
   
   // Close character card function
   closeCharacterCard() {
+    // Remove class from body
+    document.body.classList.remove('character-card-visible');
+
     // Set up camera transition back to galaxy view
     Animation.setupGalaxyTransition(App.camera);
     

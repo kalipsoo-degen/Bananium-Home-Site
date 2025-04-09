@@ -867,6 +867,14 @@
     button:contains("TEST ENLARGE MODAL") {
         display: none !important;
     }
+    
+    /* Hide navigation/search controls when character card is visible */
+    body.character-card-visible .navigation-container {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
 }
 
 /* Small mobile devices */
