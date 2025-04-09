@@ -1832,4 +1832,11 @@ body {
     box-sizing: border-box; /* Ensure padding and borders are included in the width */
     display: flex; /* Use flexbox for better child alignment */
     align-items: stretch; /* Stretch children to fill container */
+}
+
+/* Specific style for participation tiles to enforce 1:1 aspect ratio */
+.steps-container .flip-tile {
+    aspect-ratio: 1 / 1 !important;
+    height: auto !important; /* Allow aspect-ratio to determine height based on width */
+    /* Keep flex: 1 from inline styles to manage width */
 } 
