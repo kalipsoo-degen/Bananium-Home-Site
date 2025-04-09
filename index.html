@@ -108,8 +108,8 @@
         
         /* Ensure fixed dimensions for participation tiles regardless of zoom */
         .steps-container .flip-tile {
-            height: 200px !important;
-            min-height: 200px !important;
+            /* Removed aspect-ratio: 16 / 9 !important; */
+            /* Removed fixed height and min-height */
             flex: 1 1 0 !important;
         }
         
@@ -579,12 +579,22 @@
                 font-size: 1.8rem !important;
                 letter-spacing: 5px !important;
             }
+
+            /* Hide images on the back of participation flip tiles on mobile */
+            .steps-container .flip-tile .flip-tile-back video {
+                display: none !important; 
+            }
         }
 
         /* Desktop styles to hide the mobile social bar */
         @media (min-width: 769px) {
             .nav-links .mobile-social-bar {
                 display: none !important;
+            }
+
+            /* Ensure videos are displayed on desktop */
+            .steps-container .flip-tile .flip-tile-back video {
+                display: block !important;
             }
         }
     </style>
@@ -846,59 +856,59 @@
     </section>
     
     <!-- Participation Tiles (Moved from How To section) -->
-    <div class="steps-container" style="margin: -3rem auto 4rem; width: calc(100% - 3.5cm); max-width: calc(100% - 3.5cm); display: flex; justify-content: space-between; gap: 20px; position: relative; z-index: 1;">
+    <div class="steps-container" style="margin: -3rem auto 4rem; width: calc(100% - 2cm); max-width: 1400px; display: flex; justify-content: space-between; gap: 30px; position: relative; z-index: 1;">
         <!-- 1 SOL PER WARRIOR -->
-        <div class="flip-tile" style="border-radius: 15px; overflow: visible; height: 200px; flex: 1;">
+        <div class="flip-tile" style="border-radius: 15px; overflow: visible; flex: 1;">
             <div class="flip-tile-inner" style="position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; border-radius: 15px; border: 3px solid #00FFFF; box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);">
                 <div class="flip-tile-front" style="border-radius: 15px; overflow: hidden; background-color: #000000; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; width: 100%; box-sizing: border-box; padding: 15px; position: absolute; backface-visibility: hidden; -webkit-backface-visibility: hidden; border: none;">
                     <div style="font-size: 2rem; margin-bottom: 10px;">🔥</div>
                     <h3 style="color: #00FFFF; font-weight: 800; font-size: 1.8rem; line-height: 1.2; text-shadow: 0 0 15px rgba(0, 255, 255, 0.9); letter-spacing: 1px; text-align: center; font-family: 'Orbitron', sans-serif; text-transform: uppercase; margin: 0 0 8px 0;">1 SOL PER WARRIOR</h3>
                     <p style="margin: 5px 0; font-family: 'futura-pt', sans-serif; font-weight: 400; text-transform: none; font-size: 1.1rem; line-height: 1.4; color: rgba(255, 255, 255, 0.8); text-align: center;">1 warrior grants instant entry</p>
                 </div>
-                <div class="flip-tile-back" style="border-radius: 15px; overflow: hidden; padding: 0; box-sizing: border-box; position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: rotateY(180deg); border: none;">
-                    <img src="assets/images/Arenas/Casino.jpeg" alt="Casino" style="width: 100%; height: 100%; object-fit: cover; display: block; margin: 0; padding: 0; border-radius: 13px;">
+                <div class="flip-tile-back" style="background-color: #000000; border-radius: 15px; overflow: hidden; padding: 0; box-sizing: border-box; position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: rotateY(180deg); border: none;">
+                    <video src="assets/videos/Woodman.mp4" autoplay loop muted playsinline preload="auto" style="width: 100%; height: 100%; object-fit: contain; display: block !important; margin: 0; padding: 0; position: absolute; top: 0; left: 0; z-index: 2;"></video>
                 </div>
             </div>
         </div>
         
         <!-- 20 NFTS PER WALLET -->
-        <div class="flip-tile" style="border-radius: 15px; overflow: visible; height: 200px; flex: 1;">
+        <div class="flip-tile" style="border-radius: 15px; overflow: visible; flex: 1;">
             <div class="flip-tile-inner" style="position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; border-radius: 15px; border: 3px solid #FFA500; box-shadow: 0 0 15px rgba(255, 165, 0, 0.6);">
                 <div class="flip-tile-front" style="border-radius: 15px; overflow: hidden; background-color: #000000; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; width: 100%; box-sizing: border-box; padding: 15px; position: absolute; backface-visibility: hidden; -webkit-backface-visibility: hidden; border: none;">
                     <div style="font-size: 2rem; margin-bottom: 10px;">💼</div>
                     <h3 style="color: #FFA500; font-weight: 800; font-size: 1.8rem; line-height: 1.2; text-shadow: 0 0 15px rgba(255, 165, 0, 0.9); letter-spacing: 1px; text-align: center; font-family: 'Orbitron', sans-serif; text-transform: uppercase; margin: 0 0 8px 0;">20 NFTS PER WALLET</h3>
                     <p style="margin: 5px 0; font-family: 'futura-pt', sans-serif; font-weight: 400; text-transform: none; font-size: 1.1rem; line-height: 1.4; color: rgba(255, 255, 255, 0.8); text-align: center;">Maximum army size per wallet</p>
                 </div>
-                <div class="flip-tile-back" style="border-radius: 15px; overflow: hidden; padding: 0; box-sizing: border-box; position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: rotateY(180deg); border: none;">
-                    <img src="assets/images/Arenas/Colluseum.jpeg" alt="Colusseum" style="width: 100%; height: 100%; object-fit: cover; display: block; margin: 0; padding: 0; border-radius: 13px;">
+                <div class="flip-tile-back" style="background-color: #000000; border-radius: 15px; overflow: hidden; padding: 0; box-sizing: border-box; position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: rotateY(180deg); border: none;">
+                    <video src="assets/videos/SeniorSac.mp4" autoplay loop muted playsinline preload="auto" style="width: 100%; height: 100%; object-fit: contain; display: block !important; margin: 0; padding: 0; position: absolute; top: 0; left: 0; z-index: 2;"></video>
                 </div>
             </div>
         </div>
         
         <!-- BLIND MINT -->
-        <div class="flip-tile" style="border-radius: 15px; overflow: visible; height: 200px; flex: 1;">
+        <div class="flip-tile" style="border-radius: 15px; overflow: visible; flex: 1;">
             <div class="flip-tile-inner" style="position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; border-radius: 15px; border: 3px solid #FF00FF; box-shadow: 0 0 15px rgba(255, 0, 255, 0.6);">
                 <div class="flip-tile-front" style="border-radius: 15px; overflow: hidden; background-color: #000000; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; width: 100%; box-sizing: border-box; padding: 15px; position: absolute; backface-visibility: hidden; -webkit-backface-visibility: hidden; border: none;">
                     <div style="font-size: 2rem; margin-bottom: 10px;">🎭</div>
                     <h3 style="color: #FF00FF; font-weight: 800; font-size: 1.8rem; line-height: 1.2; text-shadow: 0 0 15px rgba(255, 0, 255, 0.9); letter-spacing: 1px; text-align: center; font-family: 'Orbitron', sans-serif; text-transform: uppercase; margin: 0 0 8px 0;">BLIND MINT</h3>
                     <p style="margin: 5px 0; font-family: 'futura-pt', sans-serif; font-weight: 400; text-transform: none; font-size: 1.1rem; line-height: 1.4; color: rgba(255, 255, 255, 0.8); text-align: center;">All characters have an equal chance</p>
                 </div>
-                <div class="flip-tile-back" style="border-radius: 15px; overflow: hidden; padding: 0; box-sizing: border-box; position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: rotateY(180deg); border: none;">
-                    <img src="assets/images/Arenas/Space.png" alt="Space" style="width: 100%; height: 100%; object-fit: cover; display: block; margin: 0; padding: 0; border-radius: 13px;">
+                <div class="flip-tile-back" style="background-color: #000000; border-radius: 15px; overflow: hidden; padding: 0; box-sizing: border-box; position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: rotateY(180deg); border: none;">
+                    <video src="assets/videos/PumpkinBot.mp4" autoplay loop muted playsinline preload="auto" style="width: 100%; height: 100%; object-fit: contain; display: block !important; margin: 0; padding: 0; position: absolute; top: 0; left: 0; z-index: 2;"></video>
                 </div>
             </div>
         </div>
         
         <!-- BUILT ON SOLANA -->
-        <div class="flip-tile" style="border-radius: 15px; overflow: visible; height: 200px; flex: 1;">
+        <div class="flip-tile" style="border-radius: 15px; overflow: visible; flex: 1;">
             <div class="flip-tile-inner" style="position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; border-radius: 15px; border: 3px solid #00BFFF; box-shadow: 0 0 15px rgba(0, 191, 255, 0.6);">
                 <div class="flip-tile-front" style="border-radius: 15px; overflow: hidden; background-color: #000000; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; width: 100%; box-sizing: border-box; padding: 15px; position: absolute; backface-visibility: hidden; -webkit-backface-visibility: hidden; border: none;">
                     <div style="font-size: 2rem; margin-bottom: 10px;">🚀</div>
                     <h3 style="color: #00BFFF; font-weight: 800; font-size: 1.8rem; line-height: 1.2; text-shadow: 0 0 15px rgba(0, 191, 255, 0.9); letter-spacing: 1px; text-align: center; font-family: 'Orbitron', sans-serif; text-transform: uppercase; margin: 0 0 8px 0;">BUILT ON SOLANA</h3>
                     <p style="margin: 5px 0; font-family: 'futura-pt', sans-serif; font-weight: 400; text-transform: none; font-size: 1.1rem; line-height: 1.4; color: rgba(255, 255, 255, 0.8); text-align: center;">Fastest blockchain for gaming</p>
                 </div>
-                <div class="flip-tile-back" style="border-radius: 15px; overflow: hidden; padding: 0; box-sizing: border-box; position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: rotateY(180deg); border: none;">
-                    <img src="assets/images/Arenas/Garden.jpeg" alt="Garden" style="width: 100%; height: 100%; object-fit: cover; display: block; margin: 0; padding: 0; border-radius: 13px;">
+                <div class="flip-tile-back" style="background-color: #000000; border-radius: 15px; overflow: hidden; padding: 0; box-sizing: border-box; position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: rotateY(180deg); border: none;">
+                    <video src="assets/videos/CrabMab.mp4" autoplay loop muted playsinline preload="auto" style="width: 100%; height: 100%; object-fit: contain; display: block !important; margin: 0; padding: 0; position: absolute; top: 0; left: 0; z-index: 2;"></video>
                 </div>
             </div>
         </div>
@@ -1244,9 +1254,21 @@
                     if (!tile.classList.contains('flipped')) {
                         tile.classList.remove('rotating');
                         tile.classList.remove('pre-flip');
+                        
+                        // Pause video when tile is flipped back
+                        const video = tile.querySelector('.flip-tile-back video');
+                        if (video) {
+                            video.pause();
+                        }
                     } else {
                         // Make sure pre-flip is always removed when flipped
                         tile.classList.remove('pre-flip');
+                        
+                        // Play video when tile is flipped
+                        const video = tile.querySelector('.flip-tile-back video');
+                        if (video) {
+                            video.play();
+                        }
                     }
                 });
                 
