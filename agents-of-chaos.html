@@ -297,7 +297,7 @@
             
             .nav-links {
                 margin-top: 0 !important;
-                padding: 1rem 0 !important;
+                padding: 0 0 1rem 0 !important;
                 flex-direction: column;
                 gap: 1rem;
                 text-align: center;
@@ -312,27 +312,51 @@
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
             }
             
+            /* Style for the social bar inside mobile dropdown */
+            .nav-links .mobile-social-bar {
+                display: flex !important; 
+                justify-content: center !important; 
+                gap: 1.5rem !important; 
+                padding: 0.75rem 0 !important; /* Padding top/bottom */
+                border-bottom: 1px solid rgba(255, 215, 0, 0.2); /* Separator line */
+                margin-bottom: 0.5rem; /* Space below the bar */
+                width: 100%; /* Full width */
+            }
+
+            .nav-links .mobile-social-bar a {
+                color: #FFD700 !important;
+                font-size: 1.5rem !important;
+                padding: 0 !important; /* Reset padding */
+                margin: 0 !important; /* Reset margin */
+            }
+
+            .nav-links .mobile-social-bar a:hover {
+                color: #FFFFFF !important;
+                transform: scale(1.1); 
+            }
+            
             .nav-links.active {
                 display: flex; /* Show when active */
                 width: 100% !important;
             }
             
-            .nav-links a {
+            /* Style main nav links (below social bar) */
+            .nav-links > a {
                 padding: 0.5rem 1rem !important;
                 text-align: center !important;
                 width: auto !important;
-                margin: 0 auto !important;
+                margin: 0.25rem auto !important; /* Adjust vertical margin */
                 display: inline-block !important;
                 color: #FFD700 !important;
             }
             
-            .nav-links a.active {
+            .nav-links > a.active {
                 color: #FFFFFF !important;
                 font-weight: bold !important;
                 position: relative !important;
             }
             
-            .nav-links a.active::after {
+            .nav-links > a.active::after {
                 content: '' !important;
                 position: absolute !important;
                 left: 50% !important;
@@ -342,6 +366,27 @@
                 background-color: #FFD700 !important;
                 transform: translateX(-50%) !important;
                 border-radius: 1px !important;
+            }
+
+            /* Add styles for .battle-link */
+            .nav-links a.battle-link {
+                background-color: #FFD700 !important;
+                color: #000000 !important;
+                font-weight: bold !important;
+                margin-top: 10px !important;
+                padding: 12px 20px !important;
+                border-radius: 8px !important;
+                box-shadow: 0 0 10px rgba(255, 215, 0, 0.5) !important;
+                transition: all 0.3s ease !important;
+                width: 80% !important;
+                max-width: 250px !important;
+                text-shadow: none !important;
+                border: 2px solid #FFD700 !important;
+            }
+
+            /* Hide original desktop social icons on mobile */
+            .navbar > .social-icons {
+                 display: none !important;
             }
             
             .social-icons {
@@ -435,6 +480,13 @@
             }
         }
         
+        /* Desktop styles to hide the mobile social bar */
+        @media (min-width: 769px) {
+            .nav-links .mobile-social-bar {
+                display: none !important;
+            }
+        }
+        
         /* Mobile menu toggle style to match home page */
         .mobile-menu-toggle {
             background: none;
@@ -466,18 +518,22 @@
     <nav class="navbar visible" id="main-navbar">
         <a href="index.html" class="logo" style="padding-left: 30px;">BANANIUM</a>
         <div class="nav-links">
+            <!-- Added mobile social bar -->
+            <div class="social-icons mobile-social-bar">
+                <a href="#" class="nav-link"><i class="fa-brands fa-discord"></i></a> <!-- Discord Icon -->
+                <a href="https://x.com/BananiumSOL" class="nav-link" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
+            <!-- Existing nav links -->
             <a href="index.html#home">HOME</a>
             <a href="index.html#about">ABOUT</a>
             <a href="index.html#about-roadmap">ROADMAP</a>
             <a href="index.html#prize-pool">PRIZE POOL</a>
             <a href="agents-of-chaos.html" class="active">AGENTS OF CHAOS</a>
             <a href="https://app.gitbook.com/o/9ZnpHDUG7efPKkYqKuZ1/s/NG5bbbgrg2I2mVKQG083/" target="_blank">WHITEPAPER</a>
-            <a href="https://magiceden.us/" target="_blank">JOIN THE BATTLE</a>
+            <!-- Added battle-link class -->
+            <a href="https://magiceden.us/" target="_blank" class="battle-link">JOIN THE BATTLE</a> 
         </div>
-        <div class="social-icons" style="padding-right: 30px;">
-            <a href="#" class="nav-link"><i class="fa-solid fa-link"></i></a>
-            <a href="https://x.com/BananiumSOL" class="nav-link" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
-        </div>
+        <!-- Removed original right-side social icons -->
         <!-- Mobile menu toggle -->
         <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
             <i class="fas fa-bars"></i>

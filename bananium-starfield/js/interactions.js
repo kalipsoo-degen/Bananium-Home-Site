@@ -845,10 +845,13 @@ const UI = {
   // --- Touch Event Handlers ---
 
   onTouchStart(event) {
-    // Allow default behavior (like clicking buttons or focusing input) if touch starts within the navigation container
-    if (this.elements.navigationContainer && this.elements.navigationContainer.contains(event.target)) {
-      // Explicitly DO NOT prevent default for elements inside the nav container
-      // Let the browser handle clicks, input focus, etc.
+    // Allow default behavior if touch starts within the main navbar (menu toggle, logo link)
+    const navbar = document.getElementById('main-navbar');
+    if (navbar && navbar.contains(event.target)) {
+      return; 
+    }
+    // Allow default behavior if touch starts within the navigation container (search/random)
+    if (this.elements.navigationContainer && this.elements.navigationContainer.style.display !== 'none' && this.elements.navigationContainer.contains(event.target)) {
       return; 
     }
     // Prevent interfering with card interactions if the card is visible
@@ -876,10 +879,14 @@ const UI = {
   },
 
   onTouchMove(event) {
+    // Allow default if touch moves over the main navbar
+    const navbar = document.getElementById('main-navbar');
+    if (navbar && navbar.contains(event.target)) {
+       return;
+    }
     // Allow default scroll/interaction if touch moves over the navigation container elements
-    if (this.elements.navigationContainer && this.elements.navigationContainer.contains(event.target)) {
-       // Allow default behavior (like text selection in input)
-      return;
+    if (this.elements.navigationContainer && this.elements.navigationContainer.style.display !== 'none' && this.elements.navigationContainer.contains(event.target)) {
+       return;
     }
     // Prevent interfering with card interactions if the card is visible
     if (this.elements.characterCard && this.elements.characterCard.style.display !== 'none' && this.elements.characterCard.contains(event.target)) {
@@ -893,33 +900,18 @@ const UI = {
       // Handle Pinch Zoom
       const currentPinchDistance = this.getPinchDistance(event.touches);
       const zoomFactor = currentPinchDistance / this.previousPinchDistance;
-
-      // Calculate new zoom based on pinch factor
-      const newZoom = Animation.currentZoom / zoomFactor; // Divide because pinch out = larger distance = zoom in
-      
-      // Clamp to current range
-      Animation.currentZoom = Math.max(
-        Animation.currentZoomRange.min,
-        Math.min(Animation.currentZoomRange.max, newZoom)
-      );
-      
-      // Apply zoom
-      const direction = new THREE.Vector3()
-        .subVectors(App.camera.position, Animation.currentFocusPoint)
-        .normalize();
-      App.camera.position.copy(Animation.currentFocusPoint)
-        .add(direction.multiplyScalar(Animation.currentZoom));
+      const newZoom = Animation.currentZoom / zoomFactor; 
+      Animation.currentZoom = Math.max(Animation.currentZoomRange.min, Math.min(Animation.currentZoomRange.max, newZoom));
+      const direction = new THREE.Vector3().subVectors(App.camera.position, Animation.currentFocusPoint).normalize();
+      App.camera.position.copy(Animation.currentFocusPoint).add(direction.multiplyScalar(Animation.currentZoom));
       App.camera.lookAt(Animation.currentFocusPoint.x, Animation.currentFocusPoint.y, Animation.currentFocusPoint.z);
-      
-      this.previousPinchDistance = currentPinchDistance; // Update for next move event
+      this.previousPinchDistance = currentPinchDistance;
 
     } else if (this.isTouchDragging && event.touches.length === 1) {
       // Handle Touch Drag
       const currentTouchPos = { x: event.touches[0].clientX, y: event.touches[0].clientY };
       const deltaX = (currentTouchPos.x - this.lastTouchPos.x) * CONFIG.DRAG_ROTATION_SPEED;
       const deltaY = (currentTouchPos.y - this.lastTouchPos.y) * CONFIG.DRAG_ROTATION_SPEED;
-      
-      // Rotation logic (same as mouse drag)
       const cameraRight = new THREE.Vector3(1, 0, 0);
       const cameraUp = new THREE.Vector3(0, 1, 0);
       cameraRight.applyQuaternion(App.camera.quaternion);
@@ -931,25 +923,37 @@ const UI = {
       cameraOffset.applyQuaternion(combinedRotation);
       App.camera.position.copy(Animation.currentFocusPoint).add(cameraOffset);
       App.camera.lookAt(Animation.currentFocusPoint.x, Animation.currentFocusPoint.y, Animation.currentFocusPoint.z);
-      
-      // Update touch distance and last position
-      this.touchDistance += Math.sqrt(
-          Math.pow(currentTouchPos.x - this.lastTouchPos.x, 2) + 
-          Math.pow(currentTouchPos.y - this.lastTouchPos.y, 2)
-      );
+      this.touchDistance += Math.sqrt(Math.pow(currentTouchPos.x - this.lastTouchPos.x, 2) + Math.pow(currentTouchPos.y - this.lastTouchPos.y, 2));
       this.lastTouchPos = currentTouchPos;
     }
   },
 
   onTouchEnd(event) {
+      // Allow default if touch ends within the main navbar
+      const navbar = document.getElementById('main-navbar');
+      if (navbar && navbar.contains(event.target)) {
+          return; 
+      }
+      // Allow default behavior if touch ends within the navigation container
+      if (this.elements.navigationContainer && this.elements.navigationContainer.style.display !== 'none' && this.elements.navigationContainer.contains(event.target)) {
+          return; 
+      }
       // Prevent interfering with card interactions - check target of the ended touch
-      if (event.changedTouches.length > 0 && this.elements.characterCard.contains(event.changedTouches[0].target)) return;
+      if (event.changedTouches.length > 0 && this.elements.characterCard && this.elements.characterCard.style.display !== 'none' && this.elements.characterCard.contains(event.changedTouches[0].target)) {
+          return;
+      }
       
       const touchDuration = Date.now() - this.touchStartTime;
 
-      // Check for Tap: only if not pinching, drag was short, and only one touch ended
+      // Check for Tap on starfield: only if not pinching, drag was short, and only one touch ended
       if (!this.isPinching && this.isTouchDragging && touchDuration < 300 && this.touchDistance < 10 && event.changedTouches.length === 1) {
-          this.handleTap(event.changedTouches[0]);
+          // Ensure the tap wasn't on a UI element that slipped through the start check 
+          const target = event.changedTouches[0].target;
+          const isNavbarTarget = navbar && navbar.contains(target);
+          const isNavContainerTarget = this.elements.navigationContainer && this.elements.navigationContainer.style.display !== 'none' && this.elements.navigationContainer.contains(target);
+          if (!isNavbarTarget && !isNavContainerTarget) {
+              this.handleTap(event.changedTouches[0]);
+          }
       }
 
       // Reset flags when touches end
@@ -958,7 +962,6 @@ const UI = {
           this.isPinching = false;
           this.previousPinchDistance = 0;
       } else if (event.touches.length === 1) {
-          // If one touch remains after pinching, reset to dragging mode
           this.isTouchDragging = true;
           this.isPinching = false;
           this.lastTouchPos = { x: event.touches[0].clientX, y: event.touches[0].clientY };
