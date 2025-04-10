@@ -699,7 +699,8 @@ const UI = {
         }
     });
     
-    this.elements.homepageLink.href = character.homepage;
+    // Change all homepage links to point to https://x.com/
+    this.elements.homepageLink.href = "https://x.com/";
     
     // Load image with fallback - using the new img element
     const characterImg = document.getElementById('characterImg');
