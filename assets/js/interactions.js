@@ -24,19 +24,25 @@ export function initInteractions() {
  * Initialize smooth scrolling for anchor links
  */
 function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    // Select only internal anchor links (starting with #) that DON'T have the external-link class
+    document.querySelectorAll('a[href^="#"]:not(.external-link)').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
-            e.preventDefault();
+            const targetHref = this.getAttribute('href');
             
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - CONFIG.animations.scrollOffset,
-                    behavior: 'smooth'
-                });
+            // Only prevent default and scroll for internal anchors starting with #
+            // The selector already filters out external links, but double-check href
+            if (targetHref.startsWith('#')) {
+                e.preventDefault();
+                
+                if (targetHref === '#') return; // Ignore clicks on href="#"
+                
+                const targetElement = document.querySelector(targetHref);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - CONFIG.animations.scrollOffset,
+                        behavior: 'smooth'
+                    });
+                }
             }
         });
     });
