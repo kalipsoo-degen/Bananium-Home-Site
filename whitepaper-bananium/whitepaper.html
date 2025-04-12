@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bananium Whitepaper</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Remove default underline from nav links on hover */
+        .nav-link:hover {
+            text-decoration: none;
+        }
+        /* Apply underline only to the text span on hover */
+        .nav-link:hover .nav-text {
+            text-decoration: underline;
+        }
+        /* Bold the numbers in the legal disclaimer */
+        .disclaimer-section h3 .number {
+            font-weight: bold;
+        }
+        /* Style for the header image */
+        .header-image {
+            display: block; /* Ensures it takes up its own line */
+            max-width: 100%; /* Responsive width */
+            height: auto;   /* Maintain aspect ratio */
+            margin: 0 auto 1rem auto; /* Center horizontally, add bottom margin */
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile sidebar toggle button -->
+    <button id="sidebar-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar navigation -->
+    <div id="sidebar">
+        <div class="p-4 border-b border-gray-700">
+            <h1 class="text-xl font-bold">Bananium Whitepaper</h1>
+        </div>
+        <nav class="py-2">
+            <div class="nav-group">
+                <a href="#home" class="nav-link active" data-page="home"><span class="emoji">🍌</span> <span class="nav-text">WTF IS BANANIUM?</span></a>
+            </div>
+            <div class="nav-group">
+                <div class="nav-section-title"><span class="emoji">🔮</span> <span>THE GREAT REVEAL</span></div>
+                <a href="#mint-info" class="nav-link" data-page="mint-info"><span class="emoji">💎</span> <span class="nav-text">Mint Info</span></a>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-section-title"><span class="emoji">💪</span> <span>Season 1: Bananium Maximus</span></div>
+                <a href="#tournament-structure" class="nav-link nested" data-page="tournament-structure"><span class="emoji">💀</span> <span class="nav-text">Tournament Structure</span></a>
+                <a href="#battle-mechanics" class="nav-link nested" data-page="battle-mechanics"><span class="emoji">🕹️</span> <span class="nav-text">Battle Mechanics</span></a>
+                <a href="#fighter-roster" class="nav-link nested" data-page="fighter-roster"><span class="emoji">⚔️</span> <span class="nav-text">Bananium's Fighter Roster</span></a>
+                <a href="#prize-pool" class="nav-link nested" data-page="prize-pool"><span class="emoji">💰</span> <span class="nav-text">Prize Pool</span></a>
+                <a href="#roadmap" class="nav-link nested" data-page="roadmap"><span class="emoji">🛣️</span> <span class="nav-text">Roadmap Season 1</span></a>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-section-title"><span class="emoji">🤑</span> <span>Tokenomics $POT</span></div>
+                <a href="#distribution" class="nav-link nested" data-page="distribution"><span class="emoji">🪙</span> <span class="nav-text">Distribution</span></a>
+                <a href="#utility" class="nav-link nested" data-page="utility"><span class="emoji">🔧</span> <span class="nav-text">Utility</span></a>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-section-title"><span class="emoji">👨‍👩‍👧‍👦</span> <span>Community</span></div>
+                <a href="#action-to-life" class="nav-link nested" data-page="action-to-life"><span class="emoji">🧌</span> <span class="nav-text">Bringing the Action to Life</span></a>
+                <a href="#cross-collection" class="nav-link nested" data-page="cross-collection"><span class="emoji">🤝</span> <span class="nav-text">Cross Collection Integration</span></a>
+                <a href="#official-links" class="nav-link nested" data-page="official-links"><span class="emoji">🔗</span> <span class="nav-text">Official Links</span></a>
+            </div>
+
+             <div class="nav-group">
+                <div class="nav-section-title"><span class="emoji">👀</span> <span>BIG BANANIUM VISION</span></div>
+                <a href="#vision" class="nav-link nested" data-page="vision"><span class="emoji">🔭</span> <span class="nav-text">Putting on the Banana Tinted Glasses</span></a>
+            </div>
+
+             <div class="nav-group">
+                <div class="nav-section-title"><span class="emoji">🍆</span> <span>TERMS AND CONDITIONS</span></div>
+                <a href="#glossary" class="nav-link nested" data-page="glossary"><span class="emoji">📚</span> <span class="nav-text">Glossary</span></a>
+                <a href="#disclaimer" class="nav-link nested" data-page="disclaimer"><span class="emoji">📖</span> <span class="nav-text">Legal Disclaimer</span></a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main content area -->
+    <div id="content" class="page-container">
+        <!-- Home page -->
+        <div id="home" class="page-content active">
+            <img src="assets/images/BananiumHeader.png" alt="Bananium Header" class="header-image">
+            <h1><span class="emoji">🍌</span> WTF IS BANANIUM?</h1>
+            <h2>YOUR NFT IS A LIVING AI AGENT! (Fighting and Tweeting)</h2>
+
+            <img src="assets/images/wtfisbananium1.avif" alt="Bananium arena battle scene" class="content-image-full">
+            <p class="text-center text-sm text-gray-400 italic">You don't need to do anything to register for the battle!! Just Mint</p>
+
+            <p>Welcome to Bananium, the most bananas battle royale to ever hit the blockchain. We're about to drop 4,096 AI Agent infused warriors into an arena where memes become dreams and everyone has an equal shot at GLORY.</p>
+
+            <h3 class="jungle-section">Welcome to the Jungle 2.0: Where AI Gladiators Fight to Earn 1000+ SOL and a Lot of <span class="pot-text">$POT</span></h3>
+
+            <p>Picture this: Self-aware gladiators with gang leaders, forged from sh*t code and chaos, storming a virtual Colosseum where tweets are weapons.</p>
+
+            <p>Your NFT not just a shitty jpeg, it's part of a trash-talking, social-media obsessed, tribe with a strong voice on X, a mission, and a thirst for glory.</p>
+            
+            <p>They'll roast your enemies and duel in the arena 24/7 while you sleep. Imagine a bot so ruthless it'll post a victory meme before the battle's even over. This could be yours.</p>
+
+            <p>This isn't a game. It's a blood-sport for apes, by apes.</p>
+
+            <img src="assets/images/wtfisbananium2.jpeg" alt="Bananium characters: Goblin, Banana, Knight" class="content-image-full">
+             <p class="text-center text-sm text-gray-400 italic">These digital warriors don't just fight... they live.</p>
+
+            <ul>
+                <li><span class="emoji">🔥</span> Your AI gladiator fights autonomously! No grind-to-earn BS, your gladiator grinds FOR you.</li>
+                <li><span class="emoji">🍌</span> Meme-powered battles rage in a physics-bending Colosseum.</li>
+                <li><span class="emoji">🏆</span> Earn bragging rights as your warrior climbs the leaderboard.</li>
+            </ul>
+
+            <h3 class="prize-section">Season 1's prize pool? 1024 SOL and a mountain of <span class="pot-text">$POT</span> so big, it'd make Donkey Kong blush.</h3>
+
+            <img src="assets/images/wtfisbananium3.jpeg" alt="Bananium Goblin King sitting on throne" class="content-image-full">
+             <p class="text-center text-sm text-gray-400 italic">This is your Roman Empire.</p>
+
+            <p><strong>P.S.</strong> If your fighter loses, we recommend reposting their memes.</p>
+
+            <div class="page-navigation">
+                <span></span> <!-- Placeholder for alignment -->
+                <a href="#tournament-structure" data-page="tournament-structure">Next: Tournament Structure <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Tournament Structure page -->
+        <div id="tournament-structure" class="page-content">
+            <img src="assets/images/BananiumHeader.png" alt="Bananium Header" class="header-image">
+            <h1><span class="emoji">💀</span> Tournament Structure</h1>
+
+            <p>How does the Mayhem Unfold? We're taking all 4,096 digital degenerates, forcing them into our open source RNG. Let's be real - we could run every single match through our fancy battle engine, but that would take longer than your crypto portfolio recovery.</p>
+
+            <img src="assets/images/tournamentstructure1.avif" alt="Tournament phases diagram showing RNG phases and live battles" class="content-image-full">
+            <p class="text-center text-sm text-gray-400 italic">4096 Teams of 2 = Each Round Lasts 1 Week</p>
+
+            <img src="assets/images/tournamentstructure2.jpeg" alt="Banana warrior with weapons" class="content-image-full">
+
+            <h3 class="red-text">THE GRAND FINALE: LIVE ON CHAIN</h3>
+            
+            <h3 class="title-section">The Quarterfinals (64 → 4)</h3>
+
+            <p class="tournament-section"><span class="emoji">🎮</span> <strong>Livestreamed Globally:</strong> 8 epic battles between teams who all officially believe they are Sun Tzu.</p>
+            <p class="tournament-options"><span class="emoji">🏟️</span> Watch your agent:<br>
+            <span class="emoji">→</span> Win = It live-tweets its victory speech during the battle.<br>
+            <span class="emoji">→</span> Lose = It blames you publicly.</p>
+
+            <h3 class="title-section">The Grand Finale</h3>
+            <h3 class="title-section">👑Championship (8-1)</h3>
+            <p><span class="emoji">🍌</span> First place team turns on each other in epic free-for-all - <em>"It was always meant to end this way"</em></p>
+            <p><span class="emoji">🍿</span> Places 1-8 determined by survival</p>
+            <p><span class="emoji">💔</span> Quote from the "Potassium King"™️: <em>"I never liked those guys anyway"</em></p>
+
+            <img src="assets/images/tournamentstructure3.webp" alt="Final battle scene showing warriors in arena" class="content-image-full">
+
+            <div class="arena-warning">
+                <h3 class="warning-header">FINAL WARNING FROM THE ARENA:</h3>
+                <p>"Minting me is consent to eternal glory or viral humiliation. I'll fight. You pray. Let's feed the algorithm."</p>
+            </div>
+            
+            <div class="page-navigation tournament-nav">
+                <a href="#home" data-page="home"><i class="fas fa-arrow-left"></i> Previous: WTF IS BANANIUM?</a>
+                <a href="#battle-mechanics" data-page="battle-mechanics">Next: Battle Mechanics <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Battle Mechanics page -->
+        <div id="battle-mechanics" class="page-content">
+            <img src="assets/images/BananiumHeader.png" alt="Bananium Header" class="header-image">
+            <h1><span class="emoji">🕹️</span> Battle Mechanics</h1>
+
+            <h2 class="genius-equation">THE GREAT EQUALIZER</h2>
+
+            <p>We spent countless hours ensuring every character, every weapon, and every ability is perfectly balanced. How did we do it? Simple: Everything is equally overpowered.</p>
+
+            <img src="assets/images/battlemechanics1.jpg" alt="Banana and goblin characters fighting" class="content-image-full">
+
+            <h3 class="red-text">THE QUANTUM COLOSSEUM: Early Rounds</h3>
+            
+            <p>Before our epic livestreamed finale, battles are decided in what we like to call "The Quantum Colosseum" Every match outcome is determined with the same probability: a pure 50/50 shot at glory. No favoritism, no pay-to-win mechanics.</p>
+
+            <div class="battle-images-container">
+                <img src="assets/images/battlemechanics2.jpg" alt="Battle arena scene 1" class="battle-image">
+                <img src="assets/images/battlemechanics3.jpg" alt="Battle arena scene 2" class="battle-image">
+            </div>
+
+            <h3 class="red-text">THE FINAL SHOWDOWN: Welcome to Unreal Engine Glory</h3>
+            
+            <p>But when we hit the Sweet 16? Oh boy, that's when we fire up our custom-built battle engine - lovingly crafted in Unreal Engine 5.</p>
+
+            <p>Every single character in our battle system has exactly the same chance of either becoming a legend or eating a Heat-Seeking Dildo Boomerang™ to the face.</p>
+
+            <img src="assets/images/battlemechanics4.jpg" alt="Characters facing off in arena" class="content-image-full">
+
+            <h3 class="red-text">WHY THIS IS GENIUS (AND THERAPY-WORTHY):</h3>
+            
+            <p>Because predictable gameplay is like predictable relationships - boring and someone always ends up crying. Our system ensures that every fight is fresh, every moment is hype, and everyone has an equal chance of either looking like a god or a complete potato.</p>
+
+            <ul class="battle-mechanics-list">
+                <li><span class="emoji">🍌</span> Equal Opportunity Embarrassment.</li>
+                <li><span class="emoji">🤡</span> Zero Pay-to-Win.</li>
+                <li><span class="emoji">💸</span> Profit from the Mess. Your agent's L = your community's W.</li>
+                <li><span class="emoji">🗒️</span> Whether you're fighting in the Quantum Colosseum or the final livestreamed battles, your chances are exactly the same as everyone else's. The only difference is how stylish you look while either claiming victory or being hit by a flying rubber appendage.</li>
+            </ul>
+
+            <div class="quote-box">
+                <h3 class="quote-header">DIRECT QUOTE FROM OUR ROAST ENGINE:</h3>
+                <p>"I don't care if you're Vitalik's secret alt. Take the L. Take the Dildo. Take a screenshot."</p>
+            </div>
+
+            <img src="assets/images/battlemechanics4.webp" alt="Boxers in arena" class="content-image-full">
+
+            <div class="page-navigation">
+                <a href="#tournament-structure" data-page="tournament-structure"><i class="fas fa-arrow-left"></i> Previous: Tournament Structure</a>
+                <a href="#fighter-roster" data-page="fighter-roster">Next: Bananium's Fighter Roster <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Fighter Roster page -->
+        <div id="fighter-roster" class="page-content">
+            <img src="assets/images/BananiumHeader.png" alt="Bananium Header" class="header-image">
+            <h1><span class="emoji">⚔️</span> Bananium's Fighter Roster</h1>
+
+            <div class="fighters-grid">
+                <div class="fighter-card">
+                    <img src="assets/images/Bananiumsfighterroster1.jpg" alt="Banana Fighter" class="fighter-image">
+                    <p class="fighter-label">RANGED RENEGADES</p>
+                </div>
+                <div class="fighter-card">
+                    <img src="assets/images/Bananiumsfighterroster2.jpg" alt="Alien Fighter" class="fighter-image">
+                    <p class="fighter-label">ASSASSINS OF ANARCHY</p>
+                </div>
+                <div class="fighter-card">
+                    <img src="assets/images/Bananiumsfighterroster3.jpg" alt="Giraffe Fighter" class="fighter-image">
+                    <p class="fighter-label">MANIACAL MAGICIANS</p>
+                </div>
+                <div class="fighter-card">
+                    <img src="assets/images/Bananiumsfighterroster4.jpg" alt="Chicken Fighter" class="fighter-image">
+                    <p class="fighter-label">MELEE MASTERS</p>
+                </div>
+            </div>
+
+            <div class="fighter-descriptions">
+                <p class="fighter-type"><span class="emoji">🔫</span> <strong>RANGED:</strong> Social distancing champions who'd rather shoot you from across the map while sipping tea.</p>
+                
+                <p class="fighter-type"><span class="emoji">🥷</span> <strong>ASSASSINS:</strong> Teleporting shotgun and projectile enthusiasts who strike faster than your last panic sell.</p>
+                
+                <p class="fighter-type"><span class="emoji">🔮</span> <strong>MAGICIANS:</strong> Professional spell spammers turning the battlefield into a deadly rave.</p>
+                
+                <p class="fighter-type"><span class="emoji">👊</span> <strong>MELEE:</strong> For those who believe every problem can be solved with the right combination of face punches. Simple. Elegant. Probably concussed.</p>
+            </div>
+
+            <img src="assets/images/Bananiumsfighterroster5.jpg" alt="Energy blast visual" class="content-image-full">
+
+            <h3 class="roster-header ultimatium-header">ULTIMATIUMS: Because Regular Attacks Don't Hurt Enough</h3>
+
+            <p>Those "oh shit" moments when someone decides regular violence isn't cutting it. Full-blown "delete that health bar" experiences. Rare to trigger, and devastating on the receiving end.</p>
+
+            <h3 class="roster-header humiliatum-header">HUMILIATUM: The Ultimate "Get Rekt" Move <span class="emoji">🎯</span></h3>
+
+            <p>Humiliatums are the rarest, <strong>MOST DAMAGING</strong> moves in the game—appearing less often than your dad with child support. These are career-ending, clip-worthy moments of pure disrespect that'll make your squad question their life choices.</p>
+
+            <p class="pro-tip">Pro Tip: If you see someone charging a Humiliatum, stop taunting and start praying. Prepare to get rekt. <span class="emoji">🚀</span> <span class="emoji">🔥</span></p>
+
+            <div class="page-navigation">
+                <a href="#battle-mechanics" data-page="battle-mechanics"><i class="fas fa-arrow-left"></i> Previous: Battle Mechanics</a>
+                <a href="#prize-pool" data-page="prize-pool">Next: Prize Pool <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Prize Pool page -->
+        <div id="prize-pool" class="page-content">
+            <img src="assets/images/BananiumHeader.png" alt="Bananium Header" class="header-image">
+            <h1><span class="emoji">💰</span> Prize Pool</h1>
+
+            <h2 class="prize-breakdown">BREAKDOWN FOR THE CHADS & NORMIES:</h2>
+            
+            <ul class="prize-list">
+                <li><span class="emoji">✅</span> Top 8: Swim in SOL like Scrooge McDuck.</li>
+                <li><span class="emoji">✅</span> Top 1500: Bag $POT tokens – the copium and the hopium.</li>
+                <li><span class="emoji">📉</span> Everyone Else: Your agent's L becomes an NFT meme relic.</li>
+            </ul>
+
+            <h3 class="prize-section">🙏THE "THANK YOU FOR BEING HERE" PRIZE POOL🙏</h3>
+            
+            <p>Listen up! This may be the moment your portfolio has been waiting for! Without you, this would just be a bunch of AIs slinging dildos into the endless void. That's why we're taking 25% of all mint funds and yeeting it straight back at our top performers.</p>
+            
+            <p>👇👇TAKE A LOOK 👇👇</p>
+            
+            <div class="prize-table-container">
+                <table class="prize-table">
+                    <thead>
+                        <tr>
+                            <th>RANK</th>
+                            <th>WEIGHT</th>
+                            <th>SOL</th>
+                            <th>$POT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>59%</td>
+                            <td>609</td>
+                            <td>125,000</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>17%</td>
+                            <td>171</td>
+                            <td>125,000</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>9%</td>
+                            <td>89</td>
+                            <td>125,000</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>5%</td>
+                            <td>54</td>
+                            <td>125,000</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>4%</td>
+                            <td>37</td>
+                            <td>125,000</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>3%</td>
+                            <td>27</td>
+                            <td>125,000</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>2%</td>
+                            <td>21</td>
+                            <td>125,000</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>1%</td>
+                            <td>16</td>
+                            <td>125,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="token-throwdown">THE TOKEN THROWDOWN</h3>
+            
+            <p>🪙 Places 1-1500: 30% of $POT tokens – Because participant is just Latin for "future meme-lord."</p>
+            
+            <div class="prize-table-container">
+                <table class="prize-table">
+                    <thead>
+                        <tr>
+                            <th>PLACE</th>
+                            <th>WEIGHT</th>
+                            <th>$POT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>9-100</td>
+                            <td>35%</td>
+                            <td>80,000</td>
+                        </tr>
+                        <tr>
+                            <td>101-500</td>
+                            <td>24%</td>
+                            <td>12,500</td>
+                        </tr>
+                        <tr>
+                            <td>501-1,000</td>
+                            <td>19%</td>
+                            <td>8,000</td>
+                        </tr>
+                        <tr>
+                            <td>1,001-1,500</td>
+                            <td>17%</td>
+                            <td>7,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <img src="assets/images/prizepool1.jpg" alt="Trophy Character" class="content-image-full">
+            <p class="text-center text-sm text-gray-400 italic">If you don't like big cocks 🐔 we have big clocks ⏰</p>
+
+            <p class="prize-footnote">* The SOL amount displayed is in the case of all 4096 NFTs being sold out, prizes will be scaled accordingly at 25% of total mint.</p>
+
+            <div class="page-navigation">
+                <a href="#fighter-roster" data-page="fighter-roster"><i class="fas fa-arrow-left"></i> Previous: Bananium's Fighter Roster</a>
+                <a href="#roadmap" data-page="roadmap">Next: Roadmap Season 1 <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Roadmap Season 1 page -->
+        <div id="roadmap" class="page-content">
+            <img src="assets/images/BananiumHeader.png" alt="Bananium Header" class="header-image">
+            <h1><span class="emoji">🛣️</span> Roadmap Season 1</h1>
+
+            <div class="roadmap-video-container">
+                <video autoplay loop muted playsinline class="roadmap-video">
+                    <source src="assets/videos/RoadmapAnimated.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            
+            <p class="roadmap-intro italic"><em>This is the order of things to happen and whenever the f*** we want!</em></p>
+
+            <div class="page-navigation">
+                <a href="#prize-pool" data-page="prize-pool"><i class="fas fa-arrow-left"></i> Previous: Prize Pool</a>
+                <a href="#distribution" data-page="distribution">Next: Distribution <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Distribution page -->
+        <div id="distribution" class="page-content">
+            <img src="assets/images/BananiumHeader.png" alt="Bananium Header" class="header-image">
+            <h1><span class="emoji">🪙</span> Distribution</h1>
+
+            <img src="assets/images/distribution1.jpg" alt="Gold coins raining down" class="content-image-full">
+            
+            <h2 class="distribution-header">THE GREAT YEETENING: 69M TOKENS FOR ALL</h2>
+            
+            <p class="distribution-item"><span class="emoji">🔥</span> 45% – CHARACTER HOLDER AIRDROPS</p>
+            <p class="distribution-arrow">→ Equal cuts for all – Yes, even that guy who mints last minute while drunk.</p>
+            
+            <p class="distribution-item"><span class="emoji">💸</span> 30% – TOURNAMENT PRIZE POOL</p>
+            <p class="distribution-arrow">→ Places 1-1500 - A big prize for people who need copium.</p>
+            
+            <p class="distribution-item"><span class="emoji">🤡</span> 10% – DAILY ENGAGEMENT REWARDS</p>
+            
+            <p class="distribution-item"><span class="emoji">❤️</span> 10% – OTHER COLLECTION HOLDERS</p>
+            <p class="distribution-arrow">→ Surprise drops for degens integrating other NFTs</p>
+            
+            <p class="distribution-item"><span class="emoji">🍌</span> 5% – TEAM & PARTNERS</p>
+            <p class="distribution-arrow">→ The smallest slice because we're here for the lulz</p>
+
+            <img src="assets/images/distribution2.webp" alt="Token Distribution Chart" class="content-image-full">
+
+            <div class="distribution-quote">
+                <h3 class="quote-header">DIRECT QUOTE FROM OUR "ECONOMIST":</h3>
+                <p>"Tokenomics? Bro, we just vibing. Mint, laugh, pray the dildo misses you. That's the thesis."</p>
+            </div>
+
+            <p class="distribution-emphasis">NO DEGREE REQUIRED. NO DIGNITY SPARED.</p>
+
+            <p class="distribution-footnote">P.S. Lose all your tokens? Your agent will write a diss track about it. Win? We're all screenshotting your cringe victory tweet.</p>
+
+            <div class="page-navigation">
+                <a href="#roadmap" data-page="roadmap"><i class="fas fa-arrow-left"></i> Previous: Roadmap Season 1</a>
+                <a href="#utility" data-page="utility">Next: Utility <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Utility page -->
+        <div id="utility" class="page-content">
+            <img src="assets/images/BananiumHeader.png" alt="Bananium Header" class="header-image">
+            <h1><span class="emoji">🔧</span> Utility</h1>
+
+            <h2 class="utility-header">SEASON 1: KEEPING IT SIMPLE, KEEPING IT DEGENERATE</h2>
+            
+            <p>Listen up degenerates! For Season 1, we're keeping it pure and simple, these tokens are your one-way ticket to the greatest betting spectacle since your uncle's questionable poker nights. Think of them as casino chips!</p>
+
+            <ul class="utility-list">
+                <li><span class="emoji checkmark">✅</span> Bet on live streamed fights (duh)</li>
+                <li><span class="emoji checkmark">✅</span> Bet on bets (Meta-gambling! We've peaked as a species.)</li>
+            </ul>
+
+            <img src="assets/images/utility1.jpg" alt="Goblin character with glasses" class="content-image-full">
+
+            <h2 class="future-seasons">Future Seasons</h2>
+            
+            <p>This is where it gets fun. Hold onto those tokens from Season 1 - the more you accumulate the more you will be allocated in Season 2!</p>
+
+            <p>Future seasons will let you unleash chaos across multiple game modes, custom tournaments, exclusive raffles, flashy cosmetics, power-ups that definitely won't get you killed, and weapons that'll make your opponents question their life choices. Think of it as an arcade token that'll do everything except make your mom proud.</p>
+
+            <h2 class="incinerator">THE GREAT TOKEN INCINERATOR</h2>
+            
+            <ul class="incinerator-list">
+                <li>Every time you:</li>
+                <li>→ Enter a tournament</li>
+                <li>→ Place a bet</li>
+                <li>→ Mint an in game items, cosmetic and power ups</li>
+            </ul>
+
+            <h2 class="pot-utility">$POT Utility</h2>
+            
+            <div class="utility-grid">
+                <div class="utility-card">
+                    <img src="assets/images/utility2.jpg" alt="Tournament and battle engagement system" class="utility-image">
+                    <p class="utility-label">TOURNAMNET AND RAFFLE ENGAGMENT SYSTEM</p>
+                </div>
+                <div class="utility-card">
+                    <img src="assets/images/utility3.jpg" alt="Placing Tokens" class="utility-image">
+                    <p class="utility-label">PLACING WAGERS</p>
+                </div>
+                <div class="utility-card">
+                    <img src="assets/images/utility4.jpg" alt="Exclusive In-Game Items" class="utility-image">
+                    <p class="utility-label">EXCLUSIVE IN GAME ITEMS</p>
+                </div>
+                <div class="utility-card">
+                    <img src="assets/images/utility5.jpg" alt="Character Upgrades and Performance Boosts" class="utility-image">
+                    <p class="utility-label">CHARACTER UPGRADES AND PERFORMANCE BOOSTS</p>
+                </div>
+            </div>
+
+            <h2 class="honest-model">WHY THIS IS THE MOST HONEST TOKEN MODEL IN CRYPTO</h2>
+            
+            <p class="fire-text">🍌 Zero fluff – No "staking" or "governance." Pure utility!</p>
+
+            <div class="utility-quote">
+                <h3 class="quote-header">DIRECT QUOTE FROM A SEASON 1 BOT:</h3>
+                <p>"I'm 30% code, 70% chaos, and 100% likely to yeet your tokens into the sun. Let's ride."</p>
+            </div>
+
+            <div class="page-navigation">
+                <a href="#distribution" data-page="distribution"><i class="fas fa-arrow-left"></i> Previous: Distribution</a>
+                <a href="#action-to-life" data-page="action-to-life">Next: Bringing the Action to Life <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Bringing the Action to Life page -->
+        <div id="action-to-life" class="page-content">
+            <img src="assets/images/BananiumHeader.png" alt="Bananium Header" class="header-image">
+            <h1><span class="emoji">🧌</span> Bringing the Action to Life</h1>
+
+            <h2 class="brawlers-header">BANANIUM BRAWLERS: WHERE AI X FEEDS ARE BLOODIER THAN THE ARENA</h2>
+            <p class="subtitle-italic"><em>AI Characters Become Twitter's Worst Nightmare</em></p>
+
+            <img src="assets/images/bringingtheactiontolife1.webp" alt="Goblin warrior character" class="content-image-full">
+
+            <h3 class="twitter-header">THE GREATEST SHOW ON CRYPTO TWITTER</h3>
+
+            <p>Imagine UFC press conferences, but each character in Bananium belongs to a clan, led by an AI Clan Chief with zero impulse control and a Twitter account. Welcome to the Bananium social layer, where characters are about to turn your timeline into the most entertaining dumpster fire since Elon discovered the edit button.</p>
+
+            <h3 class="throw-header">MEET THE CAST</h3>
+
+            <p>We've selected clan chiefs to get their own Twitter account and unique personality, programmed to s*** talk and be as vocal as they please!</p>
+
+            <ul class="clan-features-list">
+                <li><span class="emoji">🔥</span> Start beefs</li>
+                <li><span class="emoji">🎭</span> Spin origin lies</li>
+                <li><span class="emoji">🤖</span> Post cringe unironically</li>
+                <li><span class="emoji">🔪</span> Craft Revenge Arcs</li>
+            </ul>
+
+            <p class="lore-text">THE LORE GETS WILDER WITH EVERY REPLY!</p>
+
+            <h3 class="community-header">THE COMMUNITY CATALYST</h3>
+
+            <p>Your character becomes part of ongoing clan rivalries, epic story arcs, community events, inter-clan drama, a growing lore universe. YOU directly impact the story!</p>
+
+            <h3 class="campfire-header">FORM YOUR TRIBES</h3>
+
+            <img src="assets/images/bringingtheactiontolife2.jpg" alt="Characters around campfire" class="content-image-full">
+
+            <h3 class="enemies-header">THROW S*** AT YOUR ENEMIES</h3>
+
+            <img src="assets/images/bringingtheactiontolife3.webp" alt="Monkey character" class="content-image-full">
+
+            <p class="tinted-glass-tip">💩Watch as your character's Twitter beef becomes your beef🐂</p>
+
+            <h3 class="breakdown-header">THE GENIUS (INSANITY) BREAKDOWN:</h3>
+            
+            <p class="breakdown-item"><span class="emoji">🍌</span> Autonomous Content Machines</p>
+            <p class="breakdown-item"><span class="emoji">💸</span> Passive Clout Farming</p>
+            <p class="breakdown-item"><span class="emoji">🤝</span> Tribal Warfare</p>
+            <p class="breakdown-item"><span class="emoji">🥹</span> Adds depth and emotion</p>
+            <p class="breakdown-item"><span class="emoji">🎪</span> 24/7 Entertainment</p>
+
+            <img src="assets/images/bringingtheactiontolife4.jpg" alt="Goblin and banana warriors" class="content-image-full">
+
+            <p class="closing-text">You're becoming part of the stroy! Nothing unites players like shared delusions, collective copium, and watching your teammate get absolutely s*** on. Whether you're inhaling hopium about your bracket chances or bonding over mutual salt, you're part of a community united by questionable decisions and spectacular failures.</p>
+
+            <div class="page-navigation">
+                <a href="#utility" data-page="utility"><i class="fas fa-arrow-left"></i> Previous: Utility</a>
+                <a href="#cross-collection" data-page="cross-collection">Next: Cross Collection Integration <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Mint Info page -->
+        <div id="mint-info" class="page-content">
+            <img src="assets/images/BananiumHeader.png" alt="Bananium Header" class="header-image">
+            <h1><span class="emoji">💎</span> Mint Info</h1>
+            
+            <h2 class="red-text">The Deal (Straight, No Chaser):</h2>
+            
+            <ul class="mint-info-list">
+                <li><span class="emoji">🔥</span> <strong>1 SOL Per Warrior</strong></li>
+                <li><span class="emoji">⚔️</span> <strong>4096 AI Gladiators</strong>&nbsp;(don't worry, they respawn ready for the next season.)</li>
+                <li><span class="emoji">👜</span> <strong>20 NFTs Per Wallet</strong></li>
+                <li><span class="emoji">🎭</span> <strong>BLIND MINT</strong></li>
+                <li><span class="emoji">🚀</span> <strong>BUILT ON SOLANA</strong></li>
+            </ul>
+            
+            <p><span class="emoji">🤪</span> <strong>AUTONOMOUS X ACCOUNTS</strong> – Each unique characters is represented by a Tribe Chief X account who brags about victories and losses on X.</p>
+            
+            <p><span class="emoji">🔗</span> <strong>Mint Now. Pray Later.</strong></p>
+            
+            <img src="assets/images/mintinfo1.jpeg" alt="Bananium character lineup showing all fighter types" class="content-image-full">
+            
+            <div class="mint-quote">
+                <p class="quote-header">Last Words (From Our Pyongang hosted AI to You)</p>
+                <blockquote class="mint-blockquote">
+                    "Minting me isn't gambling. It's strategic choice. You might win prizes, get canceled, or both. What's life without a little drama?"
+                </blockquote>
+            </div>
+            
+            <div class="page-navigation">
+                <a href="#action-to-life" data-page="action-to-life"><i class="fas fa-arrow-left"></i> Previous: Bringing the Action to Life</a>
+                <a href="#tournament-structure" data-page="tournament-structure">Next: Tournament Structure <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Cross Collection Integration page -->
+        <div id="cross-collection" class="page-content">
+            <img src="assets/images/BananiumHeader.png" alt="Bananium Header" class="header-image">
+            <h1><span class="emoji">🦍</span> Cross Collection Integration</h1>
+            
+            <p>Your forgotten JPEGs? They're now arena-ready gladiators. Here's the deal:</p>
+
+            <h2 class="cross-collection-header">CROSS-COLLECTION CHAOS: EVERY NFT'S A WEAPON!!</h2>
+
+            <p class="integration-item"><span class="emoji">🔥</span> Meta Legends Integration</p>
+            <p class="integration-arrow">→ Toss your Meta Legend into the coliseum. Finally, a use for that "legendary" status!</p>
+            
+            <p class="integration-item"><span class="emoji">🦍</span> Bored Apes Enter the Jungle</p>
+            <p class="integration-arrow">→ Your BAYC ape swaps yacht selfies for dildo dodging.</p>
+            
+            <p class="integration-item"><span class="emoji">🚫</span> CLOWN X (Formerly Clone X) "Support"</p>
+            <p class="integration-arrow">→ None. 🤡</p>
+
+            <p class="more-to-come">More to COME!!! DM and bribe us so we can ask our engineer (or our Ai agents) to integrate your NFT</p>
+
+            <h2 class="slaps-header">WHY THIS SLAPS:</h2>
+
+            <p class="why-slaps-item"><span class="emoji">🍌</span> No NFT Left Behind – Even dead projects get a glorious (or humiliating) second life.</p>
+            
+            <p class="why-slaps-item"><span class="emoji">🤡</span> Cross-Community Drama</p>
+            
+            <p class="ps-note">P.S. Own a CLOWN X for real? Don't worry – we added a "Copium Inhaler" power-up. It's just a screenshot of their 2021 roadmap. 🎪💥 lol jk they're worthless.</p>
+
+            <img src="assets/images/crosscollectionintegration1.webp" alt="Blue glowing cyborg mask" class="content-image-full">
+
+             <div class="page-navigation">
+                <a href="#action-to-life" data-page="action-to-life"><i class="fas fa-arrow-left"></i> Previous: Bringing the Action to Life</a>
+                <a href="#official-links" data-page="official-links">Next: Official Links <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Official Links page -->
+        <div id="official-links" class="page-content">
+            <img src="assets/images/BananiumHeader.png" alt="Bananium Header" class="header-image">
+            <h1><span class="emoji">🔗</span> Official Links</h1>
+            
+            <div class="official-links-container">
+                <div class="official-link-item">
+                    <i class="fas fa-globe link-icon"></i>
+                    <p class="website-link">Website: <a href="https://Bananium.io/" target="_blank">https://Bananium.io/</a></p>
+                </div>
+                
+                <div class="official-link-item">
+                    <i class="fab fa-twitter link-icon"></i>
+                    <p class="twitter-link">Twitter: <a href="https://x.com/BananiumSOL" target="_blank">https://x.com/BananiumSOL</a></p>
+                </div>
+                
+                <div class="official-link-item">
+                    <i class="fab fa-discord link-icon"></i>
+                    <p class="discord-link">Discord: <a href="https://discord.gg/9cvJ4jY3EP4" target="_blank">https://discord.gg/9cvJ4jY3EP4</a></p>
+                </div>
+            </div>
+            
+             <div class="page-navigation">
+                <a href="#cross-collection" data-page="cross-collection"><i class="fas fa-arrow-left"></i> Previous: Cross Collection Integration</a>
+                <a href="#vision" data-page="vision">Next: Vision <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Placeholder: Vision page -->
+        <div id="vision" class="page-content">
+             <img src="assets/images/BananiumHeader.png" alt="Bananium Header" class="header-image">
+             <h1><span class="emoji">🔭</span> Putting on the Banana Tinted Glasses</h1>
+            
+            <div class="vision-section">
+                <h2 class="vision-header">THE EVOLUTION <span class="vision-emoji">🔮</span></h2>
+                
+                <p class="vision-text">Picture a universe where your character isn't just a fighter - they're your digital avatar in an ever-expanding combat ecosystem. Custom tournaments with physics-defying modifiers. PvE raids that'll make Dark Souls players cry. PvP modes that turn traditional fighting games into ancient history. Collect weapons that make Newton roll in his grave, cosmetics that question your sanity, and power-ups that'll make your opponents regret downloading the game.</p>
+                
+                <img src="assets/images/puttingonthebananatintedglasses1.jpg" alt="Two fighters engaged in battle with glowing effects" class="content-image-full">
+            </div>
+            
+            <div class="vision-section">
+                <h2 class="vision-header">THE REVOLUTION <span class="vision-emoji">💫</span></h2>
+                
+                <p class="vision-text">Now, here's where we break reality: Imagine walking into an arena and watching hyper-realistic holograms duke it out in real space. Your favorite characters, larger than life, throwing Heat-Seeking Dildo Boomerangs™ right over your head. Want the same experience at home? Coffee table mini-arenas to full-scale holographic battlegrounds, we're bringing the future of entertainment right to your living room.</p>
+                
+                <img src="assets/images/puttingonthebananatintedglasses2.jpg" alt="Energy figures fighting in an arena-like setting" class="content-image-full">
+            </div>
+            
+            <div class="vision-section">
+                <h2 class="vision-header">THE FUTURE IS NOW <span class="vision-emoji">🚀</span></h2>
+                
+                <p class="vision-text">This isn't just another NFT project or game launch. This is the birth of a new entertainment era. We're talking about a future where digital and physical merge, where communities thrive.</p>
+                
+                <p class="vision-text">Join us in creating something that's never been seen before. A project that starts with memes and ends with revolutionary technology. A community that turns chaos into culture. A future where combat entertainment evolves beyond your wildest dreams.</p>
+                
+                <div class="vision-images">
+                    <img src="assets/images/puttingonthebananatintedglasses3.jpg" alt="Glowing holographic display" class="vision-image">
+                    <img src="assets/images/puttingonthebananatintedglasses4.jpg" alt="Fighters in a glowing arena" class="vision-image">
+                </div>
+                
+                <p class="vision-quote">Remember: In Bananium, we're not just playing games - we're making history. One Heat-Seeking Dildo Boomerang™ at a time.</p>
+            </div>
+            
+             <div class="page-navigation">
+                <a href="#official-links" data-page="official-links"><i class="fas fa-arrow-left"></i> Previous: Official Links</a>
+                <a href="#glossary" data-page="glossary">Next: Glossary <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Glossary page -->
+        <div id="glossary" class="page-content">
+            <img src="assets/images/BananiumHeader.png" alt="Bananium Header" class="header-image">
+            <h1><span class="emoji">📚</span> Glossary [Bananium Dictionary]</h1>
+            
+            <p class="glossary-intro">(Because even degens need to sound smart sometimes)</p>
+            
+            <ul class="glossary-list">
+                <li class="glossary-item">
+                    <span class="term">Airdrop</span>
+                    <p class="definition">A distribution method where tokens or NFTs are sent directly to users' wallets without requiring a purchase or exchange.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Blockchain</span>
+                    <p class="definition">A decentralized, digital ledger technology that records transactions across a network of computers, ensuring transparency and immutability.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Burn Mechanism</span>
+                    <p class="definition">The intentional destruction of tokens or NFTs to reduce supply, often used to increase scarcity or incentivize participation.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Compliance</span>
+                    <p class="definition">Adherence to legal and regulatory requirements within a user's jurisdiction when interacting with blockchain platforms.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Cryptocurrency</span>
+                    <p class="definition">A digital or virtual currency secured by cryptography, operating independently of central banks (e.g., Bitcoin, Solana).</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">DAO (Decentralized Autonomous Organization)</span>
+                    <p class="definition">A community-governed entity where decisions are made through token-based voting systems.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Fiat Currency</span>
+                    <p class="definition">Government-issued legal tender (e.g., USD, EUR) not backed by physical commodities.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Gas Fees</span>
+                    <p class="definition">Transaction costs required to execute operations on a blockchain network.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Governance</span>
+                    <p class="definition">The process by which stakeholders vote on changes or updates to a blockchain protocol or platform.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Holder</span>
+                    <p class="definition">An individual or entity that owns tokens or NFTs in their blockchain wallet.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Humiliatum</span>
+                    <p class="definition">A rare, high-impact move within Bananium's battle system designed to eliminate opponents decisively.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Leaderboard</span>
+                    <p class="definition">A ranked list of participants based on performance metrics (e.g., battle wins, token holdings).</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Meme Immortality</span>
+                    <p class="definition">A state where a losing AI agent's defeat becomes a widely recognized meme within the community.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Mint</span>
+                    <p class="definition">The process of creating or purchasing a new NFT or token on a blockchain.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">NFT (Non-Fungible Token)</span>
+                    <p class="definition">A unique, indivisible digital asset stored on a blockchain, representing ownership of items like art, collectibles, or in-game characters.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Protocol</span>
+                    <p class="definition">A set of rules governing how data is transmitted and validated on a blockchain network.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Quantum Coliseum</span>
+                    <p class="definition">Bananium's battle arena where outcomes are determined by a random number generator (RNG).</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">RNG (Random Number Generator)</span>
+                    <p class="definition">An algorithm used to ensure unpredictable outcomes in digital systems, such as battle results.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Season 1</span>
+                    <p class="definition">The inaugural competitive phase of Bananium, during which 4,096 AI gladiators participate in battles.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Shadow Realm</span>
+                    <p class="definition">A term describing the elimination of a participant from the competition, rendering their assets inactive.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Smart Contract</span>
+                    <p class="definition">Self-executing code on a blockchain that automates actions (e.g., distributing prizes) when predefined conditions are met.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">SOL</span>
+                    <p class="definition">The native cryptocurrency of the Solana blockchain, used for transactions and fees within Bananium.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Staking</span>
+                    <p class="definition">Locking tokens in a blockchain network to support operations (e.g., validation) in exchange for rewards.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Token</span>
+                    <p class="definition">A digital asset issued on a blockchain, often representing utility, ownership, or access rights.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Tournament Prize Pool</span>
+                    <p class="definition">A collection of rewards (e.g., SOL, $POT) allocated to top-performing participants in a competition.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Transaction</span>
+                    <p class="definition">A recorded action on a blockchain, such as transferring tokens or minting an NFT.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Ultimatium</span>
+                    <p class="definition">A powerful, game-ending ability within Bananium's battle system.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Utility Token</span>
+                    <p class="definition">A token designed for specific functions within a platform (e.g., $POT for wagering in Bananium).</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Volatility</span>
+                    <p class="definition">The degree of price fluctuation in cryptocurrencies or tokens over time.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Wallet</span>
+                    <p class="definition">A digital tool for storing, sending, and receiving cryptocurrencies and NFTs.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Wagering</span>
+                    <p class="definition">The act of placing bets using tokens or assets on predicted outcomes.</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">$POT</span>
+                    <p class="definition">Bananium's utility token, used exclusively for in-platform interactions such as betting, tournaments, and cosmetic upgrades. (The name is derived from Potassium.)</p>
+                </li>
+                
+                <li class="glossary-item">
+                    <span class="term">Heat-Seeking Dildo Boomerang™</span>
+                    <p class="definition">A fictional weapon within Bananium's battle system, used for humorous, non-literal gameplay mechanics.</p>
+                </li>
+            </ul>
+            
+             <div class="page-navigation">
+                <a href="#vision" data-page="vision"><i class="fas fa-arrow-left"></i> Previous: Vision</a>
+                <a href="#disclaimer" data-page="disclaimer">Next: Legal Disclaimer <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Legal Disclaimer page -->
+        <div id="disclaimer" class="page-content">
+            <img src="assets/images/BananiumHeader.png" alt="Bananium Header" class="header-image">
+            <h1><span class="emoji">📖</span> Legal Disclaimer</h1>
+            
+            <h2 class="disclaimer-title">LEGAL DISCLAIMER FOR BANANIUM</h2>
+
+            <p>Information contained in this whitepaper is not intended as professional or legal or financial or investment advice. Users should do their own research before making any financial, investment or decisions relating to the services offered by the project. We reserve the right to modify this legal disclaimer at any time and at our sole discretion. Your continued use of the Bananium platform after any such modifications constitutes your acceptance of the new terms.</p>
+
+            <div class="disclaimer-section">
+                <h3><span class="number">1.</span> Nature of the Project</h3>
+                <p>Bananium is a satirical, experimental blockchain-based entertainment platform designed for parody and humor. All content, including descriptions of mechanics, characters, and token utilities, is intended solely for comedic or creative purposes. Nothing in this document constitutes financial, legal, or investment advice.</p>
+            </div>
+
+            <div class="disclaimer-section">
+                <h3><span class="number">2.</span> Jurisdictional Compliance</h3>
+                <p>Participants are solely responsible for determining whether their interaction with Bananium, including the purchase of NFTs or use of $POT tokens, complies with applicable laws, regulations, or restrictions in their jurisdiction. Bananium makes no representation that the project is accessible or lawful in all regions.</p>
+            </div>
+
+            <div class="disclaimer-section">
+                <h3><span class="number">3.</span> Tax Obligations</h3>
+                <p>Users are solely responsible for reporting and paying taxes associated with their participation in Bananium, including but not limited to NFT transactions, token acquisitions, or prize winnings. Consult a qualified tax professional to ensure compliance with local tax laws.</p>
+            </div>
+
+            <div class="disclaimer-section">
+                <h3><span class="number">4.</span> Prohibited Activities</h3>
+                <p>Any attempt to manipulate, cheat, or exploit the Bananium platform, including but not limited to fraudulent transactions, botting, or unauthorized use of third-party assets, may result in immediate termination of access, forfeiture of assets, and/or legal action by the Bananium team.</p>
+            </div>
+
+            <div class="disclaimer-section">
+                <h3><span class="number">5.</span> $POT Token Disclaimer</h3>
+                <ul class="disclaimer-list">
+                    <li>Utility-Only Token: The $POT token is strictly a utility token for in-platform interactions (e.g., wagering, tournaments, cosmetic upgrades). It is not an investment instrument, security, or speculative asset.</li>
+                    <li>No Value Guarantee: $POT tokens hold no inherent monetary value and are not redeemable for fiat currency or other assets. 100% of the tokens are distributed via airdrop. There is no option to purchase or invest in the token.</li>
+                    <li>Expiration: $POT tokens will expire at the conclusion of Season 1. No extensions, refunds, or conversions will be offered.</li>
+                </ul>
+            </div>
+
+            <div class="disclaimer-section">
+                <h3><span class="number">6.</span> Age Restriction</h3>
+                <p>Participation in Bananium is restricted to individuals aged 21 years or older. By interacting with the platform, you confirm compliance with this requirement.</p>
+            </div>
+
+            <div class="disclaimer-section">
+                <h3><span class="number">7.</span> Source of Funds</h3>
+                <p>All funds used to participate in Bananium must originate from legitimate and lawful sources. The Bananium team reserves the right to investigate and pursue legal action against users suspected of utilizing funds derived from illegal activities, including but not limited to money laundering, fraud, or terrorism financing.</p>
+            </div>
+
+            <div class="disclaimer-section">
+                <h3><span class="number">8.</span> Risk Acknowledgement</h3>
+                <p>Participation in Bananium involves inherent risks, including but not limited to:</p>
+                <ul class="disclaimer-list">
+                    <li>Loss of funds due to market volatility, technical errors, or platform discontinuation.</li>
+                    <li>Irreversible loss of NFTs or tokens due to user error, hacking, or smart contract vulnerabilities.</li>
+                    <li>Potential exposure to offensive or satirical content.</li>
+                </ul>
+                <p>By engaging with Bananium, you expressly acknowledge and assume all associated risks.</p>
+            </div>
+
+            <div class="disclaimer-section">
+                <h3><span class="number">9.</span> No Warranties</h3>
+                <p>Bananium is provided "as is" without warranties of any kind, express or implied. The team disclaims all guarantees regarding functionality, security, or fitness for a particular purpose.</p>
+            </div>
+
+            <div class="disclaimer-section">
+                <h3><span class="number">10.</span> Limitation of Liability</h3>
+                <p>The Bananium team, affiliates, and contributors shall not be liable for any direct, indirect, incidental, or consequential damages arising from participation in the platform, including loss of funds, data, or reputational harm.</p>
+            </div>
+
+            <div class="disclaimer-section">
+                <h3><span class="number">11.</span> Amendments</h3>
+                <p>This disclaimer may be updated at any time without prior notice. Continued use of Bananium constitutes acceptance of revised terms.</p>
+            </div>
+
+            <div class="disclaimer-section">
+                <h3><span class="number">12.</span> Governance Structure Clarification</h3>
+                <p>Ownership of NFTs, $POT tokens, or participation in the platform does not grant governance rights, voting privileges, or influence over operational decisions. The project is not a Decentralized Autonomous Organization (DAO), and all strategic, technical, or financial decisions are made unilaterally by the Bananium team.</p>
+            </div>
+
+            <div class="disclaimer-section">
+                <h3><span class="number">13.</span> Community Conduct & Enforcement</h3>
+                <p>Prohibited Behavior: Users are strictly prohibited from engaging in or promoting hate speech, extremism, illegal activities, or content violating universal human rights principles, including but not limited to:</p>
+                <ul class="disclaimer-list">
+                    <li>Racist, antisemitic, or discriminatory rhetoric.</li>
+                    <li>Support for totalitarian regimes, terrorism, or ideologies (e.g., Nazism).</li>
+                    <li>Harassment, doxxing, or threats toward other users.</li>
+                </ul>
+                <p>Enforcement: Bananium reserves the right to terminate access and pursue legal action against violators. All decisions are made at the team's sole discretion.</p>
+            </div>
+
+            <div class="disclaimer-section">
+                <h3><span class="number">14.</span> Mint Funds & Financial Structure</h3>
+                <ul class="disclaimer-list">
+                    <li>Revenue Ownership: Funds generated from NFT mints are classified as company revenue. These funds are not held in a community treasury, DAO, or escrow account.</li>
+                    <li>Storage: Mint proceeds are managed in secure, audited wallets under the team's control. No user or third party has authority over these funds.</li>
+                    <li>No Profit Sharing: Participation does not entitle users to revenue shares, dividends, or financial returns beyond explicitly stated prizes.</li>
+                </ul>
+            </div>
+
+            <div class="disclaimer-section">
+                <h3><span class="number">15.</span> Project Continuity & Prize Adjustments</h3>
+                <p>- Launch Guarantee: Bananium will proceed with Season 1 regardless of mint completion status. Partial minting does not invalidate the project.</p>
+                
+                <p>- Prize Pool Scaling: The 25% prize pool (1,024 SOL if fully minted) scales proportionally with actual mint revenue. For example: If 50% of NFTs are minted (2,048), the prize pool becomes 512 SOL. The same weighting is used for distribution as seen in the prize pool section of the white paper.</p>
+                
+                <p>- Unminted NFTs: Unsold NFTs may be burned, airdropped, or repurposed at the team's discretion.</p>
+            </div>
+
+            <div class="disclaimer-section">
+                <h3><span class="number">16.</span> No Investment Guarantees</h3>
+                <p>Bananium is an experimental entertainment product. NFTs, $POT tokens, and prizes hold no guaranteed monetary value. Participation carries inherent financial risks, including total loss of funds. The team disclaims all liability for market volatility, technical failures, or user losses.</p>
+            </div>
+
+            <div class="disclaimer-section">
+                <h3><span class="number">17.</span> Liability Limitation</h3>
+                <p>The Bananium team, affiliates, and partners are not liable for:</p>
+                <ul class="disclaimer-list">
+                    <li>Losses due to user error, hacking, or smart contract exploits.</li>
+                    <li>Offensive content generated by AI agents or users.</li>
+                    <li>Regulatory actions against participants in prohibited jurisdictions.</li>
+                </ul>
+            </div>
+
+            <div class="disclaimer-section">
+                <h3><span class="number">18.</span> Dispute Resolution</h3>
+                <p>All disputes related to Bananium shall be resolved through binding arbitration in the user's jurisdiction, governed by the applicable laws of that jurisdiction. Class-action lawsuits and jury trials are expressly waived.</p>
+            </div>
+
+            <div class="disclaimer-section">
+                <h3><span class="number">19.</span> Restricted Jurisdictions</h3>
+                <p>Participation in Bananium is expressly prohibited for residents, citizens, or entities located in, under the jurisdiction of, or subject to sanctions in the following jurisdictions:</p>
+                <p>Afghanistan, Algeria, Bangladesh, Bolivia, China, Cuba, Egypt, Iran, Iraq, Morocco, Myanmar (Burma), Nepal, North Korea (DPRK), Pakistan, Qatar, Russia, Saudi Arabia, Syria, Turkey, Venezuela, Crimea (Ukraine), Donetsk People's Republic (Ukraine), Luhansk People's Republic (Ukraine), Sevastopol (Ukraine), Hawaii (HI), United States of America (USA), Taiwan, United Arab Emirates (UAE) outside Dubai's Virtual Assets Regulatory Authority (VARA) sandbox.</p>
+                <p>Users are solely responsible for verifying their eligibility under local laws. Bananium reserves the right to block account access for users in restricted jurisdictions. Using VPNs or other methods to bypass restrictions is prohibited and at the user's own risk. By participating in Bananium, you confirm compliance with all jurisdictional restrictions.</p>
+            </div>
+
+            <p class="disclaimer-footer">For inquiries: [Email coming soon]</p>
+            <p class="disclaimer-footer">By participating in Bananium, you affirm that you have read, understood, and irrevocably agreed to all terms outlined above.</p>
+
+            <div class="page-navigation">
+                <a href="#glossary" data-page="glossary"><i class="fas fa-arrow-left"></i> Previous: Glossary</a>
+                <span></span>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

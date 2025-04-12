@@ -1,0 +1,272 @@
+/* Cross Collection Integration Page Styles */
+.text-collection-intro {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: var(--text-highlight);
+}
+
+.cross-collection-header {
+    font-size: 2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin: 2rem 0;
+    color: var(--glow-color);
+    text-shadow: 0 0 10px var(--glow-color-light);
+}
+
+.cross-collection-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 2rem;
+}
+
+.cross-collection-list li {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: flex-start;
+}
+
+.emoji.fire {
+    margin-right: 10px;
+    font-size: 1.4rem;
+}
+
+.nft-integration {
+    font-size: 1.3rem;
+    margin: 2rem 0;
+    color: var(--text-highlight);
+}
+
+.slaps-header {
+    font-size: 1.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin: 2rem 0;
+    color: var(--primary-color);
+}
+
+.why-slaps-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 2rem;
+}
+
+.why-slaps-list li {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: flex-start;
+}
+
+.emoji.left, .emoji.community {
+    margin-right: 10px;
+    font-size: 1.4rem;
+}
+
+.ps-note {
+    font-size: 1.1rem;
+    font-style: italic;
+    margin: 2rem 0;
+    color: var(--text-highlight);
+}
+
+/* Official Links Page Styles */
+.website-link, .twitter-link, .discord-link, .opensea-link {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+}
+
+.website-link a, .twitter-link a, .discord-link a, .opensea-link a {
+    color: var(--glow-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.website-link a:hover, .twitter-link a:hover, .discord-link a:hover, .opensea-link a:hover {
+    color: var(--glow-color-light);
+    text-decoration: underline;
+}
+
+.on-this-page {
+    background-color: rgba(30, 30, 40, 0.8);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 300px;
+    position: relative;
+    float: right;
+}
+
+.on-this-page h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+}
+
+.on-this-page p {
+    font-size: 0.9rem;
+    margin-bottom: 0.7rem;
+}
+
+.on-this-page a {
+    color: var(--glow-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.on-this-page a:hover {
+    color: var(--glow-color-light);
+    text-decoration: underline;
+}
+
+/* Vision Page Styles */
+.vision-section {
+    margin-bottom: 3rem;
+}
+
+.vision-header {
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 2rem 0;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+}
+
+.vision-emoji {
+    margin-left: 10px;
+    font-size: 1.5rem;
+}
+
+.vision-text {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+.vision-images {
+    display: flex;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.vision-image {
+    flex: 1;
+    max-width: 50%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.vision-quote {
+    font-size: 1.2rem;
+    font-style: italic;
+    margin: 2rem 0;
+    color: var(--glow-color);
+    text-align: center;
+}
+
+/* Glossary Page Styles */
+.alphabetic-header {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 1.5rem 0;
+    color: #ff4c4c;
+}
+
+.glossary-intro {
+    font-size: 1.1rem;
+    font-style: italic;
+    margin-bottom: 2rem;
+    color: var(--text-light);
+}
+
+.glossary-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.glossary-item {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.glossary-item::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--glow-color);
+    font-size: 1.2rem;
+}
+
+.term {
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 0.3rem;
+    color: var(--text-light);
+}
+
+.definition {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin: 0;
+    color: var(--text-color);
+}
+
+/* Legal Disclaimer Page Styles */
+.disclaimer-intro {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+    color: var(--text-color);
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.disclaimer-section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.disclaimer-section h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+}
+
+.disclaimer-section p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 0.7rem;
+    color: var(--text-color);
+}
+
+.disclaimer-section ul {
+    list-style: none;
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.disclaimer-section li {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.disclaimer-section li::before {
+    content: "•";
+    position: absolute;
+    left: -1rem;
+    color: var(--glow-color);
+} 
