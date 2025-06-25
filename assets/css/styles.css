@@ -1837,7 +1837,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: clamp(15px, 3vw, 25px);
     border-radius: 10px;
     box-sizing: border-box;
 }
@@ -1853,10 +1853,12 @@ body {
 }
 
 .flip-tile-front h3 {
-    font-size: 1.4rem;
+    font-size: clamp(1rem, 3vw, 1.4rem);
     text-transform: uppercase;
     text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
     text-align: center;
+    line-height: 1.3;
+    margin: 0;
 }
 
 .flip-tile-back {
@@ -1870,11 +1872,24 @@ body {
 }
 
 .flip-tile-back p {
-    line-height: 1.6;
-    font-size: 1.2rem;
-    text-align: left;
+    line-height: 1.5;
+    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+    text-align: center;
     margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+/* Responsive text scaling for flip tile back content */
+.flip-tile-back p strong {
     font-weight: bold;
+    font-size: clamp(1rem, 2.8vw, 1.3rem);
+}
+
+/* Special scaling for large text in flip tiles */
+.flip-tile-back .large-text {
+    font-size: clamp(1.5rem, 4vw, 3rem) !important;
+    line-height: 1.1 !important;
+    font-weight: bold !important;
 }
 
 /* Target the specific flip tiles for 1:1 aspect ratio */
@@ -1884,18 +1899,194 @@ body {
 }
 
 /* Responsive styling for tiles */
+@media (max-width: 1400px) {
+    .flip-tile-back p {
+        font-size: clamp(0.85rem, 2.2vw, 1.1rem);
+    }
+    
+    .flip-tile-back p strong {
+        font-size: clamp(0.95rem, 2.5vw, 1.2rem);
+    }
+    
+    .flip-tile-back .large-text {
+        font-size: clamp(1.3rem, 3.5vw, 2.5rem) !important;
+    }
+}
+
+@media (max-width: 1200px) {
+    .flip-tile {
+        height: clamp(300px, 50vw, 500px);
+    }
+    
+    .flip-tile-back p {
+        font-size: clamp(0.8rem, 2vw, 1rem);
+        line-height: 1.4;
+    }
+    
+    .flip-tile-back p strong {
+        font-size: clamp(0.9rem, 2.3vw, 1.1rem);
+    }
+    
+    .flip-tile-back .large-text {
+        font-size: clamp(1.2rem, 3.2vw, 2.2rem) !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .flip-tiles-container {
+        gap: 15px;
+    }
+    
+    .flip-tile {
+        width: calc((100% - 30px) / 3);
+        height: clamp(250px, 45vw, 400px);
+    }
+    
+    .flip-tile-front, .flip-tile-back {
+        padding: clamp(10px, 2.5vw, 20px);
+    }
+    
+    .flip-tile-back p {
+        font-size: clamp(0.7rem, 1.8vw, 0.9rem);
+        line-height: 1.3;
+        margin-bottom: 0.4rem;
+    }
+    
+    .flip-tile-back p strong {
+        font-size: clamp(0.8rem, 2vw, 1rem);
+    }
+    
+    .flip-tile-back .large-text {
+        font-size: clamp(1rem, 2.8vw, 1.8rem) !important;
+    }
+}
+
 @media (max-width: 768px) {
     .flip-tiles-container {
         flex-direction: column;
+        gap: 20px;
     }
     
     .flip-tile {
         width: 100%;
+        height: clamp(300px, 80vw, 450px);
         margin-bottom: 20px;
     }
     
     .flip-tile-front h3 {
-        font-size: 1.2rem;
+        font-size: clamp(1.1rem, 4vw, 1.5rem);
+    }
+    
+    .flip-tile-front, .flip-tile-back {
+        padding: clamp(15px, 4vw, 25px);
+    }
+    
+    .flip-tile-back p {
+        font-size: clamp(0.9rem, 3.5vw, 1.2rem);
+        line-height: 1.4;
+        margin-bottom: 0.6rem;
+    }
+    
+    .flip-tile-back p strong {
+        font-size: clamp(1rem, 4vw, 1.3rem);
+    }
+    
+    .flip-tile-back .large-text {
+        font-size: clamp(1.4rem, 6vw, 2.5rem) !important;
+        line-height: 1.1 !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .flip-tile {
+        height: clamp(280px, 75vw, 380px);
+    }
+    
+    .flip-tile-front, .flip-tile-back {
+        padding: clamp(12px, 3.5vw, 20px);
+    }
+    
+    .flip-tile-back p {
+        font-size: clamp(0.8rem, 3.2vw, 1.1rem);
+        line-height: 1.3;
+    }
+    
+    .flip-tile-back p strong {
+        font-size: clamp(0.9rem, 3.6vw, 1.2rem);
+    }
+    
+    .flip-tile-back .large-text {
+        font-size: clamp(1.2rem, 5.5vw, 2rem) !important;
+    }
+}
+
+/* Extra large screens */
+@media (min-width: 1600px) {
+    .flip-tile {
+        height: clamp(500px, 35vw, 700px);
+    }
+    
+    .flip-tile-front h3 {
+        font-size: clamp(1.4rem, 2vw, 1.8rem);
+    }
+    
+    .flip-tile-back p {
+        font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+    }
+    
+    .flip-tile-back p strong {
+        font-size: clamp(1.2rem, 2vw, 1.6rem);
+    }
+    
+    .flip-tile-back .large-text {
+        font-size: clamp(2rem, 3vw, 3.5rem) !important;
+    }
+}
+
+/* Steps container (participation tiles) specific responsive scaling */
+.steps-container .flip-tile {
+    aspect-ratio: 1 / 1 !important;
+    height: auto !important; /* Allow aspect-ratio to determine height based on width */
+}
+
+.steps-container .flip-tile-front h3 {
+    font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+    line-height: 1.2;
+}
+
+.steps-container .flip-tile-front p {
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    line-height: 1.4;
+}
+
+@media (max-width: 1200px) {
+    .steps-container .flip-tile-front h3 {
+        font-size: clamp(1rem, 3vw, 1.5rem);
+    }
+    
+    .steps-container .flip-tile-front p {
+        font-size: clamp(0.8rem, 2.2vw, 1rem);
+    }
+}
+
+@media (max-width: 768px) {
+    .steps-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .steps-container .flip-tile {
+        width: 100% !important;
+        max-width: 400px;
+        margin: 0 auto 20px auto;
+    }
+    
+    .steps-container .flip-tile-front h3 {
+        font-size: clamp(1.3rem, 5vw, 1.8rem);
+    }
+    
+    .steps-container .flip-tile-front p {
+        font-size: clamp(1rem, 3.5vw, 1.2rem);
     }
 }
 

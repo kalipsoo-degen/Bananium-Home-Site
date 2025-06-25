@@ -839,12 +839,7 @@
         left: 0 !important;
     }
     
-    /* Specific styles for READ THE F***ING WHITEPAPER */
-    .flip-tile-back p[style*="font-size: 3rem"] {
-        font-size: max(18px, min(2.2rem, 5.5vw)) !important;
-        padding: 20px !important;
-        line-height: 1.3 !important;
-    }
+    /* Removed specific font-size override - now handled by responsive CSS */
     
     /* Target the borders for the flip-tile with "READ THE F***ING WHITEPAPER" */
     .flip-tile-inner[style*="border: 3px solid #FFA500"] {
@@ -1008,9 +1003,7 @@
         font-size: max(15px, min(1.7rem, 4.5vw)) !important;
     }
     
-    .flip-tile-back p[style*="font-size: 1.92rem"] {
-        font-size: max(14px, min(1.5rem, 4.2vw)) !important;
-    }
+    /* Removed specific font-size override - now handled by responsive CSS */
     
     .first-place .podium-content {
         bottom: 205% !important;
