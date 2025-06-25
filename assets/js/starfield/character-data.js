@@ -35,9 +35,9 @@ const CHARACTERS_DATA = [
   },
   {
     id: 3,
-    name: "Solana Shadowstrike",
+            name: "SEI Shadowstrike",
     image: "assets/images/agents/agent3.jpg", // Placeholder path
-    description: "Decentralized intelligence built on the Solana blockchain. Can split attention across multiple combat vectors simultaneously. Exceptional at countering complex attacks and finding vulnerabilities in opponent defenses.",
+          description: "Decentralized intelligence built on the SEI blockchain. Can split attention across multiple combat vectors simultaneously. Exceptional at countering complex attacks and finding vulnerabilities in opponent defenses.",
     homepage: "#",
     type: "rare",
     power: 85,

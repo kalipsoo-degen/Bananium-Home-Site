@@ -23,7 +23,7 @@ const CONFIG = {
     
     // Prize pool constants
     prizes: {
-        totalSol: 1024,
+        totalSei: 1024,
         totalPrizes: 7
     }
 };

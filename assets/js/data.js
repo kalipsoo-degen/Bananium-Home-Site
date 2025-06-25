@@ -39,14 +39,14 @@ function populatePrizeTable(data) {
     // Clear any existing content
     tableBody.innerHTML = '';
     
-    // Calculate total SOL to show percentage distribution
-    const totalSol = data.prizePool.totalSol;
+    // Calculate total SEI to show percentage distribution
+    const totalSei = data.prizePool.totalSei;
     
     data.prizePool.prizes.forEach((prize, index) => {
         const row = document.createElement('tr');
         
         // Calculate percentage of the total prize pool
-        const percentage = ((prize.sol / totalSol) * 100).toFixed(1);
+        const percentage = ((prize.sei / totalSei) * 100).toFixed(1);
         
         row.innerHTML = `
             <td>${prize.rank}</td>
@@ -83,21 +83,21 @@ function loadFallbackPrizeData() {
     const tableBody = document.getElementById('prize-table-body');
     if (!tableBody) return;
     
-    const totalSol = CONFIG.prizes.totalSol;
+    const totalSei = CONFIG.prizes.totalSei;
     const fallbackData = [
-        { rank: 1, pot: 125000, sol: 609 },
-        { rank: 2, pot: 125000, sol: 171 },
-        { rank: 3, pot: 125000, sol: 89 },
-        { rank: 4, pot: 125000, sol: 54 },
-        { rank: 5, pot: 125000, sol: 37 },
-        { rank: 6, pot: 125000, sol: 27 },
-        { rank: 7, pot: 125000, sol: 21 }
+        { rank: 1, pot: 125000, sei: 609 },
+        { rank: 2, pot: 125000, sei: 171 },
+        { rank: 3, pot: 125000, sei: 89 },
+        { rank: 4, pot: 125000, sei: 54 },
+        { rank: 5, pot: 125000, sei: 37 },
+        { rank: 6, pot: 125000, sei: 27 },
+        { rank: 7, pot: 125000, sei: 21 }
     ];
     
     tableBody.innerHTML = '';
     
     fallbackData.forEach((prize, index) => {
-        const percentage = ((prize.sol / totalSol) * 100).toFixed(1);
+        const percentage = ((prize.sei / totalSei) * 100).toFixed(1);
         const row = document.createElement('tr');
         
         row.innerHTML = `
