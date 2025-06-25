@@ -32,14 +32,17 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
+    padding: 0.5rem 1rem;
     position: sticky;
     top: 0;
     z-index: 100;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.95);
     transition: opacity 0.5s ease;
     opacity: 0; /* Initially hidden */
     pointer-events: none; /* Initially not clickable */
+    min-height: 60px;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .navbar.visible {
@@ -51,33 +54,45 @@ body {
 .navbar-left {
     display: flex;
     align-items: center;
+    flex: 0 0 auto;
 }
 
 .logo {
-    font-size: 2rem;
+    font-size: clamp(1.2rem, 4vw, 2rem);
     font-weight: bold;
     color: var(--primary-color);
     text-decoration: none;
     text-transform: uppercase;
-    padding-left: 30px; /* Added padding to move logo away from the edge */
+    padding: 0;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.logo:hover {
+    color: var(--sei-red);
+    text-shadow: 0 0 10px var(--sei-red-glow);
 }
 
 .nav-links {
     display: flex;
-    gap: 1.5rem;
+    gap: clamp(0.5rem, 2vw, 1.5rem);
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex: 1;
 }
 
 .nav-links a {
     color: var(--primary-color);
     text-decoration: none;
-    font-size: 1.1rem;
+    font-size: clamp(0.8rem, 1.5vw, 1.1rem);
     text-transform: uppercase;
     transition: all 0.3s ease;
     padding: 0.5rem 0.3rem;
     letter-spacing: 0.05em;
     white-space: nowrap;
     font-weight: 500;
+    border: none;
 }
 
 .nav-links a:hover {
@@ -107,12 +122,14 @@ body {
     color: var(--background-color);
     border-radius: 4px;
     font-weight: 700;
+    transition: all 0.3s ease;
 }
 
 .nav-links a[href="https://magiceden.us/"]:hover {
-    background-color: var(--secondary-color);
+    background-color: var(--sei-red);
     color: white;
     transform: scale(1.05);
+    box-shadow: 0 0 10px var(--sei-red-glow);
 }
 
 .nav-links a[href="https://magiceden.us/"].active {
@@ -120,27 +137,206 @@ body {
     color: white;
 }
 
+/* Mobile social icons within nav-links */
+.mobile-social-bar {
+    display: none;
+    gap: 0.5rem;
+}
+
 /* Keep social icons on the right for desktop */
 .social-icons {
     display: flex;
     gap: 1rem;
-    padding-right: 30px; /* Added padding to move icons away from the right edge */
-}
-
-/* Hide social icons in the navbar-left on desktop */
-.navbar-left .social-icons {
-    display: none;
+    flex: 0 0 auto;
+    align-items: center;
 }
 
 .social-icons a {
     color: var(--primary-color);
-    font-size: 1.5rem;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
     transition: all 0.3s ease;
 }
 
 .social-icons a:hover {
-    color: var(--secondary-color);
+    color: var(--sei-red);
     transform: scale(1.2);
+    text-shadow: 0 0 10px var(--sei-red-glow);
+}
+
+/* Mobile menu toggle - hidden by default */
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0.5rem;
+}
+
+.mobile-menu-toggle:hover {
+    color: var(--sei-red);
+    transform: scale(1.1);
+}
+
+/* Responsive breakpoints */
+@media (max-width: 1200px) {
+    .navbar {
+        padding: 0.5rem 0.5rem;
+    }
+    
+    .nav-links {
+        gap: clamp(0.3rem, 1.5vw, 1rem);
+    }
+    
+    .nav-links a {
+        font-size: clamp(0.7rem, 1.3vw, 0.9rem);
+        padding: 0.4rem 0.2rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .navbar {
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
+    
+    .nav-links {
+        gap: clamp(0.2rem, 1vw, 0.8rem);
+    }
+    
+    .nav-links a {
+        font-size: clamp(0.6rem, 1.2vw, 0.8rem);
+        padding: 0.3rem 0.1rem;
+    }
+    
+    .social-icons {
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 0.75rem 1rem;
+        background-color: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
+        z-index: 2000;
+    }
+    
+    body {
+        padding-top: 70px;
+    }
+    
+    .logo {
+        font-size: 1.5rem;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background-color: rgba(0, 0, 0, 0.98);
+        backdrop-filter: blur(15px);
+        padding: 1rem;
+        gap: 1rem;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 1999;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+    }
+    
+    .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .nav-links a {
+        font-size: 1.1rem;
+        padding: 0.8rem 1rem;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+        width: 100%;
+    }
+    
+    .nav-links a:last-child {
+        border-bottom: none;
+    }
+    
+    .mobile-social-bar {
+        display: flex;
+        justify-content: center;
+        padding: 1rem 0;
+        border-top: 1px solid rgba(255, 215, 0, 0.2);
+        margin-top: 0.5rem;
+    }
+    
+    .mobile-social-bar a {
+        border: none;
+        padding: 0.5rem;
+    }
+    
+    .social-icons:not(.mobile-social-bar) {
+        display: none;
+    }
+    
+    .mobile-menu-toggle {
+        display: block;
+        position: absolute;
+        right: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .logo {
+        font-size: 1.3rem;
+    }
+    
+    .nav-links a {
+        font-size: 1rem;
+        padding: 0.7rem 0.8rem;
+    }
+    
+    .mobile-menu-toggle {
+        right: 0.75rem;
+    }
+}
+
+/* Extra large screens */
+@media (min-width: 1600px) {
+    .navbar {
+        padding: 1rem 3rem;
+    }
+    
+    .logo {
+        font-size: 2.2rem;
+    }
+    
+    .nav-links a {
+        font-size: 1.2rem;
+        padding: 0.6rem 0.5rem;
+    }
+    
+    .social-icons a {
+        font-size: 1.8rem;
+    }
 }
 
 /* Hero Section */
@@ -790,22 +986,6 @@ body {
     }
 }
 
-/* Mobile Menu Toggle */
-.mobile-menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    color: var(--primary-color);
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.mobile-menu-toggle:hover {
-    color: var(--secondary-color);
-    transform: scale(1.1);
-}
-
 /* Animation Classes */
 .animate-on-scroll {
     opacity: 0;
@@ -846,51 +1026,6 @@ body {
     }
     100% {
         transform: scale(1);
-    }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        padding: 1rem;
-    }
-    
-    .nav-links {
-        margin-top: 1rem;
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
-        display: none; /* Hide by default on mobile */
-    }
-    
-    .nav-links.active {
-        display: flex; /* Show when active */
-    }
-    
-    .mobile-menu-toggle {
-        display: block;
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-    }
-    
-    .hero-title {
-        font-size: 3rem;
-    }
-    
-    .roadmap-line {
-        left: 20px;
-    }
-    
-    .roadmap-item {
-        width: 90%;
-        margin-left: 40px !important;
-    }
-    
-    .roadmap-item:nth-child(odd) .roadmap-content::before,
-    .roadmap-item:nth-child(even) .roadmap-content::before {
-        left: -40px;
     }
 }
 

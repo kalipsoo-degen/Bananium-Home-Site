@@ -390,51 +390,81 @@ document.addEventListener('DOMContentLoaded', function() {
     function initMobileMenu() {
         const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
         const navLinks = document.querySelector('.nav-links');
-        const navbar = document.querySelector('#main-navbar'); // Get the navbar element
+        const navbar = document.querySelector('#main-navbar');
 
         if (mobileMenuToggle && navLinks && navbar) {
             // Toggle menu visibility on button click
             mobileMenuToggle.addEventListener('click', (e) => {
-                // No stopPropagation needed
-                navLinks.classList.toggle('active');
-                mobileMenuToggle.classList.toggle('active');
-                console.log('Mobile menu toggle clicked. navLinks active:', navLinks.classList.contains('active'));
-            });
-
-            /* // Temporarily disable document click listener for debugging
-            // Close menu when clicking outside the entire navbar
-            document.addEventListener('click', (e) => {
-                // Check if the menu is active AND the click target is not the navbar or one of its children
-                if (navLinks.classList.contains('active') && !navbar.contains(e.target)) {
-                    console.log('Clicked outside navbar, closing menu.');
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const isActive = navLinks.classList.contains('active');
+                
+                if (isActive) {
                     navLinks.classList.remove('active');
                     mobileMenuToggle.classList.remove('active');
+                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                    // Change icon back to hamburger
+                    const icon = mobileMenuToggle.querySelector('i');
+                    if (icon) {
+                        icon.className = 'fas fa-bars';
+                    }
+                } else {
+                    navLinks.classList.add('active');
+                    mobileMenuToggle.classList.add('active');
+                    mobileMenuToggle.setAttribute('aria-expanded', 'true');
+                    // Change icon to X
+                    const icon = mobileMenuToggle.querySelector('i');
+                    if (icon) {
+                        icon.className = 'fas fa-times';
+                    }
                 }
             });
-            */
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (navLinks.classList.contains('active') && 
+                    !navbar.contains(e.target) && 
+                    !mobileMenuToggle.contains(e.target)) {
+                    navLinks.classList.remove('active');
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                    const icon = mobileMenuToggle.querySelector('i');
+                    if (icon) {
+                        icon.className = 'fas fa-bars';
+                    }
+                }
+            });
 
             // Close menu when clicking on a nav link
-            const navLinkItems = document.querySelectorAll('.nav-links a');
+            const navLinkItems = document.querySelectorAll('.nav-links a:not(.mobile-social-bar a)');
             navLinkItems.forEach(link => {
                 link.addEventListener('click', () => {
-                    if (navLinks.classList.contains('active')) { // Only run if menu is open
-                        console.log('Nav link clicked, closing menu.');
-                        // Close the menu
+                    if (navLinks.classList.contains('active')) {
                         navLinks.classList.remove('active');
                         mobileMenuToggle.classList.remove('active');
+                        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                        const icon = mobileMenuToggle.querySelector('i');
+                        if (icon) {
+                            icon.className = 'fas fa-bars';
+                        }
                     }
                 });
             });
 
-            // Force display block for menu toggle when testing on mobile
-            if (window.innerWidth <= 768) {
-                mobileMenuToggle.style.display = 'block';
-                
-                // Ensure menu toggle is visible and clickable
-                mobileMenuToggle.style.pointerEvents = 'auto';
-                mobileMenuToggle.style.cursor = 'pointer';
-                mobileMenuToggle.style.opacity = '1';
-            }
+            // Handle escape key to close menu
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                    const icon = mobileMenuToggle.querySelector('i');
+                    if (icon) {
+                        icon.className = 'fas fa-bars';
+                    }
+                }
+            });
+
         } else {
             console.error('Mobile menu elements not found:', {
                 mobileMenuToggle: !!mobileMenuToggle,
