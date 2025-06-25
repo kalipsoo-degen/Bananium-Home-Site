@@ -5,6 +5,9 @@
     --background-color: #000000; /* Black */
     --text-color: #FFD700; /* Yellow text */
     --accent-color: #FF4500; /* Red-orange */
+    --sei-red: #DC2626; /* SEI Red accent */
+    --sei-red-glow: #EF4444; /* SEI Red glow */
+    --sei-speed-red: #B91C1C; /* SEI Speed indicator red */
 }
 
 * {
@@ -177,7 +180,7 @@ body {
     font-size: 5rem;
     margin-bottom: 1rem;
     text-transform: uppercase;
-    text-shadow: 0 0 10px var(--primary-color);
+    text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--sei-red-glow);
     animation: pulse 2s infinite;
 }
 
@@ -198,6 +201,7 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     font-weight: bold;
+    box-shadow: 0 0 15px var(--sei-red), 0 0 30px rgba(220, 38, 38, 0.3);
     text-decoration: none;
     display: inline-block;
 }
@@ -205,6 +209,7 @@ body {
 .cta-btn:hover {
     background-color: var(--secondary-color);
     transform: scale(1.1);
+    box-shadow: 0 0 25px var(--sei-red-glow), 0 0 50px rgba(220, 38, 38, 0.4);
 }
 
 /* About Section */
@@ -219,6 +224,7 @@ body {
     margin-bottom: 2rem;
     text-transform: uppercase;
     color: var(--primary-color);
+    text-shadow: 0 0 15px var(--primary-color), 0 0 25px var(--sei-red-glow);
 }
 
 .section-title.bananium-logo {
@@ -234,7 +240,7 @@ body {
     z-index: 2;
     letter-spacing: 0.02em; /* Reduced from 0.05em to condense text */
     white-space: nowrap; /* Prevent text wrapping */
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.4), 0 0 30px rgba(255, 215, 0, 0.2);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.4), 0 0 30px rgba(255, 215, 0, 0.2), 0 0 40px var(--sei-red-glow);
     animation: logoGlow 3s infinite;
 }
 
@@ -298,7 +304,8 @@ body {
     box-shadow: 
         0 0 20px 5px rgba(153, 50, 204, 0.5), /* Soft inner purple glow */
         0 0 50px 15px rgba(153, 50, 204, 0.2), /* Extended medium glow */
-        0 0 80px 20px rgba(153, 50, 204, 0.1); /* Extensive outer glow */
+        0 0 80px 20px rgba(153, 50, 204, 0.1), /* Extensive outer glow */
+        0 0 100px 25px var(--sei-red); /* SEI red accent for speed */
     position: relative;
     box-sizing: border-box; /* Ensure padding and borders are included in the width */
     display: flex; /* Use flexbox for better child alignment */
@@ -345,7 +352,7 @@ body {
     overflow: hidden;
     border: 2px solid var(--primary-color);
     position: relative;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3), 0 0 25px var(--sei-red);
 }
 
 .prize-meter-fill {
@@ -776,7 +783,7 @@ body {
         text-shadow: 0 0 10px var(--primary-color);
     }
     50% {
-        text-shadow: 0 0 20px var(--primary-color), 0 0 30px var(--secondary-color);
+        text-shadow: 0 0 20px var(--primary-color), 0 0 30px var(--secondary-color), 0 0 40px var(--sei-red-glow);
     }
     100% {
         text-shadow: 0 0 10px var(--primary-color);
@@ -1602,7 +1609,7 @@ body {
 .explore-agents-btn:hover {
     background-color: #FFE44D;
     transform: translateY(-2px);
-    box-shadow: 0 0 20px rgba(255, 221, 0, 0.7);
+    box-shadow: 0 0 20px rgba(255, 221, 0, 0.7), 0 0 30px var(--sei-red-glow);
 }
 
 /* Flip Tiles Container */
@@ -1629,7 +1636,8 @@ body {
     box-shadow: 
         0 0 20px 5px rgba(153, 50, 204, 0.5), /* Soft inner purple glow */
         0 0 50px 15px rgba(153, 50, 204, 0.2), /* Extended medium glow */
-        0 0 80px 20px rgba(153, 50, 204, 0.1); /* Extensive outer glow */
+        0 0 80px 20px rgba(153, 50, 204, 0.1), /* Extensive outer glow */
+        0 0 100px 25px var(--sei-red); /* SEI red accent for speed */
 }
 
 /* Remove glow when starting to rotate */
