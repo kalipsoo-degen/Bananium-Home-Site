@@ -151,13 +151,16 @@ body {
     align-items: center;
 }
 
-.social-icons a {
+.social-icons a,
+.social-icons span {
     color: var(--primary-color);
     font-size: clamp(1.2rem, 2vw, 1.5rem);
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
-.social-icons a:hover {
+.social-icons a:hover,
+.social-icons span:hover {
     color: var(--sei-red);
     transform: scale(1.2);
     text-shadow: 0 0 10px var(--sei-red-glow);
@@ -284,7 +287,8 @@ body {
         margin-top: 0.5rem;
     }
     
-    .mobile-social-bar a {
+    .mobile-social-bar a,
+    .mobile-social-bar span {
         border: none;
         padding: 0.5rem;
     }
@@ -334,7 +338,8 @@ body {
         padding: 0.6rem 0.5rem;
     }
     
-    .social-icons a {
+    .social-icons a,
+    .social-icons span {
         font-size: 1.8rem;
     }
 }
