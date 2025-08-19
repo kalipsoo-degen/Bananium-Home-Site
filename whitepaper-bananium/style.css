@@ -141,14 +141,20 @@ a:hover {
     text-decoration: underline;
 }
 
+/* Image placeholder styling */
 .image-placeholder {
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 2px dashed var(--primary-color);
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px dashed #666;
     border-radius: 8px;
     padding: 2rem;
-    margin: 1rem 0;
+    margin: 1.5rem 0;
     text-align: center;
-    color: var(--primary-color);
+}
+
+.image-placeholder p {
+    color: #999;
+    font-size: 0.9rem;
+    margin: 0;
 }
 
 /* Mobile sidebar toggle */
@@ -815,14 +821,14 @@ blockquote {
     font-weight: 700;
 }
 
-/* Prize Pool Page Styles */
-#prize-pool h1 {
+/* Reward Pool Page Styles */
+#reward-pool h1 {
     font-size: 2.6rem;
     margin-bottom: 1.5rem;
     color: var(--primary-color);
 }
 
-#prize-pool h2.prize-breakdown {
+#reward-pool h2.prize-breakdown {
     color: var(--accent-red);
     font-size: 1.6rem;
     margin-top: 1rem;
@@ -851,7 +857,7 @@ blockquote {
     font-size: 1.2rem;
 }
 
-#prize-pool h3.prize-section {
+#reward-pool h3.prize-section {
     text-align: center;
     color: var(--primary-color);
     font-size: 1.5rem;
@@ -859,7 +865,7 @@ blockquote {
     font-weight: bold;
 }
 
-#prize-pool h3.token-throwdown {
+#reward-pool h3.token-throwdown {
     color: var(--primary-color);
     font-size: 1.5rem;
     margin: 2rem 0 1rem;
@@ -867,7 +873,7 @@ blockquote {
     text-transform: uppercase;
 }
 
-#prize-pool p {
+#reward-pool p {
     margin-bottom: 1.2rem;
     font-size: 1.1rem;
     line-height: 1.6;
