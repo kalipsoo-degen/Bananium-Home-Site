@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flip Tile Responsive Text Test</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/mobile.css">
+    <style>
+        body {
+            padding: 2rem;
+            background-color: #000;
+            color: #FFD700;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .test-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .zoom-instructions {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid #FFD700;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .zoom-instructions h3 {
+            color: #FFD700;
+            margin-bottom: 1rem;
+        }
+        
+        .zoom-instructions ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .zoom-instructions li {
+            margin: 0.5rem 0;
+            padding-left: 1rem;
+        }
+        
+        .zoom-instructions li:before {
+            content: "🔍 ";
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-header">
+        <h1>Flip Tile Responsive Text Test</h1>
+        <p>Test the flip tiles at different zoom levels to verify text scaling</p>
+    </div>
+
+    <div class="zoom-instructions">
+        <h3>Testing Instructions:</h3>
+        <ul>
+            <li><strong>Zoom In:</strong> Press Ctrl/Cmd + Plus (+) or use browser zoom</li>
+            <li><strong>Zoom Out:</strong> Press Ctrl/Cmd + Minus (-)</li>
+            <li><strong>Reset Zoom:</strong> Press Ctrl/Cmd + 0</li>
+            <li><strong>Test Range:</strong> Try zoom levels from 50% to 200%</li>
+            <li><strong>Click tiles:</strong> Flip them to test both front and back text</li>
+        </ul>
+    </div>
+
+    <!-- Test Participation Tiles -->
+    <h2 style="text-align: center; margin: 2rem 0;">Participation Tiles Test</h2>
+    <div class="steps-container" style="margin: 2rem auto; width: calc(100% - 2cm); max-width: 1400px; display: flex; justify-content: space-between; gap: 30px;">
+        <!-- 1 SOL PER WARRIOR -->
+        <div class="flip-tile" style="border-radius: 15px; overflow: visible; flex: 1;">
+            <div class="flip-tile-inner" style="position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; border-radius: 15px; border: 3px solid #00FFFF; box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);">
+                <div class="flip-tile-front" style="border-radius: 15px; overflow: hidden; background-color: #000000; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; width: 100%; box-sizing: border-box; padding: 15px; position: absolute; backface-visibility: hidden; -webkit-backface-visibility: hidden; border: none;">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">🔥</div>
+                    <h3 style="color: #00FFFF; font-weight: 800; font-size: 1.8rem; line-height: 1.2; text-shadow: 0 0 15px rgba(0, 255, 255, 0.9); letter-spacing: 1px; text-align: center; font-family: 'Orbitron', sans-serif; text-transform: uppercase; margin: 0 0 8px 0;">1 SOL PER WARRIOR</h3>
+                    <p style="margin: 5px 0; font-family: 'futura-pt', sans-serif; font-weight: 400; text-transform: none; font-size: 1.1rem; line-height: 1.4; color: rgba(255, 255, 255, 0.8); text-align: center;">1 warrior grants instant entry to the battle arena</p>
+                </div>
+                <div class="flip-tile-back" style="background-color: #1a1a1a; border-radius: 15px; overflow: hidden; padding: 20px; box-sizing: border-box; position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: rotateY(180deg); border: none; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <p style="font-size: 1.92rem; line-height: 1.54; font-weight: 500; text-shadow: 0 0 1px rgba(255,255,255,0.8); font-family: 'futura-pt', sans-serif; color: #fff; text-align: center;">Every warrior you own is your ticket to glory. More warriors mean more chances to dominate the Colosseum!</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- BLIND MINT -->
+        <div class="flip-tile" style="border-radius: 15px; overflow: visible; flex: 1;">
+            <div class="flip-tile-inner" style="position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; border-radius: 15px; border: 3px solid #FF00FF; box-shadow: 0 0 15px rgba(255, 0, 255, 0.6);">
+                <div class="flip-tile-front" style="border-radius: 15px; overflow: hidden; background-color: #000000; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; width: 100%; box-sizing: border-box; padding: 15px; position: absolute; backface-visibility: hidden; -webkit-backface-visibility: hidden; border: none;">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">🎭</div>
+                    <h3 style="color: #FF00FF; font-weight: 800; font-size: 1.8rem; line-height: 1.2; text-shadow: 0 0 15px rgba(255, 0, 255, 0.9); letter-spacing: 1px; text-align: center; font-family: 'Orbitron', sans-serif; text-transform: uppercase; margin: 0 0 8px 0;">BLIND MINT</h3>
+                    <p style="margin: 5px 0; font-family: 'futura-pt', sans-serif; font-weight: 400; text-transform: none; font-size: 1.1rem; line-height: 1.4; color: rgba(255, 255, 255, 0.8); text-align: center;">All characters have an equal chance</p>
+                </div>
+                <div class="flip-tile-back" style="background-color: #1a1a1a; border-radius: 15px; overflow: hidden; padding: 20px; box-sizing: border-box; position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: rotateY(180deg); border: none; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <p style="font-size: 3rem; font-weight: bold; color: #FFD700; margin: 0; text-shadow: 0 0 10px rgba(255,215,0,0.3); font-family: 'futura-pt', sans-serif; line-height: 1.1; text-align: center;">FAIR PLAY FOR EVERYONE!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Flip Tiles Test -->
+    <h2 style="text-align: center; margin: 2rem 0;">Main Content Tiles Test</h2>
+    <div class="flip-tiles-container" style="max-width: 1200px; margin: 0 auto;">
+        <div class="flip-tile" style="border-radius: 15px; overflow: visible;">
+            <div class="flip-tile-inner" style="border: 3px solid #FFA500; box-shadow: 0 0 15px rgba(255, 165, 0, 0.6); border-radius: 15px;">
+                <div class="flip-tile-front" style="border-radius: 15px; overflow: hidden; background-color: #000; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; padding: 20px;">
+                    <h3 style="color: #FFA500; font-size: 1.63rem; font-weight: 900; text-align: center; text-shadow: 0 0 15px rgba(255, 165, 0, 0.9); border-radius: 8px; letter-spacing: 1px; font-family: 'Orbitron', sans-serif; text-transform: capitalize; line-height: 1.32;">How it all goes down?</h3>
+                </div>
+                <div class="flip-tile-back" style="border-radius: 15px; background-color: #1a1a1a; color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; padding: 20px;">
+                    <p style="font-size: 3rem; font-weight: bold; color: #FFD700; margin: 0; text-shadow: 0 0 10px rgba(255,215,0,0.3); font-family: 'futura-pt', sans-serif; line-height: 1.1; text-align: center;">READ THE F***ING WHITEPAPER</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add flip functionality
+        document.querySelectorAll('.flip-tile').forEach(tile => {
+            tile.addEventListener('click', function() {
+                this.classList.toggle('flipped');
+            });
+        });
+
+        // Display current zoom level
+        function updateZoomLevel() {
+            const zoomLevel = Math.round(window.devicePixelRatio * 100);
+            document.title = `Flip Tile Test - Zoom: ${zoomLevel}%`;
+        }
+
+        updateZoomLevel();
+        window.addEventListener('resize', updateZoomLevel);
+    </script>
+</body>
+</html>

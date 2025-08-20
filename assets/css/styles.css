@@ -1610,7 +1610,7 @@ body {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    gap: 20px;
+    gap: clamp(1rem, 3vw, 2rem);
     margin: 2rem 0 4rem 0; /* Increased bottom margin */
 }
 
@@ -1622,6 +1622,8 @@ body {
     cursor: pointer;
     position: relative;
     transition: box-shadow 0.3s ease;
+    /* Container query support for modern browsers */
+    container-type: size;
 }
 
 /* Only apply glow effect when tile is NOT flipped and NOT rotating */
@@ -1697,6 +1699,7 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-sizing: border-box;
+    container-type: inline-size;
 }
 
 .flip-tile-front {
@@ -1710,10 +1713,13 @@ body {
 }
 
 .flip-tile-front h3 {
-    font-size: 1.4rem;
+    font-size: clamp(0.9rem, 4cqw, 1.4rem);
     text-transform: uppercase;
     text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
     text-align: center;
+    line-height: 1.2;
+    padding: clamp(0.5rem, 2vw, 1rem);
+    box-sizing: border-box;
 }
 
 .flip-tile-back {
@@ -1722,16 +1728,20 @@ body {
     transform: rotateY(180deg);
     -webkit-transform: rotateY(180deg);
     border: 2px solid var(--primary-color);
-    overflow-y: auto;
+    overflow: hidden;
     font-family: 'Orbitron', sans-serif;
 }
 
 .flip-tile-back p {
-    line-height: 1.6;
-    font-size: 1.2rem;
-    text-align: left;
-    margin-bottom: 0.5rem;
+    line-height: 1.3;
+    font-size: clamp(0.85rem, 3.2cqw, 1.25rem);
+    text-align: center;
+    margin-bottom: clamp(0.3rem, 1vw, 0.5rem);
     font-weight: bold;
+    padding: clamp(0.5rem, 2vw, 1rem);
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 /* Target the specific flip tiles for 1:1 aspect ratio */
@@ -1740,19 +1750,100 @@ body {
     height: auto; /* Override the fixed height */
 }
 
-/* Responsive styling for tiles */
+/* Enhanced responsive styling for all flip tiles */
+
+/* Global responsive text scaling for all flip tile content */
+.flip-tile-front,
+.flip-tile-back {
+    padding: clamp(0.8rem, 3vw, 1.5rem);
+}
+
+/* Responsive styling for participation tiles specifically */
+.steps-container .flip-tile-front h3 {
+    font-size: clamp(1.05rem, 5cqw, 1.8rem) !important;
+    line-height: 1.2 !important;
+    margin: clamp(0.3rem, 1vw, 0.5rem) 0 !important;
+    padding: clamp(0.3rem, 1.5vw, 0.8rem) !important;
+}
+
+.steps-container .flip-tile-front p {
+    font-size: clamp(0.85rem, 3.5cqw, 1.1rem) !important;
+    line-height: 1.4 !important;
+    margin: clamp(0.2rem, 1vw, 0.3rem) 0 !important;
+    padding: clamp(0.2rem, 1vw, 0.5rem) !important;
+}
+
+.steps-container .flip-tile-front div[style*="font-size: 2rem"] {
+    font-size: clamp(1.2rem, 5cqw, 2rem) !important;
+    margin-bottom: clamp(0.5rem, 2vw, 0.8rem) !important;
+}
+
+/* Responsive styling for main content flip tiles */
+.flip-tiles-container .flip-tile-front h3[style*="font-size: 1.63rem"] {
+    font-size: clamp(1rem, 5cqw, 1.63rem) !important;
+    line-height: 1.32 !important;
+    padding: clamp(0.8rem, 3vw, 1.2rem) !important;
+}
+
+/* Large text in flip tile backs (like "READ THE F***ING WHITEPAPER") */
+.flip-tile-back p[style*="font-size: 3rem"] {
+    font-size: clamp(1.4rem, 8cqw, 3rem) !important;
+    line-height: 1.1 !important;
+    padding: clamp(1rem, 4vw, 1.5rem) !important;
+    text-align: center !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+}
+
+/* Medium text in flip tile backs */
+.flip-tile-back p[style*="font-size: 1.92rem"] {
+    font-size: clamp(1rem, 6cqw, 1.92rem) !important;
+    line-height: 1.54 !important;
+    padding: clamp(0.8rem, 3vw, 1.2rem) !important;
+}
+
+/* Container query support for modern browsers */
+@container (max-width: 300px) {
+    .flip-tile-front h3 {
+        font-size: 1rem !important;
+    }
+    
+    .flip-tile-back p {
+        font-size: 0.9rem !important;
+    }
+}
+
+@container (max-width: 200px) {
+    .flip-tile-front h3 {
+        font-size: 0.8rem !important;
+    }
+    
+    .flip-tile-back p {
+        font-size: 0.7rem !important;
+    }
+}
+
+/* Responsive styling for mobile */
 @media (max-width: 768px) {
     .flip-tiles-container {
         flex-direction: column;
+        gap: clamp(1rem, 4vw, 1.5rem);
     }
     
     .flip-tile {
         width: 100%;
-        margin-bottom: 20px;
+        margin-bottom: clamp(1rem, 4vw, 1.5rem);
     }
     
-    .flip-tile-front h3 {
-        font-size: 1.2rem;
+    .steps-container {
+        flex-direction: column;
+        gap: clamp(1rem, 4vw, 1.5rem);
+    }
+    
+    .steps-container .flip-tile {
+        flex: none;
+        width: 100%;
+        max-width: 100%;
     }
 }
 
@@ -1845,4 +1936,60 @@ body {
     aspect-ratio: 1 / 1 !important;
     height: auto !important; /* Allow aspect-ratio to determine height based on width */
     /* Keep flex: 1 from inline styles to manage width */
+}
+
+/* Zoom handling for extreme levels */
+@media (max-resolution: 150dpi) and (max-width: 1920px) {
+    /* High zoom-in scenarios */
+    .flip-tile-back p[style*="font-size: 3rem"] {
+        font-size: clamp(1.2rem, 5vw, 2rem) !important;
+    }
+    
+    .steps-container .flip-tile-front h3 {
+        font-size: clamp(0.9rem, 3.5vw, 1.4rem) !important;
+    }
+}
+
+@media (min-resolution: 300dpi) {
+    /* High zoom-out scenarios / high DPI displays */
+    .flip-tile-back p[style*="font-size: 3rem"] {
+        font-size: clamp(2rem, 7vw, 3.5rem) !important;
+    }
+    
+    .steps-container .flip-tile-front h3 {
+        font-size: clamp(1.4rem, 4.5vw, 2rem) !important;
+    }
+}
+
+/* Fallback for browsers without container query support */
+@supports not (container-type: inline-size) {
+    .flip-tile-front h3 {
+        font-size: max(1rem, min(3.5vw, 1.4rem)) !important;
+    }
+    
+    .flip-tile-back p {
+        font-size: max(0.9rem, min(2.5vw, 1.2rem)) !important;
+    }
+}
+
+/* Ultra-wide screen optimization */
+@media (min-width: 2560px) {
+    .flip-tile-front h3 {
+        font-size: clamp(1.4rem, 2vw, 1.8rem);
+    }
+    
+    .flip-tile-back p {
+        font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+    }
+}
+
+/* Ultra-narrow screen optimization */
+@media (max-width: 320px) {
+    .flip-tile-front h3 {
+        font-size: clamp(0.8rem, 5vw, 1.2rem) !important;
+    }
+    
+    .flip-tile-back p {
+        font-size: clamp(0.7rem, 4.5vw, 1rem) !important;
+    }
 } 
