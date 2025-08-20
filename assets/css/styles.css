@@ -1779,6 +1779,57 @@ body {
     height: auto; /* Override the fixed height */
 }
 
+/* Reduced vibrancy for participation tiles - softer borders and glow */
+.steps-container .flip-tile-inner {
+    border-width: clamp(2px, 0.8cqw, 3px) !important;
+    box-shadow: 
+        0 0 8px currentColor,
+        0 0 15px rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Specific color enhancements for each participation tile - reduced intensity */
+.steps-container .flip-tile-inner[style*="border: 3px solid #00FFFF"] {
+    box-shadow: 
+        0 0 8px rgba(0, 255, 255, 0.7),
+        0 0 15px rgba(0, 255, 255, 0.2) !important;
+}
+
+.steps-container .flip-tile-inner[style*="border: 3px solid #FFA500"] {
+    box-shadow: 
+        0 0 8px rgba(255, 165, 0, 0.7),
+        0 0 15px rgba(255, 165, 0, 0.2) !important;
+}
+
+.steps-container .flip-tile-inner[style*="border: 3px solid #FF00FF"] {
+    box-shadow: 
+        0 0 8px rgba(255, 0, 255, 0.7),
+        0 0 15px rgba(255, 0, 255, 0.2) !important;
+}
+
+.steps-container .flip-tile-inner[style*="border: 3px solid #00BFFF"] {
+    box-shadow: 
+        0 0 8px rgba(0, 191, 255, 0.7),
+        0 0 15px rgba(0, 191, 255, 0.2) !important;
+}
+
+/* Per-tile heading colors matching borders (text glow < border glow) */
+.steps-container .flip-tile-inner[style*="border: 3px solid #00FFFF"] .flip-tile-front h3 {
+    color: #00FFFF !important;
+    text-shadow: 0 0 6px rgba(0,255,255,0.6), 0 0 14px rgba(0,255,255,0.35), 0 0 22px rgba(0,255,255,0.2) !important;
+}
+.steps-container .flip-tile-inner[style*="border: 3px solid #FFA500"] .flip-tile-front h3 {
+    color: #FFA500 !important;
+    text-shadow: 0 0 6px rgba(255,165,0,0.6), 0 0 14px rgba(255,165,0,0.35), 0 0 22px rgba(255,165,0,0.2) !important;
+}
+.steps-container .flip-tile-inner[style*="border: 3px solid #FF00FF"] .flip-tile-front h3 {
+    color: #FF00FF !important;
+    text-shadow: 0 0 6px rgba(255,0,255,0.6), 0 0 14px rgba(255,0,255,0.35), 0 0 22px rgba(255,0,255,0.2) !important;
+}
+.steps-container .flip-tile-inner[style*="border: 3px solid #00BFFF"] .flip-tile-front h3 {
+    color: #00BFFF !important;
+    text-shadow: 0 0 6px rgba(0,191,255,0.6), 0 0 14px rgba(0,191,255,0.35), 0 0 22px rgba(0,191,255,0.2) !important;
+}
+
 /* Enhanced responsive styling for all flip tiles */
 
 /* Global responsive text scaling for all flip tile content */
@@ -1789,22 +1840,28 @@ body {
 
 /* Responsive styling for participation tiles specifically */
 .steps-container .flip-tile-front h3 {
-    font-size: clamp(1.05rem, 5cqw, 1.8rem) !important;
+    font-size: clamp(1.4rem, 6cqw, 2.2rem) !important;
     line-height: 1.2 !important;
     margin: clamp(0.3rem, 1vw, 0.5rem) 0 !important;
     padding: clamp(0.3rem, 1.5vw, 0.8rem) !important;
+    text-shadow: 0 0 3px rgba(255,255,255,0.4) !important;
+    font-weight: 800 !important;
 }
 
 .steps-container .flip-tile-front p {
-    font-size: clamp(0.85rem, 3.5cqw, 1.1rem) !important;
+    font-size: clamp(1rem, 4cqw, 1.3rem) !important;
     line-height: 1.4 !important;
     margin: clamp(0.2rem, 1vw, 0.3rem) 0 !important;
     padding: clamp(0.2rem, 1vw, 0.5rem) !important;
+    text-shadow: 0 0 2px rgba(255,255,255,0.3) !important;
+    font-weight: 400 !important;
+    color: rgba(255, 255, 255, 0.8) !important;
 }
 
 .steps-container .flip-tile-front div[style*="font-size: 2rem"] {
-    font-size: clamp(1.2rem, 5cqw, 2rem) !important;
+    font-size: clamp(1.8rem, 6cqw, 2.5rem) !important;
     margin-bottom: clamp(0.5rem, 2vw, 0.8rem) !important;
+    filter: drop-shadow(0 0 3px rgba(255,255,255,0.4)) !important;
 }
 
 /* Responsive styling for main content flip tiles */
