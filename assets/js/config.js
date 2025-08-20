@@ -17,7 +17,7 @@ const CONFIG = {
     
     // Social media links
     social: {
-        twitter: 'https://twitter.com/bananium',
+        twitter: 'https://x.com/PlayBananium',
         website: 'https://bananium.io'
     },
     
