@@ -232,6 +232,43 @@
             background-color: #FFD700;
         }
         
+        /* Season Structure Animations */
+        .timeline-event:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(153, 50, 204, 0.3);
+        }
+        
+        .squad-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(153, 50, 204, 0.4);
+        }
+        
+        .reward-type:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 28px rgba(255, 215, 0, 0.3);
+        }
+        
+        /* Timeline animations */
+        @keyframes timeline-glow {
+            0% { box-shadow: 0 0 5px rgba(153, 50, 204, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(153, 50, 204, 0.6), 0 0 30px rgba(255, 215, 0, 0.3); }
+            100% { box-shadow: 0 0 5px rgba(153, 50, 204, 0.3); }
+        }
+        
+        .timeline-event {
+            animation: timeline-glow 3s ease-in-out infinite;
+        }
+        
+        /* Squad card pulse animation */
+        @keyframes squad-pulse {
+            0% { border-color: initial; }
+            50% { border-color: rgba(255, 215, 0, 0.8); }
+            100% { border-color: initial; }
+        }
+        
+        .squad-card:nth-child(1) { animation: squad-pulse 4s ease-in-out infinite; }
+        .squad-card:nth-child(2) { animation: squad-pulse 4s ease-in-out infinite 2s; }
+        
         @keyframes floating-subtle {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-5px); }
@@ -916,97 +953,111 @@
         </div>
     </div>
     
-    <!-- Prize Pool Section -->
+    <!-- Reward Pool Section -->
     <section id="reward-pool" class="prize-pool">
         <h2 class="section-title animate-on-scroll" style="text-shadow: 0 0 15px #9932CC; animation: pulse 2s infinite, scale-bounce-enhanced 5s infinite; color: #FFFFFF; font-weight: 800; font-size: 4.5rem; letter-spacing: 2px; margin-bottom: 1rem; transform: scale(1.05);">OVER 600 SOL IN REWARDS</h2>
         
         <p style="text-align: center; font-style: italic; font-size: 2.4rem; font-weight: 400; margin-bottom: 2rem; letter-spacing: 1px; color: rgba(255, 255, 255, 0.9);">Worth over <span style="color: #9932CC; font-weight: 700;">$100,000</span>!</p>
         
         <!-- Confetti Trigger Button -->
-        <div style="text-align: center; margin-bottom: 10px;">
-            <button id="confetti-trigger" style="background: rgba(153, 50, 204, 0.3); border: 1px solid #9932CC; color: #FFD700; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem;">🎉 Celebrate!</button>
+        <div style="text-align: center; margin-bottom: 30px;">
+            <button id="confetti-trigger" style="background: rgba(153, 50, 204, 0.3); border: 1px solid #9932CC; color: #FFD700; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 1rem; transition: all 0.3s ease; font-weight: 600;">🎉 Celebrate the Season!</button>
         </div>
         
-        <div class="prize-podium-container animate-on-scroll" style="margin-top: 60px;">
-            <div class="podium-wrapper" style="display: flex; justify-content: center; gap: 20px; position: relative; padding-top: 150px; margin-bottom: 60px;">
-                <!-- Second Place -->
-                <div class="podium-place second-place" style="display: flex; flex-direction: column; align-items: center; position: relative; width: 120px;">
-                    <div class="podium-content" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 15px; height: 150px;">
-                        <div class="podium-medal" style="font-size: 2.5rem; margin-bottom: 12px;">🥈</div>
-                        <div class="podium-rank" style="font-size: 3rem; font-weight: bold; margin-bottom: 12px;">2</div>
-                        <div class="podium-sol" style="font-size: 2.3rem; font-weight: bold; color: #FFFFFF; text-shadow: 0 0 10px #9932CC, 0 0 15px #9932CC; letter-spacing: 1px;">171 SOL</div>
-                    </div>
-                    <div class="podium-bar" style="width: 100px; height: 170px; background-color: #9932CC; border-radius: 10px 10px 0 0;"></div>
-                </div>
-                
-                <!-- First Place -->
-                <div class="podium-place first-place" style="display: flex; flex-direction: column; align-items: center; position: relative; width: 120px;">
-                    <div class="podium-content" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 30px; height: 170px;">
-                        <div class="podium-medal" style="font-size: 3rem; margin-bottom: 12px;">🥇</div>
-                        <div class="podium-rank" style="font-size: 3.5rem; font-weight: bold; margin-bottom: 12px; color: #FFD700; text-shadow: 0 0 10px rgba(255,215,0,0.9);">1</div>
-                        <div class="podium-sol" style="font-size: 2.8rem; font-weight: bold; color: #FFFFFF; text-shadow: 0 0 10px #9932CC, 0 0 15px #9932CC; letter-spacing: 1px;">609 SOL</div>
-                    </div>
-                    <div class="podium-bar" style="width: 100px; height: 220px; background-color: #FFD700; border-radius: 10px 10px 0 0; animation: none;"></div>
-                </div>
-                
-                <!-- Third Place -->
-                <div class="podium-place third-place" style="display: flex; flex-direction: column; align-items: center; position: relative; width: 120px;">
-                    <div class="podium-content" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 8px; height: 150px;">
-                        <div class="podium-medal" style="font-size: 2.5rem; margin-bottom: 12px;">🥉</div>
-                        <div class="podium-rank" style="font-size: 3rem; font-weight: bold; margin-bottom: 12px;">3</div>
-                        <div class="podium-sol" style="font-size: 2.3rem; font-weight: bold; color: #FFFFFF; text-shadow: 0 0 10px #9932CC, 0 0 15px #9932CC; letter-spacing: 1px;">89 SOL</div>
-                    </div>
-                    <div class="podium-bar" style="width: 100px; height: 120px; background-color: #9932CC; border-radius: 10px 10px 0 0;"></div>
-                </div>
+        <!-- Season 1 Game Structure -->
+        <div class="season-structure-container animate-on-scroll" style="margin-bottom: 50px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h3 style="color: #FFD700; font-size: 3rem; text-shadow: 0 0 10px rgba(255,215,0,0.5); font-weight: 700; margin-bottom: 10px;">⚔️ SEASON 1: BANANIUM MAXIMUS</h3>
+                <p style="font-size: 1.6rem; color: rgba(255, 255, 255, 0.8); font-style: italic;">3 Months • 146 Unique Fighters • Weekly Sunday Battles</p>
             </div>
-        </div>
-        
-        <div class="prize-cards-container animate-on-scroll">
-            <div class="line-container" style="display: flex; align-items: center; justify-content: center; margin: 25px 0;">
-                <div style="height: 1px; background-color: rgba(255, 255, 255, 0.8); flex-grow: 1; max-width: 300px;"></div>
-                <div style="padding: 0 15px; font-size: 1.5rem; color: rgba(255, 255, 255, 0.9); font-weight: 500; font-style: italic;">Don't miss out!</div>
-                <div style="height: 1px; background-color: rgba(255, 255, 255, 0.8); flex-grow: 1; max-width: 300px;"></div>
-            </div>
-            <h3 class="prize-section-subtitle" style="color: #9932CC; font-size: 2.64rem; text-shadow: 0 0 10px rgba(153, 50, 204, 0.5); font-weight: 700; line-height: 1.32;">ADDITIONAL REWARDS</h3>
             
-            <div class="prize-cards-wrapper">
-                <div class="prize-card" data-rank="4" style="transition: all 0.3s ease; width: 127px; height: 138px;">
-                    <div class="prize-card-inner">
-                        <div class="prize-card-sol" style="color: #FFD700; font-size: 2.2rem; font-weight: 700; margin-bottom: 5px;">54 SOL</div>
-                        <div class="prize-card-rank" style="font-size: 1.2rem; opacity: 0.6; color: #999999; font-family: 'futura-pt', sans-serif; font-weight: 400;">4</div>
+            <!-- Weekly Flow Timeline -->
+            <div class="weekly-flow" style="display: flex; justify-content: space-between; align-items: center; max-width: 900px; margin: 0 auto 40px auto; position: relative;">
+                <!-- Timeline Line -->
+                <div style="position: absolute; top: 50%; left: 10%; right: 10%; height: 3px; background: linear-gradient(90deg, #9932CC, #FFD700, #9932CC); border-radius: 2px; z-index: 1;"></div>
+                
+                <!-- Sunday Battle -->
+                <div class="timeline-event" style="background: rgba(153, 50, 204, 0.2); border: 2px solid #9932CC; border-radius: 15px; padding: 20px; text-align: center; position: relative; z-index: 2; width: 200px; backdrop-filter: blur(10px);">
+                    <div style="font-size: 2.5rem; margin-bottom: 10px;">🏟️</div>
+                    <h4 style="color: #FFD700; font-size: 1.4rem; margin-bottom: 8px; font-weight: 700;">SUNDAY</h4>
+                    <p style="color: white; font-size: 1rem; margin: 0;">Live Battle Royale</p>
+                    <p style="color: #9932CC; font-size: 0.9rem; margin: 5px 0 0 0; font-weight: 600;">Streamed Live!</p>
+                </div>
+                
+                <!-- Monday Training -->
+                <div class="timeline-event" style="background: rgba(255, 215, 0, 0.2); border: 2px solid #FFD700; border-radius: 15px; padding: 20px; text-align: center; position: relative; z-index: 2; width: 200px; backdrop-filter: blur(10px);">
+                    <div style="font-size: 2.5rem; margin-bottom: 10px;">🎮</div>
+                    <h4 style="color: #9932CC; font-size: 1.4rem; margin-bottom: 8px; font-weight: 700;">MONDAY</h4>
+                    <p style="color: white; font-size: 1rem; margin: 0;">Training Ground Opens</p>
+                    <p style="color: #FFD700; font-size: 0.9rem; margin: 5px 0 0 0; font-weight: 600;">Skill-Based Games!</p>
+                </div>
+                
+                <!-- Week Long Preparation -->
+                <div class="timeline-event" style="background: rgba(128, 176, 255, 0.2); border: 2px solid #80b0ff; border-radius: 15px; padding: 20px; text-align: center; position: relative; z-index: 2; width: 200px; backdrop-filter: blur(10px);">
+                    <div style="font-size: 2.5rem; margin-bottom: 10px;">⚡</div>
+                    <h4 style="color: #FFD700; font-size: 1.4rem; margin-bottom: 8px; font-weight: 700;">ALL WEEK</h4>
+                    <p style="color: white; font-size: 1rem; margin: 0;">Squad Training</p>
+                    <p style="color: #80b0ff; font-size: 0.9rem; margin: 5px 0 0 0; font-weight: 600;">Build Stats!</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Squad System Explanation -->
+        <div class="squad-system animate-on-scroll" style="margin-bottom: 50px;">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h3 style="color: #9932CC; font-size: 2.5rem; text-shadow: 0 0 10px rgba(153, 50, 204, 0.5); font-weight: 700; margin-bottom: 15px;">🍌 SQUAD WARFARE SYSTEM</h3>
+            </div>
+            
+            <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; max-width: 800px; margin: 0 auto;">
+                <!-- Team Performance -->
+                <div class="squad-card" style="background: rgba(255, 215, 0, 0.15); border: 2px solid #FFD700; border-radius: 20px; padding: 25px; text-align: center; width: 320px; backdrop-filter: blur(10px); transition: transform 0.3s ease;">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">📊</div>
+                    <h4 style="color: #9932CC; font-size: 1.8rem; margin-bottom: 10px; font-weight: 700;">Squad Performance</h4>
+                    <p style="color: white; font-size: 1.1rem; line-height: 1.4;">Your training scores combine with your squadmates to boost fighter stats</p>
+                </div>
+                
+                <!-- Stat Boosts -->
+                <div class="squad-card" style="background: rgba(128, 176, 255, 0.15); border: 2px solid #80b0ff; border-radius: 20px; padding: 25px; text-align: center; width: 320px; backdrop-filter: blur(10px); transition: transform 0.3s ease;">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">⚡</div>
+                    <h4 style="color: #FFD700; font-size: 1.8rem; margin-bottom: 10px; font-weight: 700;">Stat Boosts</h4>
+                    <p style="color: white; font-size: 1.1rem; line-height: 1.4;">Top squads earn health, attack, and defense bonuses for Sunday battles directly increasing the performance and strength of your warrior in battle</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Reward Distribution -->
+        <div class="reward-distribution animate-on-scroll" style="margin-bottom: 40px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h3 style="color: #FFD700; font-size: 2.5rem; text-shadow: 0 0 10px rgba(255,215,0,0.5); font-weight: 700; margin-bottom: 15px;">🏆 DUAL REWARD SYSTEM</h3>
+            </div>
+            
+            <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; max-width: 800px; margin: 0 auto;">
+                <!-- Champion Rewards -->
+                <div class="reward-type" style="background: rgba(153, 50, 204, 0.2); border: 2px solid #9932CC; border-radius: 20px; padding: 30px; text-align: center; width: 350px; backdrop-filter: blur(10px);">
+                    <div style="font-size: 3.5rem; margin-bottom: 20px;">👑</div>
+                    <h4 style="color: #FFD700; font-size: 2rem; margin-bottom: 15px; font-weight: 700;">CHAMPION REWARDS</h4>
+                    <p style="color: white; font-size: 1.2rem; line-height: 1.4; margin-bottom: 15px;">For winning fighters in the Sunday Colosseum battles</p>
+                    <div style="background: rgba(255, 215, 0, 0.2); border-radius: 10px; padding: 15px;">
+                        <p style="color: #FFD700; font-size: 1.4rem; font-weight: 700; margin: 0;">Weekly Winners</p>
                     </div>
                 </div>
-                <div class="prize-card" data-rank="5" style="transition: all 0.3s ease; width: 127px; height: 138px;">
-                    <div class="prize-card-inner">
-                        <div class="prize-card-sol" style="color: #FFD700; font-size: 2.2rem; font-weight: 700; margin-bottom: 5px;">37 SOL</div>
-                        <div class="prize-card-rank" style="font-size: 1.2rem; opacity: 0.6; color: #999999; font-family: 'futura-pt', sans-serif; font-weight: 400;">5</div>
-                    </div>
-                </div>
-                <div class="prize-card" data-rank="6" style="transition: all 0.3s ease; width: 127px; height: 138px;">
-                    <div class="prize-card-inner">
-                        <div class="prize-card-sol" style="color: #FFD700; font-size: 2.2rem; font-weight: 700; margin-bottom: 5px;">27 SOL</div>
-                        <div class="prize-card-rank" style="font-size: 1.2rem; opacity: 0.6; color: #999999; font-family: 'futura-pt', sans-serif; font-weight: 400;">6</div>
-                    </div>
-                </div>
-                <div class="prize-card" data-rank="7" style="transition: all 0.3s ease; width: 127px; height: 138px;">
-                    <div class="prize-card-inner">
-                        <div class="prize-card-sol" style="color: #FFD700; font-size: 2.2rem; font-weight: 700; margin-bottom: 5px;">21 SOL</div>
-                        <div class="prize-card-rank" style="font-size: 1.2rem; opacity: 0.6; color: #999999; font-family: 'futura-pt', sans-serif; font-weight: 400;">7</div>
-                    </div>
-                </div>
-                <div class="prize-card" data-rank="8" style="transition: all 0.3s ease; width: 127px; height: 138px;">
-                    <div class="prize-card-inner">
-                        <div class="prize-card-sol" style="color: #FFD700; font-size: 2.2rem; font-weight: 700; margin-bottom: 5px;">16 SOL</div>
-                        <div class="prize-card-rank" style="font-size: 1.2rem; opacity: 0.6; color: #999999; font-family: 'futura-pt', sans-serif; font-weight: 400;">8</div>
+                
+                <!-- Training Rewards -->
+                <div class="reward-type" style="background: rgba(255, 215, 0, 0.2); border: 2px solid #FFD700; border-radius: 20px; padding: 30px; text-align: center; width: 350px; backdrop-filter: blur(10px);">
+                    <div style="font-size: 3.5rem; margin-bottom: 20px;">🎯</div>
+                    <h4 style="color: #9932CC; font-size: 2rem; margin-bottom: 15px; font-weight: 700;">TRAINING REWARDS</h4>
+                    <p style="color: white; font-size: 1.2rem; line-height: 1.4; margin-bottom: 15px;">For top-performing squads in skill-based Training Ground challenges</p>
+                    <div style="background: rgba(153, 50, 204, 0.2); border-radius: 10px; padding: 15px;">
+                        <p style="color: #9932CC; font-size: 1.4rem; font-weight: 700; margin: 0;">Skill-Based Rewards</p>
                     </div>
                 </div>
             </div>
         </div>
         
+        <!-- Call to Action -->
         <div class="prize-info animate-on-scroll" style="margin-top: 3rem; text-align: center;">
-            <p style="font-size: 1.68rem; font-family: 'futura-pt', sans-serif; font-weight: 400; line-height: 1.54; margin-bottom: 0.5rem; white-space: nowrap;">Winners are determined by overall tournament position.</p>
-            <p style="font-size: 1.68rem; font-family: 'futura-pt', sans-serif; line-height: 1.54; margin-top: 0; margin-bottom: 1.5rem;"><span style="color: #9932CC; font-weight: bold;">Each warrior increases your chances!</span></p>
-            <a href="https://magiceden.us/" class="cta-btn" style="font-size: 1.6rem; padding: 15px 35px; animation: pulse-button 2s infinite; box-shadow: 0 0 20px rgba(153, 50, 204, 0.5); background-color: #9932CC; color: white;" target="_blank">JOIN THE BATTLE NOW!</a>
+            <p style="font-size: 1.8rem; font-family: 'futura-pt', sans-serif; line-height: 1.54; margin-top: 0; margin-bottom: 1.5rem;"><span style="color: #9932CC; font-weight: bold;">Train hard. Fight harder. Claim glory.</span></p>
+            <a href="https://magiceden.us/" class="cta-btn" style="font-size: 1.6rem; padding: 15px 35px; animation: pulse-button 2s infinite; box-shadow: 0 0 20px rgba(153, 50, 204, 0.5); background-color: #9932CC; color: white;" target="_blank">JOIN YOUR SQUAD NOW!</a>
         </div>
     </section>
     
@@ -1503,24 +1554,24 @@
                 observer.observe(card);
             });
             
-            // Create an observer for the prize podium to trigger confetti
-            const podiumObserver = new IntersectionObserver((entries) => {
+            // Create an observer for the season structure to trigger confetti
+            const seasonObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Fire confetti when podium is visible
+                        // Fire confetti when season structure is visible
                         triggerConfetti();
                         // Only trigger once
-                        podiumObserver.unobserve(entry.target);
+                        seasonObserver.unobserve(entry.target);
                     }
                 });
             }, {
-                threshold: 0.5 // Trigger when 50% of the podium is visible
+                threshold: 0.3 // Trigger when 30% of the season structure is visible
             });
             
-            // Observe the prize podium
-            const podium = document.querySelector('.prize-podium-container');
-            if (podium) {
-                podiumObserver.observe(podium);
+            // Observe the season structure
+            const seasonStructure = document.querySelector('.season-structure-container');
+            if (seasonStructure) {
+                seasonObserver.observe(seasonStructure);
             }
             
             // Add event listener for manual confetti trigger button
