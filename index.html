@@ -113,7 +113,23 @@
         .steps-container .flip-tile {
             /* Removed aspect-ratio: 16 / 9 !important; */
             /* Removed fixed height and min-height */
-            flex: 1 1 0 !important;
+            flex: 1 1 0 !important; /* Desktop behavior remains */
+        }
+
+        /* Mobile square override (scoped by media) */
+        @media (max-width: 768px) {
+            .steps-container .flip-tile,
+            .flip-tiles-container .flip-tile {
+                aspect-ratio: 1 / 1 !important;
+                height: auto !important;
+                flex: 0 0 auto !important;
+                position: relative !important;
+            }
+            .steps-container .flip-tile .flip-tile-inner,
+            .flip-tiles-container .flip-tile .flip-tile-inner {
+                position: absolute !important;
+                inset: 0 !important;
+            }
         }
         
         /* Ensure content stays centered */

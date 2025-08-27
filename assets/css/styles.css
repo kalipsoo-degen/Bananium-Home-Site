@@ -1775,7 +1775,7 @@ body {
 
 /* Target the specific flip tiles for 1:1 aspect ratio */
 .flip-tiles-container .flip-tile {
-    aspect-ratio: 1;
+    aspect-ratio: 1 / 1;
     height: auto; /* Override the fixed height */
 }
 

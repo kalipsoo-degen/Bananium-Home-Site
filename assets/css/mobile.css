@@ -490,6 +490,40 @@
         width: 100%;
         margin-bottom: 1.5rem;
     }
+
+    /* Enforce perfect square tiles on mobile, independent of flex growth */
+    .steps-container .flip-tile,
+    .flip-tiles-container .flip-tile {
+        position: relative !important;
+        width: 100% !important;
+        aspect-ratio: 1 / 1 !important; /* modern */
+        height: auto !important;
+        flex: 0 0 auto !important; /* prevent flex:1 from collapsing squares */
+        display: block !important;
+    }
+
+    .steps-container .flip-tile .flip-tile-inner,
+    .flip-tiles-container .flip-tile .flip-tile-inner {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    /* Safari/WebView fallback without aspect-ratio */
+    @supports not (aspect-ratio: 1 / 1) {
+        .steps-container .flip-tile::before,
+        .flip-tiles-container .flip-tile::before {
+            content: '';
+            display: block;
+            padding-top: 100%; /* reserve square to avoid CLS */
+        }
+        .steps-container .flip-tile .flip-tile-inner,
+        .flip-tiles-container .flip-tile .flip-tile-inner {
+            position: absolute !important;
+            inset: 0 !important;
+        }
+    }
     
     /* Videos and media */
     video {
@@ -851,7 +885,7 @@
         border-radius: 15px !important; /* Match the original tile radius */
         width: 100% !important;
         height: 100% !important;
-        object-fit: fill !important;
+        object-fit: contain !important; /* avoid squish/crop within square */
         /* Remove potential extra padding/margin added by inline styles */
         margin: 0 !important;
         padding: 0 !important;
