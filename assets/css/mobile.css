@@ -400,6 +400,46 @@
         padding: 3rem 0.5rem !important;
     }
     
+    #reward-pool .section-title {
+        font-size: clamp(2.2rem, 10vw, 3.2rem) !important;
+        letter-spacing: 1px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        text-align: center !important;
+        width: 92% !important;
+    }
+    
+    #reward-pool .weekly-flow {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 16px !important;
+        padding: 0 1rem !important;
+        width: 100% !important;
+        max-width: 92% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    
+    #reward-pool .weekly-flow > div[style*="height: 3px"] {
+        display: none !important;
+    }
+    
+    #reward-pool .timeline-event {
+        width: 100% !important;
+        max-width: 360px !important;
+        box-sizing: border-box !important;
+        margin: 0 auto !important;
+    }
+    
+    #reward-pool .squad-card,
+    #reward-pool .reward-type {
+        width: clamp(260px, 92vw, 360px) !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    
     .prize-podium-wrapper {
         flex-direction: column;
         align-items: center;
@@ -495,11 +535,13 @@
     .steps-container .flip-tile,
     .flip-tiles-container .flip-tile {
         position: relative !important;
-        width: 100% !important;
+        width: clamp(240px, 86vw, 360px) !important; /* smaller, responsive square */
         aspect-ratio: 1 / 1 !important; /* modern */
         height: auto !important;
-        flex: 0 0 auto !important; /* prevent flex:1 from collapsing squares */
+        flex: 0 0 auto !important; /* prevent flex:1 from stretching */
         display: block !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
     }
 
     .steps-container .flip-tile .flip-tile-inner,
