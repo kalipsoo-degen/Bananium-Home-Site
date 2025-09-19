@@ -1,7 +1,7 @@
 /* Mobile-specific styles for Bananium */
 
 /* Base mobile styles */
-@media (max-width: 768px) {
+@media (max-width: 768px), (max-height: 768px) and (max-width: 1024px) {
     /* General adjustments */
     body {
         overflow-x: hidden;
@@ -167,7 +167,7 @@
     }
     
     /* Only show mobile menu toggle on mobile screens */
-    @media (max-width: 768px) {
+    @media (max-width: 768px), (max-height: 768px) and (max-width: 1024px) {
         .mobile-menu-toggle {
             display: block !important;
         }
@@ -741,7 +741,7 @@
     }
     
     /* Add cursor pointer to the roadmap video on mobile only */
-    @media (max-width: 768px) {
+    @media (max-width: 768px), (max-height: 768px) and (max-width: 1024px) {
         .roadmap-video-container {
             cursor: pointer !important;
             position: relative !important;
@@ -1152,7 +1152,7 @@
 }
 
 /* Landscape orientation adjustments for mobile */
-@media (max-width: 768px) and (orientation: landscape) {
+@media ((max-width: 768px) and (orientation: landscape)), ((max-height: 768px) and (max-width: 1024px) and (orientation: landscape)) {
     .hero {
         min-height: 120vh;
     }
@@ -1179,7 +1179,7 @@
     }
     
     /* Optimize modal for landscape orientation */
-    @media (max-width: 768px) and (orientation: landscape) {
+    @media ((max-width: 768px) and (orientation: landscape)), ((max-height: 768px) and (max-width: 1024px) and (orientation: landscape)) {
         .roadmap-video-modal-content {
             /* Maximize available space in landscape */
             width: 95% !important;

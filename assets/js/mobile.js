@@ -6,7 +6,7 @@
 (function() {
     // Apply critical mobile fixes immediately
     function applyCriticalMobileFixes() {
-        if (window.innerWidth <= 768) {
+        if (window.innerWidth <= 768 || (window.innerHeight <= 768 && window.innerWidth <= 1024)) {
             // CRITICAL: Hide Bananium logo in hero section
             const bananiumLogoElements = document.querySelectorAll('.bananium-logo-container, .bananium-logo-outline, h1.bananium-logo');
             bananiumLogoElements.forEach(el => {
@@ -60,10 +60,15 @@ document.addEventListener('DOMContentLoaded', function() {
     if (isTouchDevice) {
         document.body.classList.add('touch-device');
     }
+    
+    // Function to detect mobile device (including landscape orientation)
+    function isMobileDevice() {
+        return window.innerWidth <= 768 || (window.innerHeight <= 768 && window.innerWidth <= 1024);
+    }
 
     // Fix mobile layout issues with inline styles
     function fixMobileLayout() {
-        if (window.innerWidth <= 768) {
+        if (isMobileDevice()) {
             // CRITICAL: Hide Bananium logo in hero section
             const bananiumLogoElements = document.querySelectorAll('.bananium-logo-container, .bananium-logo-outline, h1.bananium-logo');
             bananiumLogoElements.forEach(el => {
@@ -426,8 +431,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
 
-            // Force display block for menu toggle when testing on mobile
-            if (window.innerWidth <= 768) {
+            // Force display block for menu toggle when testing on mobile (including landscape)
+            if (isMobileDevice()) {
                 mobileMenuToggle.style.display = 'block';
                 
                 // Ensure menu toggle is visible and clickable

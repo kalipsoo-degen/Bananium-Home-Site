@@ -266,8 +266,8 @@
             line-height: 1.5;
         }
         
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
+        /* Mobile responsiveness - Apply to all mobile devices regardless of orientation */
+        @media (max-width: 768px), (max-height: 768px) and (max-width: 1024px) {
             .navbar {
                 flex-direction: row !important;
                 justify-content: center !important;
@@ -507,10 +507,27 @@
             }
         }
         
-        /* Desktop styles to hide the mobile social bar */
-        @media (min-width: 769px) {
+        /* Desktop styles to hide the mobile social bar - only on true desktop, not mobile landscape */
+        @media (min-width: 769px) and (min-height: 769px) {
             .nav-links .mobile-social-bar {
                 display: none !important;
+            }
+            
+            /* Hide mobile menu toggle on desktop */
+            .mobile-menu-toggle {
+                display: none !important;
+            }
+            
+            /* Show desktop nav links on desktop */
+            .nav-links {
+                display: flex !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                position: relative !important;
+                top: auto !important;
+                flex-direction: row !important;
+                background: transparent !important;
+                box-shadow: none !important;
             }
         }
         
@@ -877,8 +894,8 @@
             const navLinks = document.querySelector('.nav-links');
             
             if (mobileMenuToggle && navLinks) {
-                // Ensure menu starts closed on mobile
-                if (window.innerWidth <= 768) {
+                // Ensure menu starts closed on mobile (including landscape)
+                if (window.innerWidth <= 768 || (window.innerHeight <= 768 && window.innerWidth <= 1024)) {
                     navLinks.classList.remove('active');
                     mobileMenuToggle.classList.remove('active');
                     console.log('Mobile menu initialized as closed');
@@ -904,8 +921,8 @@
                     });
                 });
                 
-                // Close menu when clicking outside navbar (only on mobile)
-                if (window.innerWidth <= 768) {
+                // Close menu when clicking outside navbar (only on mobile including landscape)
+                if (window.innerWidth <= 768 || (window.innerHeight <= 768 && window.innerWidth <= 1024)) {
                     document.addEventListener('click', function(e) {
                         const navbar = document.querySelector('.navbar');
                         if (navLinks.classList.contains('active') && 
@@ -920,12 +937,13 @@
                 
                 // Handle window resize to ensure proper behavior
                 window.addEventListener('resize', function() {
-                    if (window.innerWidth > 768) {
+                    const isMobile = window.innerWidth <= 768 || (window.innerHeight <= 768 && window.innerWidth <= 1024);
+                    if (!isMobile) {
                         // Desktop mode - hide mobile menu
                         navLinks.classList.remove('active');
                         mobileMenuToggle.classList.remove('active');
                     } else {
-                        // Mobile mode - ensure menu starts closed
+                        // Mobile mode (including landscape) - ensure menu starts closed
                         navLinks.classList.remove('active');
                         mobileMenuToggle.classList.remove('active');
                     }
