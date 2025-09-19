@@ -302,16 +302,19 @@
             .mobile-menu-toggle {
                 display: block !important;
                 position: absolute !important;
-                right: 10px !important;
+                right: 15px !important;
                 top: 50% !important;
                 transform: translateY(-50%) !important;
                 cursor: pointer !important;
-                z-index: 1010 !important;
+                z-index: 2010 !important;
                 color: #FFD700 !important;
                 font-size: 1.5rem !important;
                 background: transparent !important;
                 border: none !important;
-                padding-right: 5px !important;
+                padding: 5px !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                pointer-events: auto !important;
             }
             
             .nav-links {
@@ -320,7 +323,9 @@
                 flex-direction: column;
                 gap: 1rem;
                 text-align: center;
-                display: none; /* Hide by default on mobile */
+                display: none !important; /* Hide by default on mobile */
+                visibility: hidden !important;
+                opacity: 0 !important;
                 width: 100% !important;
                 position: fixed !important;
                 top: 60px !important;
@@ -329,6 +334,7 @@
                 background-color: rgba(0, 0, 0, 0.95) !important;
                 z-index: 1999 !important;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+                transition: opacity 0.3s ease, visibility 0.3s ease !important;
             }
             
             /* Style for the social bar inside mobile dropdown */
@@ -355,7 +361,9 @@
             }
             
             .nav-links.active {
-                display: flex; /* Show when active */
+                display: flex !important; /* Show when active */
+                visibility: visible !important;
+                opacity: 1 !important;
                 width: 100% !important;
             }
             
@@ -794,11 +802,6 @@
     
     <!-- Main site JavaScript -->
     <script>
-        // Handle mobile menu toggle
-        document.getElementById('mobile-menu-toggle').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
-        });
-        
         // Hide intro panel after a delay
         setTimeout(function() {
             const intro = document.querySelector('.agents-intro');
@@ -871,9 +874,61 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Mobile menu toggle
             const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-            if (mobileMenuToggle) {
-                mobileMenuToggle.addEventListener('click', function() {
-                    document.querySelector('.nav-links').classList.toggle('active');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuToggle && navLinks) {
+                // Ensure menu starts closed on mobile
+                if (window.innerWidth <= 768) {
+                    navLinks.classList.remove('active');
+                    mobileMenuToggle.classList.remove('active');
+                    console.log('Mobile menu initialized as closed');
+                }
+                // Toggle menu on hamburger click
+                mobileMenuToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    navLinks.classList.toggle('active');
+                    mobileMenuToggle.classList.toggle('active');
+                    console.log('Mobile menu toggled. Active state:', navLinks.classList.contains('active'));
+                });
+                
+                // Close menu when clicking nav links
+                const navLinkItems = navLinks.querySelectorAll('a');
+                navLinkItems.forEach(link => {
+                    link.addEventListener('click', function() {
+                        if (navLinks.classList.contains('active')) {
+                            navLinks.classList.remove('active');
+                            mobileMenuToggle.classList.remove('active');
+                            console.log('Menu closed via nav link click');
+                        }
+                    });
+                });
+                
+                // Close menu when clicking outside navbar (only on mobile)
+                if (window.innerWidth <= 768) {
+                    document.addEventListener('click', function(e) {
+                        const navbar = document.querySelector('.navbar');
+                        if (navLinks.classList.contains('active') && 
+                            navbar && 
+                            !navbar.contains(e.target)) {
+                            navLinks.classList.remove('active');
+                            mobileMenuToggle.classList.remove('active');
+                            console.log('Menu closed via outside click');
+                        }
+                    });
+                }
+                
+                // Handle window resize to ensure proper behavior
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768) {
+                        // Desktop mode - hide mobile menu
+                        navLinks.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    } else {
+                        // Mobile mode - ensure menu starts closed
+                        navLinks.classList.remove('active');
+                        mobileMenuToggle.classList.remove('active');
+                    }
                 });
             }
         });
