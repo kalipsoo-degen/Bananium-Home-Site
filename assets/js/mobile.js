@@ -500,8 +500,48 @@ document.addEventListener('DOMContentLoaded', function() {
     fixMobileLayout();
     window.addEventListener('resize', fixMobileLayout);
     
+    // Initialize mobile search toggle functionality
+    function initMobileSearchToggle() {
+        const mobileSearchToggle = document.getElementById('mobileSearchToggle');
+        const navigationContainer = document.getElementById('navigationContainer');
+        
+        if (mobileSearchToggle && navigationContainer) {
+            console.log('Mobile search toggle elements found');
+            
+            // Toggle search panel on button click
+            mobileSearchToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                navigationContainer.classList.toggle('active');
+                mobileSearchToggle.classList.toggle('active');
+                console.log('Mobile search toggled. Active state:', navigationContainer.classList.contains('active'));
+            });
+            
+            // Close search panel when clicking outside (only on mobile)
+            if (isMobileDevice()) {
+                document.addEventListener('click', function(e) {
+                    if (navigationContainer.classList.contains('active') && 
+                        !navigationContainer.contains(e.target) && 
+                        !mobileSearchToggle.contains(e.target)) {
+                        navigationContainer.classList.remove('active');
+                        mobileSearchToggle.classList.remove('active');
+                        console.log('Search panel closed via outside click');
+                    }
+                });
+            }
+        } else {
+            console.log('Mobile search toggle elements not found:', {
+                mobileSearchToggle: !!mobileSearchToggle,
+                navigationContainer: !!navigationContainer
+            });
+        }
+    }
+    
     // Initialize mobile menu functionality
     initMobileMenu();
+    
+    // Initialize mobile search toggle functionality
+    initMobileSearchToggle();
 });
 
 // Fix on window load too, in case the DOM is slow to load

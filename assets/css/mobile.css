@@ -991,6 +991,74 @@
         pointer-events: none !important;
     }
     
+    /* CRITICAL: Show navigation container when active on mobile - highest priority */
+    .navigation-container.active {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        z-index: 1000 !important;
+        position: fixed !important;
+        top: 80px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 90% !important;
+        max-width: 400px !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 10px !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Mobile search toggle styles for consistency */
+    .mobile-search-toggle {
+        position: fixed !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        width: 60px !important;
+        height: 60px !important;
+        border-radius: 50% !important;
+        background: rgba(0, 0, 0, 0.8) !important;
+        border: 2px solid #FFD700 !important;
+        color: #FFD700 !important;
+        font-size: 24px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        z-index: 1500 !important;
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.3), 0 0 40px rgba(255, 215, 0, 0.1) !important;
+        transition: all 0.3s ease !important;
+        animation: searchButtonGlow 3s infinite !important;
+        -webkit-tap-highlight-color: transparent !important;
+    }
+    
+    .mobile-search-toggle:hover,
+    .mobile-search-toggle:focus {
+        background: rgba(255, 215, 0, 0.1) !important;
+        box-shadow: 0 0 30px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 215, 0, 0.2) !important;
+        transform: scale(1.05) !important;
+        outline: none !important;
+    }
+    
+    .mobile-search-toggle.active {
+        background: rgba(255, 215, 0, 0.2) !important;
+        box-shadow: 0 0 25px rgba(255, 215, 0, 0.6), 0 0 50px rgba(255, 215, 0, 0.3) !important;
+    }
+    
+    /* Glow animation for search button */
+    @keyframes searchButtonGlow {
+        0% {
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3), 0 0 40px rgba(255, 215, 0, 0.1);
+        }
+        50% {
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.5), 0 0 50px rgba(255, 215, 0, 0.2);
+        }
+        100% {
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3), 0 0 40px rgba(255, 215, 0, 0.1);
+        }
+    }
+    
     /* BROAD RULE: Ensure no underline/border on ANY nav link or its pseudo-elements */
     .nav-links a,
     .nav-links a::before {

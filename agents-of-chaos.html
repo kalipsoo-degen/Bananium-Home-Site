@@ -431,12 +431,22 @@
                 max-width: 400px;          /* Keep the max-width */
                 /* Removed right, margin-left, margin-right */
                 z-index: 100 !important;
-                display: flex !important;
+                display: none !important;  /* HIDE by default on mobile */
+                visibility: hidden !important;
+                opacity: 0 !important;
                 flex-direction: column !important;
                 align-items: center !important;
                 gap: 10px;
                 padding: 0 !important;
                 box-sizing: border-box !important;
+                transition: opacity 0.3s ease !important;
+            }
+            
+            /* Show search panel when active */
+            .navigation-container.active {
+                display: flex !important;
+                visibility: visible !important;
+                opacity: 1 !important;
             }
             
             .navigation-container .search-row,
@@ -555,6 +565,60 @@
             z-index: 100 !important;
             background-color: rgba(0, 0, 0, 0.8) !important;
         }
+
+        /* --- DEFINITIVE STYLES FOR MOBILE FLOATING ACTION BUTTONS --- */
+        .mobile-menu-toggle,
+        .mobile-search-toggle {
+            display: none !important; /* Hidden by default on desktop */
+            pointer-events: none;
+            visibility: hidden;
+        }
+
+        /* Mobile-only media query to display the buttons */
+        @media (max-width: 768px), (max-height: 768px) and (max-width: 1024px) {
+            .mobile-menu-toggle,
+            .mobile-search-toggle {
+                display: block !important;
+                visibility: visible;
+                pointer-events: auto;
+            }
+        }
+
+        .mobile-menu-toggle {
+            position: fixed !important; 
+            top: 30px !important; /* Align with logo center - navbar is 60px high, so 30px centers it */
+            right: 15px !important;
+            transform: translateY(-50%) !important; /* Center vertically */
+            z-index: 20000 !important; /* Highest z-index */
+            width: 48px; 
+            height: 48px;
+            background: transparent !important;
+            border: none !important;
+            color: #FFD700 !important;
+            font-size: 1.5rem !important;
+            cursor: pointer !important;
+        }
+
+        .mobile-search-toggle {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            position: fixed !important;
+            bottom: 20px !important;
+            right: 20px !important;
+            width: 60px !important;
+            height: 60px !important;
+            border-radius: 50% !important;
+            background: rgba(0, 0, 0, 0.8) !important;
+            border: 2px solid #FFD700 !important;
+            color: #FFD700 !important;
+            font-size: 24px !important;
+            cursor: pointer !important;
+            z-index: 20000 !important; /* Highest z-index */
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3), 0 0 40px rgba(255, 215, 0, 0.1) !important;
+            transition: all 0.3s ease !important;
+            animation: searchButtonGlow 3s infinite !important;
+        }
     </style>
     <!-- Force navbar to match homepage exactly -->
     <style>
@@ -591,10 +655,7 @@
             <a href="https://discord.gg/5w34jV3EP4" class="nav-link" target="_blank"><i class="fa-brands fa-discord"></i></a>
             <a href="https://x.com/PlayBananium" class="nav-link" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
         </div>
-        <!-- Mobile menu toggle -->
-        <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
-            <i class="fas fa-bars"></i>
-        </button>
+        <!-- Mobile menu toggle REMOVED FROM HERE -->
     </nav>
     
     <!-- Main Canvas for Starfield -->
@@ -647,6 +708,14 @@
         <p class="agents-description">Explore the AI agents competing in the BANANIUM MAXIMUS arena. Click on any star to discover an agent's profile, abilities, and battle history.</p>
         <p class="agents-instruction"><strong>Scroll to zoom</strong> and <strong>drag to rotate</strong> the galaxy of agents.</p>
     </div>
+
+    <!-- Mobile Action Buttons - MOVED HERE TO BE ON TOP OF ALL LAYERS -->
+    <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Toggle navigation menu" onclick="window.toggleMobileMenu(event)">
+        <i class="fas fa-bars"></i>
+    </button>
+    <button id="mobileSearchToggle" class="mobile-search-toggle" aria-label="Toggle search panel" onclick="window.toggleMobileSearch(event)">
+        <i class="fas fa-search"></i>
+    </button>
     
     <!-- Load Three.js library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -886,70 +955,70 @@
         });
     </script>
 
-    <!-- Mobile menu functionality to match home page -->
+    <!-- AGGRESSIVE Mobile button fix -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Mobile menu toggle
-            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-            const navLinks = document.querySelector('.nav-links');
+        // Global functions for inline onclick handlers
+        window.toggleMobileMenu = function(event) {
+            console.log('MENU BUTTON CLICKED!');
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
             
-            if (mobileMenuToggle && navLinks) {
-                // Ensure menu starts closed on mobile (including landscape)
-                if (window.innerWidth <= 768 || (window.innerHeight <= 768 && window.innerWidth <= 1024)) {
-                    navLinks.classList.remove('active');
-                    mobileMenuToggle.classList.remove('active');
-                    console.log('Mobile menu initialized as closed');
-                }
-                // Toggle menu on hamburger click
-                mobileMenuToggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    navLinks.classList.toggle('active');
-                    mobileMenuToggle.classList.toggle('active');
-                    console.log('Mobile menu toggled. Active state:', navLinks.classList.contains('active'));
-                });
-                
-                // Close menu when clicking nav links
-                const navLinkItems = navLinks.querySelectorAll('a');
-                navLinkItems.forEach(link => {
-                    link.addEventListener('click', function() {
-                        if (navLinks.classList.contains('active')) {
-                            navLinks.classList.remove('active');
-                            mobileMenuToggle.classList.remove('active');
-                            console.log('Menu closed via nav link click');
-                        }
-                    });
-                });
-                
-                // Close menu when clicking outside navbar (only on mobile including landscape)
-                if (window.innerWidth <= 768 || (window.innerHeight <= 768 && window.innerWidth <= 1024)) {
-                    document.addEventListener('click', function(e) {
-                        const navbar = document.querySelector('.navbar');
-                        if (navLinks.classList.contains('active') && 
-                            navbar && 
-                            !navbar.contains(e.target)) {
-                            navLinks.classList.remove('active');
-                            mobileMenuToggle.classList.remove('active');
-                            console.log('Menu closed via outside click');
-                        }
-                    });
-                }
-                
-                // Handle window resize to ensure proper behavior
-                window.addEventListener('resize', function() {
-                    const isMobile = window.innerWidth <= 768 || (window.innerHeight <= 768 && window.innerWidth <= 1024);
-                    if (!isMobile) {
-                        // Desktop mode - hide mobile menu
-                        navLinks.classList.remove('active');
-                        mobileMenuToggle.classList.remove('active');
-                    } else {
-                        // Mobile mode (including landscape) - ensure menu starts closed
-                        navLinks.classList.remove('active');
-                        mobileMenuToggle.classList.remove('active');
-                    }
-                });
+            const navLinks = document.querySelector('.nav-links');
+            if (navLinks) {
+                navLinks.classList.toggle('active');
+                console.log('Menu toggled. Active:', navLinks.classList.contains('active'));
+            } else {
+                console.log('ERROR: Nav links not found');
+            }
+        };
+        
+        window.toggleMobileSearch = function(event) {
+            console.log('SEARCH BUTTON CLICKED!');
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            
+            const searchPanel = document.getElementById('navigationContainer');
+            if (searchPanel) {
+                searchPanel.classList.toggle('active');
+                console.log('Search toggled. Active:', searchPanel.classList.contains('active'));
+            } else {
+                console.log('ERROR: Search panel not found');
+            }
+        };
+        
+        // AGGRESSIVE: Set up click handlers multiple ways
+        window.addEventListener('load', function() {
+            console.log('Setting up AGGRESSIVE button handlers...');
+            
+            const menuBtn = document.getElementById('mobile-menu-toggle');
+            const searchBtn = document.getElementById('mobileSearchToggle');
+            
+            if (menuBtn) {
+                console.log('Menu button found, adding ALL event types...');
+                menuBtn.addEventListener('click', window.toggleMobileMenu);
+                menuBtn.addEventListener('touchstart', window.toggleMobileMenu);
+                menuBtn.addEventListener('touchend', window.toggleMobileMenu);
+                menuBtn.addEventListener('pointerdown', window.toggleMobileMenu);
+                // Visual test passed - buttons are working!
+                console.log('Menu button styles:', window.getComputedStyle(menuBtn));
+            }
+            
+            if (searchBtn) {
+                console.log('Search button found, adding ALL event types...');
+                searchBtn.addEventListener('click', window.toggleMobileSearch);
+                searchBtn.addEventListener('touchstart', window.toggleMobileSearch);
+                searchBtn.addEventListener('touchend', window.toggleMobileSearch);
+                searchBtn.addEventListener('pointerdown', window.toggleMobileSearch);
+                // Visual test passed - buttons are working!
+                console.log('Search button styles:', window.getComputedStyle(searchBtn));
             }
         });
+        
+        console.log('Mobile toggle functions loaded');
     </script>
 
     <!-- Navigation link highlighting -->
