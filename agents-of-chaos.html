@@ -500,6 +500,295 @@
                 /* The JS (`displayCharacterCard`) will set display: flex */
             }
             
+            /* RESPONSIVE CHARACTER CARD: Optimized for all mobile devices and orientations */
+            
+            /* Small mobile devices (phones) - Portrait */
+            @media (max-width: 480px) and (orientation: portrait) {
+                .character-card {
+                    padding: 20px 15px !important;
+                    gap: 15px !important;
+                    justify-content: flex-start !important;
+                    align-items: center !important;
+                }
+                
+                .character-image {
+                    max-height: 40vh !important;
+                    min-height: 200px !important;
+                    width: 90% !important;
+                    margin: 0 auto 15px auto !important;
+                }
+                
+                .character-description {
+                    font-size: 14px !important;
+                    line-height: 1.4 !important;
+                    text-align: center !important;
+                    max-height: 25vh !important;
+                    overflow-y: auto !important;
+                }
+            }
+            
+            /* Small mobile devices (phones) - Landscape - SIDE PANEL */
+            @media (max-width: 812px) and (orientation: landscape) {
+                .character-card {
+                    padding: 15px 10px !important;
+                    gap: 10px !important;
+                    height: calc(100vh - 60px) !important;
+                    justify-content: flex-start !important;
+                    align-items: center !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    overflow-y: auto !important;
+                    /* Position as side panel to preserve starfield */
+                    position: fixed !important;
+                    top: 60px !important;
+                    left: 10px !important;
+                    transform: none !important;
+                    width: 45% !important;
+                    max-width: 350px !important;
+                }
+                
+                .card-header {
+                    flex-shrink: 0 !important;
+                    display: flex !important;
+                    justify-content: space-between !important;
+                    align-items: center !important;
+                    width: 100% !important;
+                    margin-bottom: 10px !important;
+                }
+                
+                .card-title {
+                    font-size: clamp(14px, 3vw, 18px) !important;
+                    line-height: 1.1 !important;
+                    text-align: left !important;
+                    margin: 0 !important;
+                    flex: 1 !important;
+                }
+                
+                .close-btn {
+                    background: none !important;
+                    border: none !important;
+                    color: white !important;
+                    font-size: 24px !important;
+                    cursor: pointer !important;
+                    opacity: 0.8 !important;
+                    transition: opacity 0.2s ease !important;
+                    width: 30px !important;
+                    height: 30px !important;
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                    flex-shrink: 0 !important;
+                    pointer-events: auto !important;
+                    z-index: 2000 !important;
+                }
+                
+                .close-btn:hover {
+                    opacity: 1 !important;
+                }
+                
+                .character-image {
+                    max-height: 25vh !important;
+                    min-height: 120px !important;
+                    width: 60% !important;
+                    max-width: 250px !important;
+                    flex-shrink: 0 !important;
+                    margin: 0 auto 15px auto !important;
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                }
+                
+                .character-image img {
+                    max-height: 25vh !important;
+                    max-width: 100% !important;
+                    object-fit: contain !important;
+                    border-radius: 8px !important;
+                }
+                
+                .character-description {
+                    flex: 1 !important;
+                    overflow-y: auto !important;
+                    font-size: clamp(13px, 2.5vw, 15px) !important;
+                    line-height: 1.4 !important;
+                    text-align: center !important;
+                    padding: 10px 20px !important;
+                    margin: 0 auto 15px auto !important;
+                    max-height: 40vh !important;
+                    width: 100% !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    justify-content: flex-start !important;
+                }
+                
+                .card-footer {
+                    flex-shrink: 0 !important;
+                    width: 100% !important;
+                    text-align: center !important;
+                    margin-top: auto !important;
+                }
+                
+                .homepage-btn {
+                    font-size: 12px !important;
+                    padding: 8px 15px !important;
+                    margin: 10px auto 0 auto !important;
+                    width: 60% !important;
+                    max-width: 200px !important;
+                }
+                
+                .nav-btn {
+                    font-size: 22px !important;
+                    width: 30px !important;
+                    height: 30px !important;
+                }
+                
+                .button-row {
+                    margin-bottom: 10px !important;
+                }
+            }
+            
+            /* Medium devices (iPad mini, large phones) - Portrait */
+            @media (min-width: 481px) and (max-width: 768px) and (orientation: portrait) {
+                .character-card {
+                    padding: 25px 20px !important;
+                    gap: 18px !important;
+                    justify-content: flex-start !important;
+                    align-items: center !important;
+                }
+                
+                .character-image {
+                    max-height: 45vh !important;
+                    min-height: 250px !important;
+                    width: 85% !important;
+                    margin: 0 auto 15px auto !important;
+                }
+                
+                .character-description {
+                    font-size: 15px !important;
+                    line-height: 1.4 !important;
+                    text-align: center !important;
+                    max-height: 30vh !important;
+                    overflow-y: auto !important;
+                }
+            }
+            
+            /* Medium devices (iPad mini, large phones) - Landscape - SIDE PANEL */
+            @media (min-width: 481px) and (max-width: 1024px) and (orientation: landscape) {
+                .character-card {
+                    padding: 20px 15px !important;
+                    gap: 15px !important;
+                    height: calc(100vh - 60px) !important;
+                    justify-content: flex-start !important;
+                    align-items: center !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    overflow-y: auto !important;
+                    /* Position as side panel to preserve starfield */
+                    position: fixed !important;
+                    top: 60px !important;
+                    left: 15px !important;
+                    transform: none !important;
+                    width: 50% !important;
+                    max-width: 450px !important;
+                }
+                
+                .card-header {
+                    flex-shrink: 0 !important;
+                    display: flex !important;
+                    justify-content: space-between !important;
+                    align-items: center !important;
+                    width: 100% !important;
+                    margin-bottom: 15px !important;
+                }
+                
+                .card-title {
+                    font-size: clamp(16px, 3.5vw, 22px) !important;
+                    line-height: 1.2 !important;
+                    text-align: left !important;
+                    margin: 0 !important;
+                    flex: 1 !important;
+                }
+                
+                .close-btn {
+                    background: none !important;
+                    border: none !important;
+                    color: white !important;
+                    font-size: 28px !important;
+                    cursor: pointer !important;
+                    opacity: 0.8 !important;
+                    transition: opacity 0.2s ease !important;
+                    width: 35px !important;
+                    height: 35px !important;
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                    flex-shrink: 0 !important;
+                    pointer-events: auto !important;
+                    z-index: 2000 !important;
+                }
+                
+                .close-btn:hover {
+                    opacity: 1 !important;
+                }
+                
+                .character-image {
+                    max-height: 30vh !important;
+                    min-height: 150px !important;
+                    width: 50% !important;
+                    max-width: 300px !important;
+                    flex-shrink: 0 !important;
+                    margin: 0 auto 20px auto !important;
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                }
+                
+                .character-image img {
+                    max-height: 30vh !important;
+                    max-width: 100% !important;
+                    object-fit: contain !important;
+                    border-radius: 8px !important;
+                }
+                
+                .character-description {
+                    flex: 1 !important;
+                    overflow-y: auto !important;
+                    font-size: clamp(14px, 2.5vw, 17px) !important;
+                    line-height: 1.5 !important;
+                    text-align: center !important;
+                    padding: 15px 25px !important;
+                    margin: 0 auto 20px auto !important;
+                    max-height: 45vh !important;
+                    width: 100% !important;
+                    display: block !important;
+                }
+                
+                .card-footer {
+                    flex-shrink: 0 !important;
+                    width: 100% !important;
+                    text-align: center !important;
+                    margin-top: auto !important;
+                }
+                
+                .homepage-btn {
+                    font-size: 14px !important;
+                    padding: 10px 20px !important;
+                    margin: 15px auto 0 auto !important;
+                    width: 50% !important;
+                    max-width: 250px !important;
+                }
+                
+                .nav-btn {
+                    font-size: 26px !important;
+                    width: 35px !important;
+                    height: 35px !important;
+                }
+                
+                .button-row {
+                    margin-bottom: 15px !important;
+                    justify-content: space-around !important;
+                }
+            }
+            
             .agents-title {
                 font-size: 1.5rem;
             }
@@ -1015,6 +1304,28 @@
                 searchBtn.addEventListener('pointerdown', window.toggleMobileSearch);
                 // Visual test passed - buttons are working!
                 console.log('Search button styles:', window.getComputedStyle(searchBtn));
+            }
+            
+            // Character card close button - ENSURE ORIGINAL FUNCTIONALITY WORKS
+            const closeBtn = document.getElementById('closeCard');
+            if (closeBtn) {
+                console.log('Enhancing close button for mobile...');
+                
+                // Don't override the original functionality, just ensure it works on mobile
+                // Add touch events to trigger the original close functionality
+                closeBtn.addEventListener('touchstart', function(e) {
+                    console.log('Close button touched - triggering original close');
+                    // Trigger a click event to activate the original close functionality
+                    closeBtn.click();
+                });
+                
+                closeBtn.addEventListener('pointerdown', function(e) {
+                    console.log('Close button pointer down - triggering original close');
+                    // Trigger a click event to activate the original close functionality  
+                    closeBtn.click();
+                });
+                
+                console.log('Close button mobile enhancement complete');
             }
         });
         
