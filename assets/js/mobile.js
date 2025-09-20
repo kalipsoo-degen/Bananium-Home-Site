@@ -61,9 +61,9 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.classList.add('touch-device');
     }
     
-    // Function to detect mobile device (including landscape orientation)
+    // Function to detect mobile/tablet device using unified 1025px breakpoint
     function isMobileDevice() {
-        return window.innerWidth <= 768 || (window.innerHeight <= 768 && window.innerWidth <= 1024);
+        return window.innerWidth < 1025 || ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
     }
 
     // Fix mobile layout issues with inline styles
@@ -546,8 +546,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Fix on window load too, in case the DOM is slow to load
 window.addEventListener('load', function() {
-    // CRITICAL: Hide Bananium logo in hero section for mobile
-    if (window.innerWidth <= 768) {
+    // CRITICAL: Hide Bananium logo in hero section for mobile/tablet
+    if (window.innerWidth < 1025) {
         const bananiumLogoElements = document.querySelectorAll('.bananium-logo-container, .bananium-logo-outline, h1.bananium-logo');
         bananiumLogoElements.forEach(el => {
             el.style.display = 'none';

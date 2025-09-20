@@ -266,8 +266,8 @@
             line-height: 1.5;
         }
         
-        /* Mobile responsiveness - Apply to all mobile devices regardless of orientation */
-        @media (max-width: 768px), (max-height: 768px) and (max-width: 1024px) {
+        /* Mobile/Tablet responsiveness - Unified experience for all touch devices and devices under 1025px */
+        @media (max-width: 1024px), (pointer: coarse), (hover: none) {
             .navbar {
                 flex-direction: row !important;
                 justify-content: center !important;
@@ -502,7 +502,7 @@
             
             /* RESPONSIVE CHARACTER CARD: Optimized for all mobile devices and orientations */
             
-            /* Small mobile devices (phones) - Portrait */
+            /* Small devices (phones) - Portrait */
             @media (max-width: 480px) and (orientation: portrait) {
                 .character-card {
                     padding: 20px 15px !important;
@@ -527,7 +527,7 @@
                 }
             }
             
-            /* Small mobile devices (phones) - Landscape - SIDE PANEL */
+            /* Small devices (phones) - Landscape - SIDE PANEL */
             @media (max-width: 812px) and (orientation: landscape) {
                 .character-card {
                     padding: 15px 10px !important;
@@ -646,8 +646,8 @@
                 }
             }
             
-            /* Medium devices (iPad mini, large phones) - Portrait */
-            @media (min-width: 481px) and (max-width: 768px) and (orientation: portrait) {
+            /* Medium devices (large phones, small tablets) - Portrait */
+            @media (min-width: 481px) and (max-width: 1024px) and (orientation: portrait) {
                 .character-card {
                     padding: 25px 20px !important;
                     gap: 18px !important;
@@ -671,8 +671,8 @@
                 }
             }
             
-            /* Medium devices (iPad mini, large phones) - Landscape - SIDE PANEL */
-            @media (min-width: 481px) and (max-width: 1024px) and (orientation: landscape) {
+            /* Large tablets - Landscape - SIDE PANEL */
+            @media (min-width: 813px) and (max-width: 1024px) and (orientation: landscape) {
                 .character-card {
                     padding: 20px 15px !important;
                     gap: 15px !important;
@@ -806,8 +806,8 @@
             }
         }
         
-        /* Desktop styles to hide the mobile social bar - only on true desktop, not mobile landscape */
-        @media (min-width: 769px) and (min-height: 769px) {
+        /* Desktop styles - only for devices 1025px and above AND with fine pointer (mouse) */
+        @media (min-width: 1025px) and (pointer: fine) and (hover: hover) {
             .nav-links .mobile-social-bar {
                 display: none !important;
             }
@@ -863,8 +863,8 @@
             visibility: hidden;
         }
 
-        /* Mobile-only media query to display the buttons */
-        @media (max-width: 768px), (max-height: 768px) and (max-width: 1024px) {
+        /* Mobile/Tablet-only media query to display the buttons - includes all touch devices */
+        @media (max-width: 1024px), (pointer: coarse), (hover: none) {
             .mobile-menu-toggle,
             .mobile-search-toggle {
                 display: block !important;
@@ -907,6 +907,104 @@
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.3), 0 0 40px rgba(255, 215, 0, 0.1) !important;
             transition: all 0.3s ease !important;
             animation: searchButtonGlow 3s infinite !important;
+        }
+        
+        /* Touch-first interactions for mobile/tablet devices */
+        body.mobile-or-tablet .mobile-menu-toggle,
+        body.mobile-or-tablet .mobile-search-toggle {
+            -webkit-tap-highlight-color: transparent !important;
+            touch-action: manipulation !important;
+        }
+        
+        /* Ensure tablets get appropriate button sizing */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .mobile-menu-toggle {
+                width: 52px !important;
+                height: 52px !important;
+                font-size: 1.6rem !important;
+                top: 30px !important;
+            }
+            
+            .mobile-search-toggle {
+                width: 65px !important;
+                height: 65px !important;
+                font-size: 26px !important;
+            }
+        }
+        
+        /* Force mobile UI on large tablets in landscape (like iPad Pro 1366x1024) */
+        @media (min-width: 1025px) and (max-width: 1366px) and (max-height: 1024px) and (pointer: coarse) {
+            .navbar {
+                flex-direction: row !important;
+                justify-content: center !important;
+                align-items: center !important;
+                padding: 0 !important;
+                height: 60px !important;
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                width: 100% !important;
+                background: rgba(0, 0, 0, 0.95) !important;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.7) !important;
+                z-index: 2000 !important;
+            }
+            
+            .navbar .logo {
+                position: absolute !important;
+                left: 50% !important;
+                top: 50% !important;
+                transform: translate(-50%, -50%) !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                font-size: 1.7rem !important;
+                text-align: center !important;
+            }
+            
+            .navbar .social-icons {
+                display: none !important;
+            }
+            
+            .nav-links {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+                position: fixed !important;
+                top: 60px !important;
+                left: 0 !important;
+                right: 0 !important;
+                background-color: rgba(0, 0, 0, 0.95) !important;
+                z-index: 1999 !important;
+                flex-direction: column !important;
+                gap: 1rem !important;
+                text-align: center !important;
+                padding: 1rem 0 !important;
+            }
+            
+            .nav-links.active {
+                display: flex !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+            }
+            
+            .mobile-menu-toggle,
+            .mobile-search-toggle {
+                display: block !important;
+                visibility: visible !important;
+                pointer-events: auto !important;
+            }
+            
+            .mobile-menu-toggle {
+                width: 55px !important;
+                height: 55px !important;
+                font-size: 1.7rem !important;
+            }
+            
+            .mobile-search-toggle {
+                width: 70px !important;
+                height: 70px !important;
+                font-size: 28px !important;
+            }
         }
     </style>
     <!-- Force navbar to match homepage exactly -->
@@ -1328,6 +1426,41 @@
                 console.log('Close button mobile enhancement complete');
             }
         });
+        
+        // Enhanced device detection for unified mobile/tablet experience
+        function isDesktopDevice() {
+            return window.innerWidth >= 1025 && 
+                   !('ontouchstart' in window) && 
+                   navigator.maxTouchPoints === 0 &&
+                   !window.matchMedia("(pointer: coarse)").matches;
+        }
+        
+        function isMobileOrTablet() {
+            // Check multiple factors to catch all mobile/tablet devices
+            const hasTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+            const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+            const noHover = window.matchMedia("(hover: none)").matches;
+            const isSmallScreen = window.innerWidth < 1025;
+            const isTabletLandscape = (window.innerWidth <= 1366 && window.innerHeight <= 1024 && hasTouch);
+            
+            return isSmallScreen || hasTouch || isCoarsePointer || noHover || isTabletLandscape;
+        }
+        
+        // Apply touch-first interactions for mobile/tablet devices
+        if (isMobileOrTablet()) {
+            console.log('Mobile/Tablet device detected - applying touch-first interactions');
+            document.body.classList.add('touch-device');
+            document.body.classList.add('mobile-or-tablet');
+            
+            // Disable pointer events on decorative elements
+            const decorativeElements = document.querySelectorAll('.agents-intro');
+            decorativeElements.forEach(el => {
+                el.style.pointerEvents = 'none';
+            });
+        } else {
+            console.log('Desktop device detected');
+            document.body.classList.add('desktop-device');
+        }
         
         console.log('Mobile toggle functions loaded');
     </script>
