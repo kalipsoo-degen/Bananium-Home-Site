@@ -1967,7 +1967,17 @@ body {
 /* Large phones/small tablets - optimized layout */
 @media (min-width: 600px) and (max-width: 899px) {
     .homepage-grid,
-    .flip-tiles-container,
+    .flip-tiles-container {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important; /* Force 3 in a row for tablets */
+        gap: clamp(0.5rem, 1.5vw, 1rem) !important;
+        max-width: 95% !important;
+        margin: 1rem auto !important;
+        padding: 0 1rem !important;
+        justify-content: center !important;
+        justify-items: center !important;
+    }
+    
     .steps-container {
         display: grid !important;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
@@ -2027,12 +2037,13 @@ body {
     .homepage-grid,
     .flip-tiles-container {
         display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: clamp(1rem, 2.5vw, 1.5rem) !important;
+        grid-template-columns: repeat(3, 1fr) !important; /* Changed to 3 in a row for tablets */
+        gap: clamp(0.5rem, 1.5vw, 1rem) !important; /* Smaller gaps for 3 tiles */
         max-width: 95% !important;
         margin: 1rem auto !important;
         padding: 0 1rem !important;
         justify-content: center !important;
+        justify-items: center !important;
     }
     
     .steps-container {
@@ -2048,7 +2059,7 @@ body {
     .flip-tile {
         aspect-ratio: 1 / 1 !important;
         width: 100% !important;
-        max-width: 400px !important; /* Reasonable size for portrait tablets */
+        max-width: min(30vw, 280px) !important; /* Scale for 3 tiles in portrait */
         justify-self: center !important;
     }
     
@@ -2102,6 +2113,93 @@ body {
         grid-template-columns: repeat(3, 1fr);
         max-width: 1200px;
         margin: 0 auto;
+    }
+}
+
+/* iPad Air and larger devices in portrait - force 3 tiles in single row */
+@media (min-width: 768px) and (orientation: portrait) {
+    .flip-tiles-container {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important; /* Force 3 tiles in one row */
+        gap: clamp(0.5rem, 1.5vw, 1rem) !important;
+        max-width: 95% !important;
+        margin: 1rem auto !important;
+        padding: 0 1rem !important;
+        justify-content: center !important;
+        justify-items: center !important;
+    }
+    
+    .flip-tiles-container .flip-tile {
+        width: 100% !important;
+        max-width: min(30vw, 280px) !important; /* Scale appropriately for 3 in a row */
+        justify-self: center !important;
+        aspect-ratio: 1 / 1 !important;
+    }
+    
+    /* Text scaling for portrait tablets */
+    .flip-tiles-container .flip-tile-front h3[style*="font-size: 1.63rem"],
+    .flip-tiles-container .flip-tile-back h3,
+    .flip-tiles-container .flip-tile-front h3 {
+        font-size: clamp(0.8rem, 2.5vw, 1.2rem) !important;
+        line-height: 1.2 !important;
+        padding: clamp(0.3rem, 1vw, 0.6rem) !important;
+        text-align: center !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+    }
+    
+    .flip-tiles-container .flip-tile-back p[style*="font-size: 1.92rem"],
+    .flip-tiles-container .flip-tile-back p {
+        font-size: clamp(0.7rem, 2vw, 1rem) !important;
+        line-height: 1.3 !important;
+        padding: clamp(0.2rem, 0.8vw, 0.5rem) !important;
+        text-align: center !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+    }
+}
+
+/* Force 3 tiles in single row for iPad Air and similar tablets in portrait */
+@media (min-width: 820px) and (max-width: 1180px) and (orientation: portrait) {
+    .flip-tiles-container[class] {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important; /* Force 3 tiles in one row */
+        gap: clamp(0.4rem, 1.2vw, 0.8rem) !important;
+        max-width: 96% !important;
+        margin: 1rem auto !important;
+        padding: 0 0.5rem !important;
+        justify-content: center !important;
+        justify-items: center !important;
+        width: 96% !important;
+    }
+    
+    .flip-tiles-container .flip-tile {
+        width: 100% !important;
+        max-width: min(28vw, 250px) !important; /* Smaller tiles to fit 3 in portrait */
+        justify-self: center !important;
+        aspect-ratio: 1 / 1 !important;
+    }
+    
+    /* Text scaling for 3-tile portrait layout */
+    .flip-tiles-container .flip-tile-front h3[style*="font-size: 1.63rem"],
+    .flip-tiles-container .flip-tile-back h3,
+    .flip-tiles-container .flip-tile-front h3 {
+        font-size: clamp(0.7rem, 2.2vw, 1rem) !important;
+        line-height: 1.2 !important;
+        padding: clamp(0.2rem, 0.8vw, 0.5rem) !important;
+        text-align: center !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+    }
+    
+    .flip-tiles-container .flip-tile-back p[style*="font-size: 1.92rem"],
+    .flip-tiles-container .flip-tile-back p {
+        font-size: clamp(0.6rem, 1.8vw, 0.85rem) !important;
+        line-height: 1.3 !important;
+        padding: clamp(0.1rem, 0.6vw, 0.4rem) !important;
+        text-align: center !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
     }
 }
 
