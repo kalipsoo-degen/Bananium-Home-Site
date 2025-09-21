@@ -625,12 +625,27 @@
         padding: 0 1rem !important;
     }
     
-    /* Single column only for phones and portrait tablets */
+    /* Single column only for phones and portrait tablets - with proper centering */
     @media (max-width: 768px), (max-width: 1024px) and (orientation: portrait) {
         .steps-container, 
         .flip-tiles-container {
+            display: grid !important;
             grid-template-columns: 1fr !important;
-            margin-bottom: 2rem !important; /* Add spacing before ROADMAP title */
+            justify-items: center !important; /* Center tiles horizontally */
+            justify-content: center !important; /* Center grid container */
+            margin: 2rem auto !important; /* Center container and add spacing */
+            padding: 0 1rem !important;
+            width: 100% !important;
+            max-width: 400px !important; /* Limit width for better centering */
+        }
+        
+        /* Ensure individual tiles are centered */
+        .steps-container .flip-tile,
+        .flip-tiles-container .flip-tile {
+            justify-self: center !important;
+            margin: 0 auto 1rem auto !important; /* Center tile with bottom spacing */
+            width: 100% !important;
+            max-width: 350px !important; /* Reasonable max width for portrait */
         }
         
         /* Mobile text scaling - override large text */
@@ -1235,6 +1250,29 @@
     .nav-links a::before {
         content: none !important; /* Also remove content */
         display: none !important;
+    }
+}
+
+/* Portrait centering for all mobile devices */
+@media (orientation: portrait) and (max-width: 768px) {
+    .flip-tiles-container,
+    .steps-container {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin: 2rem auto !important;
+        padding: 0 1rem !important;
+        width: 100% !important;
+    }
+    
+    .flip-tiles-container .flip-tile,
+    .steps-container .flip-tile {
+        margin: 0 auto 1.5rem auto !important;
+        width: 100% !important;
+        max-width: min(90vw, 350px) !important;
+        justify-self: center !important;
+        align-self: center !important;
     }
 }
 

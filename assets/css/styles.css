@@ -1891,6 +1891,23 @@ body {
 
 /* Responsive Breakpoint System */
 
+/* Portrait orientation centering for all devices */
+@media (orientation: portrait) {
+    .flip-tiles-container,
+    .steps-container {
+        justify-items: center !important;
+        align-items: center !important;
+    }
+    
+    .flip-tiles-container .flip-tile,
+    .steps-container .flip-tile {
+        justify-self: center !important;
+        align-self: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+
 /* Mobile phones - 1 column */
 @media (max-width: 599px) {
     .homepage-grid,
