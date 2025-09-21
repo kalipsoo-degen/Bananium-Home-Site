@@ -484,247 +484,278 @@
                 border-radius: 10px !important;
             }
             
+            /* CLEAN RESPONSIVE CHARACTER MODAL - Only when actually visible */
             .character-card[style*="display: flex"],
             .character-card[style*="display:flex"] {
-                /* ONLY apply mobile positioning when card is visible */
-                position: fixed !important; /* Keep card fixed */
-                top: 60px !important;      /* Position below 60px mobile navbar */
-                left: 0 !important;        /* Align to left edge */
-                right: 0 !important;       /* Align to right edge */
-                bottom: 0 !important;      /* Stretch to bottom */
-                width: 100% !important;    /* Full width */
-                height: calc(100vh - 60px) !important; /* Full remaining height */
-                max-width: none !important; /* Override any max-width */
-                margin: 0 !important;      /* Remove margins */
-                border-radius: 0 !important; /* Optional: Remove border-radius for full screen */
-                z-index: 1500 !important;  /* Ensure it's above other elements but below navbar */
+                /* Base modal structure - NO forced display */
+                position: fixed;
+                z-index: 1500;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.85);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 16px;
+                box-sizing: border-box;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+                
+                /* Responsive sizing */
+                width: min(90vw, 500px);
+                max-height: 85vh;
+                padding: clamp(1rem, 3vw, 2rem);
+                gap: clamp(0.5rem, 2vh, 1.5rem);
             }
             
-            /* COMPREHENSIVE RESPONSIVE CHARACTER MODAL SYSTEM */
-            
-            /* Base character modal structure - flexible container */
-            .character-card[style*="display: flex"],
-            .character-card[style*="display:flex"] {
-                /* Flexible container that adapts to viewport */
-                width: min(90vw, 500px) !important;
-                max-height: 85vh !important;
-                overflow-y: auto !important;
-                -webkit-overflow-scrolling: touch !important;
-                z-index: 1500 !important;
-                display: flex !important;
-                flex-direction: column !important;
-                background: rgba(0, 0, 0, 0.85) !important;
-                backdrop-filter: blur(10px) !important;
-                border: 1px solid rgba(255, 255, 255, 0.2) !important;
-                border-radius: 16px !important;
-                box-sizing: border-box !important;
-                padding: clamp(1rem, 3vw, 2rem) !important;
-                gap: clamp(0.5rem, 2vh, 1.5rem) !important;
-            }
-            
-            /* LANDSCAPE: Position modal on LEFT side with galaxy visible on right */
+            /* LANDSCAPE: Left side panel with AGGRESSIVE centering */
             @media (orientation: landscape) {
                 .character-card[style*="display: flex"],
-                .character-card[style*="display:flex"] {
-                    position: fixed !important;
-                    left: 2rem !important;
+                .character-card[style*="display:flex"],
+                #characterCard[style*="display: flex"],
+                #characterCard[style*="display:flex"] {
+                    left: 2rem !important; /* Safe margin from edge */
                     top: 50% !important;
-                    transform: translateY(-50%) !important;
-                    width: min(45vw, 500px) !important;
-                    max-height: 85vh !important;
+                    transform: translateY(-50%) !important; /* Perfect vertical centering */
+                    width: min(40vw, 420px) !important;
+                    max-width: 420px !important;
+                    position: fixed !important;
+                }
+                
+                /* iPad Pro specific - AGGRESSIVELY CENTERED on left side */
+                @media (min-width: 1200px) {
+                    .character-card[style*="display: flex"],
+                    .character-card[style*="display:flex"],
+                    #characterCard[style*="display: flex"],
+                    #characterCard[style*="display:flex"] {
+                        left: 2rem !important; /* Safe left margin */
+                        top: 50% !important; /* Ensure vertical centering */
+                        transform: translateY(-50%) !important; /* Perfect centering */
+                        width: min(35vw, 450px) !important;
+                        max-width: 450px !important;
+                        position: fixed !important;
+                    }
                 }
             }
             
-            /* PORTRAIT: Center modal horizontally and vertically */
             @media (orientation: portrait) {
                 .character-card[style*="display: flex"],
-                .character-card[style*="display:flex"] {
-                    position: fixed !important;
+                .character-card[style*="display:flex"],
+                #characterCard[style*="display: flex"],
+                #characterCard[style*="display:flex"] {
                     left: 50% !important;
                     top: 50% !important;
                     transform: translate(-50%, -50%) !important;
                     width: min(90vw, 500px) !important;
-                    max-height: 85vh !important;
+                    position: fixed !important;
                 }
             }
             
-            /* Responsive image scaling */
+            /* CLEAN Content Scaling - Optimized and consolidated */
             .character-card .character-image {
-                width: 100% !important;
-                height: auto !important;
-                max-height: 40vh !important; /* Landscape default */
-                aspect-ratio: 1/1 !important;
-                object-fit: cover !important;
-                margin-bottom: clamp(0.5rem, 2vh, 1.5rem) !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
+                width: 100%;
+                height: auto;
+                max-height: 40vh; /* Landscape default */
+                aspect-ratio: 1/1;
+                object-fit: contain;
+                margin-bottom: clamp(0.5rem, 2vh, 1.5rem);
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
             
             .character-card .character-image img {
-                width: 100% !important;
-                height: 100% !important;
-                object-fit: contain !important;
-                border-radius: 8px !important;
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                border-radius: 8px;
+            }
+            
+            .character-card .card-title {
+                font-size: clamp(1.25rem, 4vw, 2rem);
+                margin-bottom: clamp(0.5rem, 2vh, 1.5rem);
+                line-height: 1.2;
+            }
+            
+            .character-card .character-description {
+                font-size: clamp(0.875rem, 2.5vw, 1.125rem);
+                line-height: 1.5;
+                max-height: 25vh;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+                margin-bottom: clamp(0.5rem, 2vh, 1.5rem);
+            }
+            
+            .character-card .homepage-btn {
+                font-size: clamp(0.875rem, 3vw, 1.25rem);
+                padding: clamp(0.5rem, 2vw, 1rem) clamp(1rem, 4vw, 2rem);
+                min-height: 44px;
+                margin-bottom: clamp(0.5rem, 2vh, 1.5rem);
+            }
+            
+            .character-card .nav-btn,
+            .character-card .close-btn {
+                width: clamp(44px, 5vw, 50px);
+                height: clamp(44px, 5vw, 50px);
+                font-size: clamp(1.2rem, 3vw, 1.8rem);
+            }
+            
+            .character-card .card-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: clamp(0.5rem, 2vh, 1.5rem);
             }
             
             /* Portrait image adjustment */
             @media (orientation: portrait) {
                 .character-card .character-image {
-                    max-height: 30vh !important;
+                    max-height: 30vh;
                 }
             }
             
-            /* Dynamic text and button scaling */
-            .character-card .card-title {
-                font-size: clamp(1.25rem, 4vw, 2rem) !important;
-                margin-bottom: clamp(0.5rem, 2vh, 1.5rem) !important;
-                line-height: 1.2 !important;
-            }
-            
-            .character-card .character-description {
-                font-size: clamp(0.875rem, 2.5vw, 1.125rem) !important;
-                line-height: 1.5 !important;
-                max-height: 25vh !important;
-                overflow-y: auto !important;
-                -webkit-overflow-scrolling: touch !important;
-                margin-bottom: clamp(0.5rem, 2vh, 1.5rem) !important;
-            }
-            
-            .character-card .homepage-btn {
-                font-size: clamp(0.875rem, 3vw, 1.25rem) !important;
-                padding: clamp(0.5rem, 2vw, 1rem) clamp(1rem, 4vw, 2rem) !important;
-                min-height: 44px !important; /* Touch target minimum */
-                margin-bottom: clamp(0.5rem, 2vh, 1.5rem) !important;
-            }
-            
-            /* Navigation arrow scaling */
-            .character-card .nav-btn {
-                width: clamp(30px, 5vw, 50px) !important;
-                height: clamp(30px, 5vw, 50px) !important;
-                min-width: 44px !important;
-                min-height: 44px !important;
-                font-size: clamp(1rem, 3vw, 1.5rem) !important;
-            }
-            
-            .character-card .close-btn {
-                width: clamp(30px, 5vw, 50px) !important;
-                height: clamp(30px, 5vw, 50px) !important;
-                min-width: 44px !important;
-                min-height: 44px !important;
-                font-size: clamp(1.5rem, 4vw, 2rem) !important;
-            }
-            
-            .character-card .card-header {
-                display: flex !important;
-                justify-content: space-between !important;
-                align-items: center !important;
-                margin-bottom: clamp(0.5rem, 2vh, 1.5rem) !important;
-            }
-            
-            /* Breakpoint-specific adjustments */
-            
-            /* Small phones */
+            /* CLEAN Breakpoint Adjustments */
             @media (max-width: 375px) {
                 .character-card[style*="display: flex"],
                 .character-card[style*="display:flex"] {
-                    width: 95vw !important;
+                    width: 95vw;
                 }
             }
             
-            /* Tablets in landscape - ensure left positioning */
-            @media (min-width: 768px) and (max-width: 1366px) and (orientation: landscape) {
+            @media (min-width: 768px) and (orientation: landscape) {
                 .character-card[style*="display: flex"],
-                .character-card[style*="display:flex"] {
-                    width: 45vw !important;
-                    left: 3rem !important;
-                }
-            }
-            
-            /* Large tablets like iPad Pro */
-            @media (min-width: 1024px) and (max-width: 1366px) {
-                .character-card[style*="display: flex"],
-                .character-card[style*="display:flex"] {
-                    width: min(500px, 40vw) !important;
-                }
-            }
-            
-            /* JavaScript device detection for mobile/tablet layout */
-            
-            /* OLD RULES TO BE CLEANED UP - START DELETION */
-            @media (max-width: 667px) and (orientation: landscape) {
-                /* Small phones in landscape - CENTER the card */
-                .character-card[style*="display: flex"],
-                .character-card[style*="display:flex"] {
-                    padding: clamp(8px, 2vw, 15px) !important;
-                    gap: clamp(6px, 1.5vh, 12px) !important;
-                    height: calc(100vh - clamp(50px, 8vh, 70px)) !important;
-                    justify-content: center !important;
-                    align-items: center !important;
-                    display: flex !important;
-                    flex-direction: column !important;
-                    overflow-y: auto !important;
-                    /* Center on small screens */
+                .character-card[style*="display:flex"],
+                #characterCard[style*="display: flex"],
+                #characterCard[style*="display:flex"] {
+                    width: min(45vw, 500px) !important;
+                    left: 2rem !important;
+                    top: 50% !important; /* Perfect vertical centering */
+                    transform: translateY(-50%) !important; /* Perfect centering */
                     position: fixed !important;
-                    top: clamp(50px, 8vh, 70px) !important;
-                    left: 50% !important;
-                    transform: translateX(-50%) !important;
-                    width: clamp(85vw, 90vw, 95vw) !important;
-                    max-width: 500px !important;
                 }
             }
             
-            /* Medium phones - Landscape - SIDE PANEL */
-            @media (min-width: 668px) and (max-width: 812px) and (orientation: landscape) {
-                .character-card[style*="display: flex"],
-                .character-card[style*="display:flex"] {
-                    padding: clamp(10px, 2vw, 20px) clamp(8px, 2vw, 15px) !important;
-                    gap: clamp(8px, 2vh, 15px) !important;
-                    height: calc(100vh - clamp(50px, 8vh, 70px)) !important;
-                    justify-content: flex-start !important;
-                    align-items: center !important;
-                    display: flex !important;
-                    flex-direction: column !important;
-                    overflow-y: auto !important;
-                    /* Side panel with proper spacing */
-                    position: fixed !important;
-                    top: clamp(50px, 8vh, 70px) !important;
-                    left: clamp(10px, 2vw, 20px) !important;
-                    transform: none !important;
-                    width: clamp(40vw, 45vw, 50vw) !important;
-                    max-width: clamp(320px, 45vw, 400px) !important;
-                }
-                
-                .card-header {
-                    flex-shrink: 0 !important;
-                    display: flex !important;
-                    justify-content: space-between !important;
-                    align-items: center !important;
-                    width: 100% !important;
-                    margin-bottom: 10px !important;
-                }
-                
-                .card-title {
-                    font-size: clamp(14px, 3vw, 18px) !important;
-                    line-height: 1.1 !important;
-                    text-align: left !important;
-                    margin: 0 !important;
-                    flex: 1 !important;
-                }
-                
-                .close-btn {
-                    background: none !important;
-                    border: none !important;
-                    color: white !important;
-                    font-size: 24px !important;
-                    cursor: pointer !important;
-                    opacity: 0.8 !important;
-                    transition: opacity 0.2s ease !important;
-                    width: 30px !important;
-                    height: 30px !important;
-                    display: flex !important;
-                    align-items: center !important;
-                    justify-content: center !important;
+            /* === END OF CLEAN RESPONSIVE SYSTEM === */
+        }
+        
+        /* CLEAN RESET - Simple and effective */
+        .character-card[style*="display: none"],
+        .character-card[style*="display:none"] {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+        
+        /* Desktop styles - only for devices 1025px and above AND with fine pointer (mouse) */
+        @media (min-width: 1025px) and (pointer: fine) and (hover: hover) {
+            .nav-links .mobile-social-bar {
+                display: none;
+            }
+            
+            .mobile-menu-toggle,
+            .mobile-search-toggle {
+                display: none;
+            }
+            
+            .nav-links {
+                display: flex;
+                visibility: visible;
+                opacity: 1;
+                position: relative;
+                top: auto;
+                flex-direction: row;
+                background: transparent;
+                box-shadow: none;
+            }
+            
+            .navigation-container {
+                display: flex;
+                visibility: visible;
+                opacity: 1;
+            }
+            
+            /* DESKTOP CHARACTER CARD - LEFT SIDE POSITIONING */
+            .character-card,
+            .character-card[style*="display: flex"],
+            .character-card[style*="display:flex"] {
+                position: absolute !important;
+                left: 30px !important;
+                top: 50% !important;
+                transform: translateY(-50%) !important;
+                width: 90% !important;
+                max-width: 600px !important;
+                height: calc(100vh - 100px) !important;
+                right: auto !important;
+            }
+        }
+    </style>
+    <!-- Force navbar to match homepage exactly -->
+    <style>
+        .navbar { padding: clamp(0.6rem, 2cqw, 1rem) clamp(1rem, 3cqw, 2rem) !important; background-color: rgba(0,0,0,0.8) !important; top: 0; width: 100%; z-index: 10001; container-type: inline-size; }
+        .logo { font-size: clamp(1.25rem, 2.2cqw, 2rem) !important; padding-left: clamp(0.5rem, 2cqw, 1.875rem) !important; white-space: nowrap; }
+        .nav-links { display: flex !important; gap: clamp(0.35rem, 1.4cqw, 1rem) !important; align-items: center !important; justify-content: center !important; flex-wrap: nowrap !important; overflow-x: hidden !important; overflow-y: hidden !important; }
+        .nav-links a { font-size: clamp(0.72rem, 1.1cqw, 0.98rem) !important; padding: clamp(0.25rem, 0.8cqw, 0.45rem) clamp(0.2rem, 0.6cqw, 0.3rem) !important; letter-spacing: 0.04em !important; }
+        .nav-links a[href="https://magiceden.us/"] { padding: 0.5rem 1rem !important; background-color: var(--primary-color) !important; color: #000 !important; border-radius: 4px !important; font-weight: 700 !important; }
+        .social-icons { display: flex !important; gap: clamp(0.5rem, 2cqw, 1rem) !important; padding-right: clamp(0.5rem, 2cqw, 1.875rem) !important; }
+    </style>
+</head>
+<body class="agents-page">
+    <!-- Navigation - same as main site for consistency -->
+    <nav class="navbar visible" id="main-navbar" style="background: #000000; z-index: 10001; width: 100%; padding: 15px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.5); position: fixed; top: 0; visibility: visible !important; opacity: 1 !important;">
+        <a href="index.html" class="logo" style="padding-left: 30px;">BANANIUM</a>
+        <div class="nav-links">
+            <!-- Added mobile social bar -->
+            <div class="social-icons mobile-social-bar">
+                <a href="https://discord.gg/5w34jV3EP4" class="nav-link" target="_blank"><i class="fa-brands fa-discord"></i></a>
+                <a href="https://x.com/PlayBananium" class="nav-link" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
+            <!-- Added battle-link class -->
+            <a href="https://magiceden.us/" target="_blank" class="battle-link">JOIN THE BATTLE</a> 
+        </div>
+        <!-- Desktop Social Icons (Right Side) -->
+        <div class="social-icons" style="padding-right: 30px;">
+            <a href="https://discord.gg/5w34jV3EP4" class="nav-link" target="_blank"><i class="fa-brands fa-discord"></i></a>
+            <a href="https://x.com/PlayBananium" class="nav-link" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+    </nav>
+
+    <!-- Mobile Action Buttons - MOVED HERE TO BE ON TOP OF ALL LAYERS -->
+    <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Toggle navigation menu" onclick="window.toggleMobileMenu(event)">
+        <i class="fas fa-bars"></i>
+    </button>
+    <button id="mobileSearchToggle" class="mobile-search-toggle" aria-label="Toggle search panel" onclick="window.toggleMobileSearch(event)">
+        <i class="fas fa-search"></i>
+    </button>
+    
+    <!-- Interface Container -->
+    <div class="interface">
+        <div class="navigation-container" id="navigationContainer">
+            <div class="search-row">
+                <div class="search-wrapper">
+                    <input type="text" id="searchInput" placeholder="Search agents..." class="search-input">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Canvas for Starfield -->
+    <canvas id="canvas"></canvas>
+    
+    <!-- Character Card -->
+    <div class="character-card" id="characterCard">
+        <div class="card-header">
+            <h2 class="card-title" id="characterName">Agent Name</h2>
+            <button class="close-btn" id="closeCard">&times;</button>
+        </div>
+        <div class="character-image" id="characterImage">
+            <img id="characterImg" alt="Agent" />
+        </div>
+        <p class="character-description" id="characterDescription" style="color: #ffffff !important; opacity: 1 !important; font-weight: 400 !important; text-shadow: none !important; -webkit-text-fill-color: #ffffff !important; filter: none !important; background: none !important;"></p>
+    </div>
+    
+    <!-- Mobile-specific enhancements -->
+    <script src="assets/js/mobile.js"></script>
+</body>
+</html>
                     flex-shrink: 0 !important;
                     pointer-events: auto !important;
                     z-index: 2000 !important;
@@ -794,20 +825,22 @@
                 }
             }
             
-            /* ALL TABLETS - Portrait - CENTERED LAYOUT */
+            /* ALL TABLETS - Portrait - AGGRESSIVELY CENTERED LAYOUT */
             @media (min-width: 481px) and (max-width: 1366px) and (orientation: portrait) {
                 .character-card[style*="display: flex"],
-                .character-card[style*="display:flex"] {
+                .character-card[style*="display:flex"],
+                #characterCard[style*="display: flex"],
+                #characterCard[style*="display:flex"] {
                     /* ONLY apply positioning when card is already visible */
                     padding: clamp(20px, 4vw, 30px) clamp(15px, 3vw, 25px) !important;
                     gap: clamp(15px, 3vh, 25px) !important;
                     justify-content: center !important;
                     align-items: center !important;
-                    /* CENTER the card in portrait mode */
+                    /* AGGRESSIVELY CENTER the card in portrait mode */
                     position: fixed !important;
-                    top: clamp(50px, 8vh, 70px) !important;
+                    top: 50% !important; /* Perfect vertical centering */
                     left: 50% !important;
-                    transform: translateX(-50%) !important;
+                    transform: translate(-50%, -50%) !important; /* Perfect centering */
                     width: clamp(350px, 80vw, 600px) !important;
                     max-width: calc(100vw - 40px) !important;
                     height: calc(100vh - clamp(50px, 8vh, 70px)) !important;
@@ -841,9 +874,12 @@
                 }
             }
             
-            /* ALL TABLETS - Landscape - LEFT SIDE PANEL (like small tablets) */
+            /* ALL TABLETS - Landscape - AGGRESSIVELY CENTERED LEFT SIDE PANEL */
             @media (min-width: 813px) and (max-width: 1366px) and (orientation: landscape) {
-                .character-card {
+                .character-card[style*="display: flex"],
+                .character-card[style*="display:flex"],
+                #characterCard[style*="display: flex"],
+                #characterCard[style*="display:flex"] {
                     padding: clamp(15px, 3vw, 25px) clamp(12px, 2.5vw, 20px) !important;
                     gap: clamp(12px, 2vh, 20px) !important;
                     height: calc(100vh - clamp(50px, 8vh, 70px)) !important;
@@ -852,12 +888,12 @@
                     display: flex !important;
                     flex-direction: column !important;
                     overflow-y: auto !important;
-                    /* LEFT SIDE PANEL positioning like small tablets */
+                    /* AGGRESSIVELY CENTERED LEFT SIDE PANEL - Perfect vertical centering */
                     position: fixed !important;
-                    top: clamp(50px, 8vh, 70px) !important;
+                    top: 50% !important; /* Perfect vertical centering */
                     left: clamp(20px, 3vw, 50px) !important; /* Safe left margin */
-                    transform: none !important;
-                    width: clamp(320px, 35vw, 450px) !important; /* Consistent with small tablets */
+                    transform: translateY(-50%) !important; /* Perfect centering */
+                    width: clamp(320px, 35vw, 450px) !important;
                     max-width: 450px !important;
                     min-width: 320px !important;
                 }
@@ -883,127 +919,20 @@
                     padding: clamp(8px, 2vw, 15px) !important;
                 }
                 
-                .close-btn {
-                    width: clamp(40px, 6vw, 50px) !important;
-                    height: clamp(40px, 6vw, 50px) !important;
-                    min-width: 44px !important;
-                    min-height: 44px !important;
-                    font-size: clamp(24px, 4vw, 32px) !important;
-                }
-            }
-            
-            
-            /* SIMPLIFIED LANDSCAPE CHARACTER CARDS - LEFT SIDE PANEL FOR ALL TABLETS */
-            @media (orientation: landscape) and (min-width: 668px) and (max-width: 1366px) {
-                .character-card[style*="display: flex"],
-                .character-card[style*="display:flex"] {
-                    /* ONLY apply positioning when card is already visible */
-                    position: fixed !important;
-                    top: 60px !important; /* Fixed positioning */
-                    left: 20px !important; /* Safe left margin */
-                    transform: none !important;
-                    width: 380px !important; /* Fixed width - no cropping */
-                    height: calc(100vh - 60px) !important;
-                    max-width: 380px !important;
-                    min-width: 380px !important;
-                    padding: 20px 15px !important;
-                    gap: 15px !important;
-                    display: flex !important;
-                    flex-direction: column !important;
-                    justify-content: flex-start !important;
-                    align-items: center !important;
-                    overflow-y: auto !important;
-                    /* Ensure it never interferes with starfield */
-                    right: auto !important;
-                    margin: 0 !important;
-                }
-                
-                .character-card .card-header {
-                    display: flex !important;
-                    justify-content: space-between !important;
-                    align-items: center !important;
-                    width: 100% !important;
-                }
-                
-                .character-card .card-title {
-                    font-size: 1.4rem !important;
-                    text-align: left !important;
-                    flex: 1 !important;
-                }
-                
-                .character-card .close-btn {
-                    width: 44px !important;
-                    height: 44px !important;
-                    font-size: 28px !important;
-                    flex-shrink: 0 !important;
-                }
-                
-                .character-card .character-image {
-                    max-height: 30vh !important;
-                    width: 90% !important;
-                    margin: 0 auto 15px auto !important;
-                }
-                
-                .character-card .character-description {
-                    font-size: 14px !important;
-                    line-height: 1.4 !important;
-                    text-align: left !important;
-                    flex: 1 !important;
-                    overflow-y: auto !important;
-                    width: 100% !important;
-                }
-            }
-            
-            /* ULTIMATE RESET - HIGHEST SPECIFICITY to override ALL other rules */
-            .character-card[style*="display: none"],
-            .character-card[style*="display:none"],
-            body .character-card[style*="display: none"],
-            body .character-card[style*="display:none"],
-            html body .character-card[style*="display: none"],
-            html body .character-card[style*="display:none"] {
-                display: none !important;
-                position: static !important;
-                left: auto !important;
-                top: auto !important;
-                right: auto !important;
-                bottom: auto !important;
-                transform: none !important;
-                width: auto !important;
-                height: auto !important;
-                max-width: none !important;
-                min-width: auto !important;
-                max-height: none !important;
-                min-height: auto !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                opacity: 0 !important;
-                visibility: hidden !important;
-                z-index: -9999 !important;
-                /* Nuclear option - force complete removal */
-                clip: rect(0,0,0,0) !important;
-                clip-path: inset(100%) !important;
-                overflow: hidden !important;
-                pointer-events: none !important;
-                /* Remove from layout completely */
-                float: none !important;
-                clear: both !important;
-            }
-            
-            .agents-title {
-                font-size: 1.5rem;
-            }
-            
-            .footer {
-                width: 100% !important;
-                padding: 2rem 1rem !important;
-            }
-            
-            .footer-links {
-                flex-wrap: wrap !important;
-                justify-content: center !important;
-                gap: 1rem !important;
-                width: 100% !important;
-            }
+        }
+        
+        /* CLEAN RESET - Simple and effective */
+        .character-card[style*="display: none"],
+        .character-card[style*="display:none"] {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+        
+        /* General styles */
+        .agents-title {
+            font-size: 1.5rem;
         }
         
         /* Desktop styles - only for devices 1025px and above AND with fine pointer (mouse) */
@@ -1028,6 +957,20 @@
                 background: transparent !important;
                 box-shadow: none !important;
             }
+            
+            /* DESKTOP CHARACTER CARD - LEFT SIDE POSITIONING */
+            .character-card,
+            .character-card[style*="display: flex"],
+            .character-card[style*="display:flex"] {
+                position: absolute !important;
+                left: 30px !important;
+                top: 50% !important;
+                transform: translateY(-50%) !important;
+                width: 90% !important;
+                max-width: 600px !important;
+                height: calc(100vh - 100px) !important;
+                right: auto !important;
+            }
         }
         
         /* Mobile menu toggle style to match home page */
@@ -1043,6 +986,40 @@
         .mobile-menu-toggle:hover {
             color: var(--secondary-color);
             transform: scale(1.1);
+        }
+        
+        /* NUCLEAR-LEVEL CHARACTER CARD CENTERING - Override everything */
+        @media (max-width: 1024px), (pointer: coarse), (hover: none) {
+            /* LANDSCAPE: Nuclear left-side centering */
+            @media (orientation: landscape) {
+                body #characterCard[style*="display: flex"],
+                body #characterCard[style*="display:flex"],
+                body .character-card[style*="display: flex"],
+                body .character-card[style*="display:flex"] {
+                    position: fixed !important;
+                    top: 50% !important;
+                    left: 2rem !important;
+                    transform: translateY(-50%) !important;
+                    width: min(45vw, 450px) !important;
+                    max-width: 450px !important;
+                    z-index: 1500 !important;
+                }
+            }
+            
+            /* PORTRAIT: Nuclear center centering */
+            @media (orientation: portrait) {
+                body #characterCard[style*="display: flex"],
+                body #characterCard[style*="display:flex"],
+                body .character-card[style*="display: flex"],
+                body .character-card[style*="display:flex"] {
+                    position: fixed !important;
+                    top: 50% !important;
+                    left: 50% !important;
+                    transform: translate(-50%, -50%) !important;
+                    width: min(90vw, 500px) !important;
+                    z-index: 1500 !important;
+                }
+            }
         }
         
         /* Make sure footer is positioned correctly */
@@ -1140,8 +1117,8 @@
                 min-height: 44px !important; /* Minimum touch target */
             }
             
-            /* Responsive character card */
-            .character-card {
+            /* Responsive character card - Only apply when not overridden by specific rules */
+            .character-card:not([style*="display: flex"]):not([style*="display:flex"]) {
                 top: clamp(50px, 8vh, 70px) !important;
                 height: calc(100vh - clamp(50px, 8vh, 70px)) !important;
                 padding: clamp(15px, 4vw, 25px) !important;
@@ -1685,129 +1662,58 @@
                 console.log('Search button styles:', window.getComputedStyle(searchBtn));
             }
             
-                // Character card close button - AGGRESSIVE GALAXY RESET
+                // CLEAN Close Button - Optimized for all devices
             const closeBtn = document.getElementById('closeCard');
             if (closeBtn) {
-                console.log('Setting up AGGRESSIVE close button...');
+                console.log('Setting up optimized close button...');
                 
-                // Mobile/Tablet close function - SIMULATE ESCAPE KEY PRESS
-                window.forceGalaxyReset = function(e) {
-                    console.log('=== MOBILE/TABLET X BUTTON CLICKED ===');
+                // SIMPLE Close Function - Clean and reliable
+                window.cleanClose = function(e) {
                     if (e) {
                         e.preventDefault();
                         e.stopPropagation();
                     }
                     
-                    // Check if we're on mobile/tablet
-                    const isMobileDevice = window.innerWidth <= 1366 || navigator.maxTouchPoints > 0;
+                    const characterCard = document.getElementById('characterCard');
+                    const isMobileTablet = window.innerWidth <= 1366 || navigator.maxTouchPoints > 0;
                     
-                    if (isMobileDevice) {
-                        console.log('Mobile/Tablet device detected - using seamless close');
+                    if (isMobileTablet && characterCard) {
+                        // Simple: Hide card then trigger Escape key
+                        characterCard.style.display = 'none';
                         
-                        const characterCard = document.getElementById('characterCard');
-                        const isSmallDevice = window.innerWidth <= 1200; // Phones and small-to-medium tablets (includes iPad Air)
+                        document.dispatchEvent(new KeyboardEvent('keydown', {
+                            key: 'Escape',
+                            keyCode: 27,
+                            bubbles: true
+                        }));
                         
-                        if (isSmallDevice && characterCard) {
-                            console.log('Small device - IMMEDIATE seamless close');
-                            
-                            // STEP 1: IMMEDIATELY hide card to prevent flash
-                            characterCard.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important;';
-                            console.log('✓ Card immediately hidden');
-                            
-                            // STEP 2: THEN trigger Escape key for galaxy reset
-                            const escapeEvent = new KeyboardEvent('keydown', {
-                                key: 'Escape',
-                                code: 'Escape',
-                                keyCode: 27,
-                                which: 27,
-                                bubbles: true,
-                                cancelable: true
-                            });
-                            
-                            console.log('Dispatching Escape key for galaxy reset...');
-                            document.dispatchEvent(escapeEvent);
-                            console.log('✓ Galaxy reset triggered');
-                            
-                            // STEP 3: Complete cleanup after galaxy reset
-                            setTimeout(() => {
-                                characterCard.removeAttribute('style');
-                                characterCard.style.cssText = 'display: none !important;';
-                                characterCard.className = characterCard.className.replace(/\s*active\s*/g, '');
-                                console.log('✓ Small device seamless close complete');
-                            }, 100);
-                            
-                        } else {
-                            // Large tablets - use standard Escape key method
-                            console.log('Large tablet - using standard Escape key');
-                            const escapeEvent = new KeyboardEvent('keydown', {
-                                key: 'Escape',
-                                code: 'Escape',
-                                keyCode: 27,
-                                which: 27,
-                                bubbles: true,
-                                cancelable: true
-                            });
-                            
-                            document.dispatchEvent(escapeEvent);
-                            console.log('✓ Standard Escape key dispatched');
-                        }
-                        
+                        console.log('Mobile/Tablet close complete');
                     } else {
-                        // Desktop - use original method
-                        console.log('Desktop device - using UI.closeCharacterCard');
+                        // Desktop - original method
                         if (window.UI && UI.closeCharacterCard) {
                             UI.closeCharacterCard();
                         }
                     }
-                    
-                    console.log('=== MOBILE/TABLET CLOSE COMPLETE ===');
                 };
                 
-                // Replace the close button completely and add our function
-                closeBtn.onclick = window.forceGalaxyReset;
+                // Simple event binding
+                closeBtn.onclick = window.cleanClose;
+                closeBtn.addEventListener('touchstart', window.cleanClose);
                 
-                // Add multiple event types
-                closeBtn.addEventListener('click', window.forceGalaxyReset);
-                closeBtn.addEventListener('touchstart', window.forceGalaxyReset);
-                closeBtn.addEventListener('touchend', window.forceGalaxyReset);
-                closeBtn.addEventListener('pointerdown', window.forceGalaxyReset);
-                
-                console.log('AGGRESSIVE close button setup complete');
+                console.log('Optimized close button ready');
             }
         });
         
-        // Enhanced device detection for unified mobile/tablet experience
-        const isMobileOrTablet = () => {
-            return window.innerWidth <= 1366 || 
-                   navigator.maxTouchPoints > 0 ||
-                   /Android|iPad|iPhone|iPod/.test(navigator.userAgent) ||
-                   window.matchMedia("(pointer: coarse)").matches;
-        };
+        // CLEAN Device Detection
+        const isMobileOrTablet = window.innerWidth <= 1366 || navigator.maxTouchPoints > 0;
         
-        // Apply mobile class to body for responsive character modals
-        if (isMobileOrTablet()) {
-            document.body.classList.add('mobile-layout');
-            console.log('Mobile/Tablet layout applied');
-        }
-        
-        // Apply touch-first interactions for mobile/tablet devices
-        if (isMobileOrTablet()) {
-            console.log('Mobile/Tablet device detected - applying touch-first interactions');
-            document.body.classList.add('touch-device');
-            document.body.classList.add('mobile-or-tablet');
-            
-            // Disable pointer events on decorative elements
-            const decorativeElements = document.querySelectorAll('.agents-intro');
-            decorativeElements.forEach(el => {
-                el.style.pointerEvents = 'none';
-            });
-        } else {
-            console.log('Desktop device detected');
-            document.body.classList.add('desktop-device');
+        if (isMobileOrTablet) {
+            document.body.classList.add('mobile-layout', 'touch-device');
+            console.log('Mobile/Tablet optimizations applied');
         }
         
         // Responsive canvas and viewport scaling for mobile/tablet
-        if (isMobileOrTablet()) {
+        if (isMobileOrTablet) {
             // ResizeObserver for responsive canvas scaling
             const canvas = document.getElementById('canvas');
             if (canvas && window.ResizeObserver) {
