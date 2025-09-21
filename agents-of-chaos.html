@@ -542,11 +542,14 @@
                 #characterCard[style*="display: flex"],
                 #characterCard[style*="display:flex"] {
                     left: 50% !important;
-                    top: clamp(70px, 12vh, 100px) !important; /* Position below navbar */
+                    top: clamp(60px, 8vh, 80px) !important; /* Position below navbar with less margin */
+                    bottom: 20px !important; /* Ensure bottom margin from viewport edge */
                     transform: translateX(-50%) !important; /* Only center horizontally */
                     width: min(90vw, 500px) !important;
-                    max-height: calc(100vh - clamp(80px, 14vh, 120px)) !important; /* Ensure it fits in viewport */
+                    max-height: calc(100vh - clamp(80px, 10vh, 100px)) !important; /* More conservative height */
+                    height: auto !important; /* Allow natural height but constrained by max-height */
                     position: fixed !important;
+                    overflow-y: auto !important; /* Enable scrolling if content is too tall */
                 }
             }
             
@@ -589,7 +592,8 @@
                 font-size: clamp(0.875rem, 3vw, 1.25rem);
                 padding: clamp(0.5rem, 2vw, 1rem) clamp(1rem, 4vw, 2rem);
                 min-height: 44px;
-                margin-bottom: clamp(0.5rem, 2vh, 1.5rem);
+                margin-bottom: clamp(0.5rem, 1vh, 1rem) !important; /* Reduce bottom margin */
+                flex-shrink: 0 !important; /* Prevent button from shrinking */
             }
             
             .character-card .nav-btn,
@@ -597,6 +601,7 @@
                 width: clamp(44px, 5vw, 50px);
                 height: clamp(44px, 5vw, 50px);
                 font-size: clamp(1.2rem, 3vw, 1.8rem);
+                flex-shrink: 0 !important; /* Prevent buttons from shrinking */
             }
             
             .character-card .card-header {
@@ -784,18 +789,21 @@
                 #characterCard[style*="display: flex"],
                 #characterCard[style*="display:flex"] {
                     /* ONLY apply positioning when card is already visible */
-                    padding: clamp(20px, 4vw, 30px) clamp(15px, 3vw, 25px) !important;
-                    gap: clamp(15px, 3vh, 25px) !important;
+                    padding: clamp(15px, 3vw, 25px) clamp(12px, 2.5vw, 20px) !important;
+                    gap: clamp(10px, 2vh, 20px) !important;
                     justify-content: flex-start !important;
                     align-items: center !important;
                     /* POSITION BELOW NAVBAR instead of centering */
                     position: fixed !important;
-                    top: clamp(70px, 12vh, 100px) !important; /* Position below navbar */
+                    top: clamp(60px, 8vh, 80px) !important; /* Position below navbar with less margin */
+                    bottom: 20px !important; /* Ensure bottom margin from viewport edge */
                     left: 50% !important;
                     transform: translateX(-50%) !important; /* Only center horizontally */
                     width: clamp(350px, 80vw, 600px) !important;
                     max-width: calc(100vw - 40px) !important;
-                    max-height: calc(100vh - clamp(80px, 14vh, 120px)) !important; /* Ensure it fits in viewport */
+                    max-height: calc(100vh - clamp(80px, 10vh, 100px)) !important; /* More conservative height */
+                    height: auto !important; /* Allow natural height but constrained by max-height */
+                    overflow-y: auto !important; /* Enable scrolling if content is too tall */
                 }
                 
                 .card-title {
