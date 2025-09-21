@@ -1465,7 +1465,7 @@
         justify-content: center !important;
     }
     
-    .steps-container {
+    .steps-container[style] {
         display: grid !important;
         grid-template-columns: repeat(4, 1fr) !important; /* 4 participation tiles */
         gap: clamp(0.4rem, 1.2vw, 0.8rem) !important; /* Smaller gaps for 4 tiles */
@@ -1609,6 +1609,67 @@
 
 /* Force mobile UI on large tablets in landscape (iPad Pro, etc.) */
 @media (min-width: 1025px) and (max-width: 1366px) and (max-height: 1024px) and (pointer: coarse) {
+    
+    /* Add text scaling rules for iPad Pro landscape - target specific inline styles */
+    .steps-container .flip-tile-front h3[style*="font-size: 1.8rem"],
+    .steps-container .flip-tile-back h3[style*="font-size: 1.8rem"],
+    .steps-container .flip-tile-front h3,
+    .steps-container .flip-tile-back h3 {
+        font-size: clamp(0.7rem, 2.2vw, 1rem) !important;
+        line-height: 1.1 !important;
+        padding: clamp(0.2rem, 0.8vw, 0.5rem) !important;
+        margin: clamp(0.1rem, 0.5vw, 0.3rem) 0 !important;
+        text-align: center !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+    }
+    
+    .steps-container .flip-tile-front p[style*="font-size: 1.1rem"],
+    .steps-container .flip-tile-front p,
+    .steps-container .flip-tile-back p {
+        font-size: clamp(0.6rem, 1.8vw, 0.85rem) !important;
+        line-height: 1.2 !important;
+        padding: clamp(0.1rem, 0.6vw, 0.4rem) !important;
+        margin: clamp(0.1rem, 0.4vw, 0.2rem) 0 !important;
+        text-align: center !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+    }
+    
+    .steps-container .flip-tile-front div[style*="font-size: 2rem"] {
+        font-size: clamp(1rem, 2.8vw, 1.4rem) !important;
+        margin-bottom: clamp(0.2rem, 0.8vw, 0.4rem) !important;
+        line-height: 1 !important;
+    }
+    
+    /* Specific targeting for the problematic left tile with long text content */
+    .flip-tile-back p[style*="font-size: 1.92rem"] {
+        font-size: clamp(0.55rem, 1.6vw, 0.8rem) !important;
+        line-height: 1.25 !important;
+        padding: clamp(0.1rem, 0.5vw, 0.35rem) !important;
+        margin: clamp(0.05rem, 0.3vw, 0.2rem) 0 !important;
+        text-align: center !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        hyphens: auto !important;
+    }
+    
+    /* Target the "4,444 warriors" text specifically */
+    .flip-tile-back strong[style*="color: #FFD700"] {
+        font-size: clamp(0.6rem, 1.7vw, 0.85rem) !important;
+        line-height: 1.2 !important;
+        display: inline !important;
+        word-break: break-word !important;
+    }
+    
+    /* Scale emojis and icons */
+    .flip-tile-front div[style*="font-size: 2rem"],
+    .flip-tile-back div[style*="font-size"],
+    .step-icon {
+        font-size: clamp(1rem, 2.8vw, 1.4rem) !important;
+        margin-bottom: clamp(0.2rem, 0.8vw, 0.4rem) !important;
+        line-height: 1 !important;
+    }
     /* Force mobile navbar */
     .navbar {
         padding: 0 !important;
