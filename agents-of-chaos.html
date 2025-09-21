@@ -1702,50 +1702,55 @@
                     const isMobileDevice = window.innerWidth <= 1366 || navigator.maxTouchPoints > 0;
                     
                     if (isMobileDevice) {
-                        console.log('Mobile/Tablet device detected - using direct Escape key simulation');
+                        console.log('Mobile/Tablet device detected - using seamless close');
                         
-                        // SOLUTION: Simulate an Escape key press which we know works
-                        const escapeEvent = new KeyboardEvent('keydown', {
-                            key: 'Escape',
-                            code: 'Escape',
-                            keyCode: 27,
-                            which: 27,
-                            bubbles: true,
-                            cancelable: true
-                        });
+                        const characterCard = document.getElementById('characterCard');
+                        const isSmallDevice = window.innerWidth <= 1200; // Phones and small-to-medium tablets (includes iPad Air)
                         
-                        console.log('Dispatching Escape key event...');
-                        document.dispatchEvent(escapeEvent);
-                        console.log('✓ Escape key event dispatched');
-                        
-                        // SMALL DEVICE SPECIFIC FIX: Force complete removal on phones and small tablets
-                        setTimeout(() => {
-                            const characterCard = document.getElementById('characterCard');
-                            const isSmallDevice = window.innerWidth <= 1024; // Phones and small tablets
+                        if (isSmallDevice && characterCard) {
+                            console.log('Small device - IMMEDIATE seamless close');
                             
-                            if (characterCard && isSmallDevice) {
-                                console.log('Small device detected - forcing COMPLETE card removal');
-                                
-                                // NUCLEAR OPTION: Complete style reset
+                            // STEP 1: IMMEDIATELY hide card to prevent flash
+                            characterCard.style.cssText = 'display: none !important; visibility: hidden !important; opacity: 0 !important;';
+                            console.log('✓ Card immediately hidden');
+                            
+                            // STEP 2: THEN trigger Escape key for galaxy reset
+                            const escapeEvent = new KeyboardEvent('keydown', {
+                                key: 'Escape',
+                                code: 'Escape',
+                                keyCode: 27,
+                                which: 27,
+                                bubbles: true,
+                                cancelable: true
+                            });
+                            
+                            console.log('Dispatching Escape key for galaxy reset...');
+                            document.dispatchEvent(escapeEvent);
+                            console.log('✓ Galaxy reset triggered');
+                            
+                            // STEP 3: Complete cleanup after galaxy reset
+                            setTimeout(() => {
                                 characterCard.removeAttribute('style');
                                 characterCard.style.cssText = 'display: none !important;';
                                 characterCard.className = characterCard.className.replace(/\s*active\s*/g, '');
-                                
-                                // Force reflow
-                                characterCard.offsetHeight;
-                                
-                                // Double-check it's gone
-                                const computedDisplay = window.getComputedStyle(characterCard).display;
-                                console.log('Final display state:', computedDisplay);
-                                
-                                if (computedDisplay !== 'none') {
-                                    console.log('FORCING display none with highest specificity');
-                                    characterCard.style.setProperty('display', 'none', 'important');
-                                }
-                                
-                                console.log('✓ Small device card COMPLETELY removed');
-                            }
-                        }, 300); // Even longer delay for small devices
+                                console.log('✓ Small device seamless close complete');
+                            }, 100);
+                            
+                        } else {
+                            // Large tablets - use standard Escape key method
+                            console.log('Large tablet - using standard Escape key');
+                            const escapeEvent = new KeyboardEvent('keydown', {
+                                key: 'Escape',
+                                code: 'Escape',
+                                keyCode: 27,
+                                which: 27,
+                                bubbles: true,
+                                cancelable: true
+                            });
+                            
+                            document.dispatchEvent(escapeEvent);
+                            console.log('✓ Standard Escape key dispatched');
+                        }
                         
                     } else {
                         // Desktop - use original method
