@@ -630,6 +630,54 @@
         .steps-container, 
         .flip-tiles-container {
             grid-template-columns: 1fr !important;
+            margin-bottom: 2rem !important; /* Add spacing before ROADMAP title */
+        }
+        
+        /* Mobile text scaling - override large text */
+        .flip-tile-front h3[style*="font-size"],
+        .flip-tile-back h3[style*="font-size"],
+        .flip-tile-front h3,
+        .flip-tile-back h3 {
+            font-size: clamp(1rem, 4vw, 1.3rem) !important;
+            line-height: 1.2 !important;
+            padding: clamp(0.3rem, 2vw, 0.6rem) !important;
+            margin: clamp(0.2rem, 1vw, 0.4rem) 0 !important;
+            text-align: center !important;
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+        }
+        
+        .flip-tile-front p[style*="font-size"],
+        .flip-tile-back p[style*="font-size"],
+        .flip-tile-front p,
+        .flip-tile-back p {
+            font-size: clamp(0.8rem, 3vw, 1rem) !important;
+            line-height: 1.3 !important;
+            padding: clamp(0.2rem, 1.5vw, 0.4rem) !important;
+            margin: clamp(0.1rem, 1vw, 0.3rem) 0 !important;
+            text-align: center !important;
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+        }
+        
+        /* Fix oversized numbers like "4,444" */
+        .flip-tile-front strong,
+        .flip-tile-back strong,
+        .flip-tile-front span[style*="font-size"],
+        .flip-tile-back span[style*="font-size"] {
+            font-size: clamp(1.2rem, 5vw, 1.8rem) !important;
+            line-height: 1.1 !important;
+            display: block !important;
+            margin: clamp(0.2rem, 1vw, 0.4rem) 0 !important;
+        }
+        
+        /* Scale emojis and icons for mobile */
+        .flip-tile-front div[style*="font-size: 2rem"],
+        .flip-tile-back div[style*="font-size"],
+        .step-icon {
+            font-size: clamp(1.2rem, 4vw, 1.6rem) !important;
+            margin-bottom: clamp(0.3rem, 1vw, 0.5rem) !important;
+            line-height: 1 !important;
         }
     }
     
@@ -904,6 +952,16 @@
         .roadmap-tap-hint {
             display: none !important;
         }
+    }
+    
+    /* Fix ROADMAP title spacing */
+    .roadmap .section-title,
+    #about-roadmap .section-title,
+    h2:contains("ROADMAP"),
+    .section-title:contains("ROADMAP") {
+        margin-top: 3rem !important;
+        margin-bottom: 2rem !important;
+        padding-top: 2rem !important;
     }
     
     /* Fix whitepaper section */
@@ -1301,23 +1359,61 @@
         font-size: 4.5rem;
     }
     
-    /* Tablet grid layout - 2 columns */
+    /* Tablet portrait grid layout - 2 columns with proper scaling */
     .flip-tiles-container,
     .steps-container {
         display: grid !important;
         grid-template-columns: repeat(2, 1fr) !important;
-        gap: clamp(1rem, 3vw, 2rem) !important;
+        gap: clamp(1rem, 2.5vw, 1.5rem) !important;
         width: 95% !important;
-        max-width: 900px !important;
-        margin: 2rem auto !important;
+        max-width: 95% !important;
+        margin: 1rem auto !important;
         padding: 0 1rem !important;
+        justify-content: center !important;
     }
     
     .flip-tile {
         width: 100% !important;
         aspect-ratio: 1 / 1 !important;
+        max-width: 400px !important;
         margin-bottom: 0 !important;
         justify-self: center !important;
+    }
+    
+    /* Enhanced text scaling for tablets - override ALL inline styles */
+    .flip-tile-front h3[style*="font-size"],
+    .flip-tile-back h3[style*="font-size"],
+    .flip-tile-front h3,
+    .flip-tile-back h3 {
+        font-size: clamp(1rem, 2.8vw, 1.4rem) !important;
+        line-height: 1.2 !important;
+        padding: clamp(0.5rem, 1.5vw, 0.8rem) !important;
+        margin: clamp(0.3rem, 1vw, 0.5rem) 0 !important;
+        text-align: center !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+    }
+    
+    .flip-tile-front p[style*="font-size"],
+    .flip-tile-back p[style*="font-size"],
+    .flip-tile-front p,
+    .flip-tile-back p {
+        font-size: clamp(0.9rem, 2.2vw, 1.1rem) !important;
+        line-height: 1.3 !important;
+        padding: clamp(0.3rem, 1vw, 0.6rem) !important;
+        margin: clamp(0.2rem, 0.8vw, 0.4rem) 0 !important;
+        text-align: center !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+    }
+    
+    /* Scale emojis and icons for tablets */
+    .flip-tile-front div[style*="font-size: 2rem"],
+    .flip-tile-back div[style*="font-size"],
+    .step-icon {
+        font-size: clamp(1.5rem, 3.5vw, 2rem) !important;
+        margin-bottom: clamp(0.5rem, 1.2vw, 0.8rem) !important;
+        line-height: 1 !important;
     }
     
     .prize-cards-wrapper {
@@ -1359,11 +1455,12 @@
     .steps-container {
         display: grid !important;
         grid-template-columns: repeat(4, 1fr) !important; /* 4 participation tiles */
-        gap: clamp(0.5rem, 1.5vw, 1rem) !important;
+        gap: clamp(0.4rem, 1.2vw, 0.8rem) !important; /* Smaller gaps for 4 tiles */
         width: 98% !important;
         max-width: 98% !important;
         margin: 0.5rem auto !important;
-        padding: 0 0.5rem !important;
+        padding: 0 0.3rem !important; /* Reduced padding */
+        justify-content: center !important;
     }
     
     .flip-tiles-container .flip-tile {
@@ -1377,7 +1474,7 @@
     .steps-container .flip-tile {
         aspect-ratio: 1 / 1 !important;
         width: 100% !important;
-        max-width: 220px !important; /* Limit participation tiles */
+        max-width: 280px !important; /* Slightly larger to ensure 4 fit well */
         margin-bottom: 0 !important;
         justify-self: center !important;
     }
