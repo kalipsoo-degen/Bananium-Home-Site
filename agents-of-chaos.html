@@ -500,46 +500,158 @@
                 z-index: 1500 !important;  /* Ensure it's above other elements but below navbar */
             }
             
-            /* RESPONSIVE CHARACTER CARD: Optimized for all mobile devices and orientations */
+            /* COMPREHENSIVE RESPONSIVE CHARACTER MODAL SYSTEM */
             
-            /* Small devices (phones) - Portrait - Responsive scaling */
-            @media (max-width: 480px) and (orientation: portrait) {
+            /* Base character modal structure - flexible container */
+            .character-card[style*="display: flex"],
+            .character-card[style*="display:flex"] {
+                /* Flexible container that adapts to viewport */
+                width: min(90vw, 500px) !important;
+                max-height: 85vh !important;
+                overflow-y: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                z-index: 1500 !important;
+                display: flex !important;
+                flex-direction: column !important;
+                background: rgba(0, 0, 0, 0.85) !important;
+                backdrop-filter: blur(10px) !important;
+                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                border-radius: 16px !important;
+                box-sizing: border-box !important;
+                padding: clamp(1rem, 3vw, 2rem) !important;
+                gap: clamp(0.5rem, 2vh, 1.5rem) !important;
+            }
+            
+            /* LANDSCAPE: Position modal on LEFT side with galaxy visible on right */
+            @media (orientation: landscape) {
                 .character-card[style*="display: flex"],
                 .character-card[style*="display:flex"] {
-                    padding: clamp(15px, 4vw, 25px) clamp(10px, 3vw, 20px) !important;
-                    gap: clamp(12px, 3vh, 20px) !important;
-                    justify-content: flex-start !important;
-                    align-items: center !important;
-                }
-                
-                .character-image {
-                    max-height: clamp(30vh, 40vh, 45vh) !important;
-                    min-height: clamp(150px, 25vh, 220px) !important;
-                    width: clamp(80%, 90%, 95%) !important;
-                    margin: 0 auto clamp(10px, 3vh, 20px) auto !important;
-                }
-                
-                .character-description {
-                    font-size: clamp(12px, 3.5vw, 16px) !important;
-                    line-height: 1.4 !important;
-                    text-align: center !important;
-                    max-height: clamp(20vh, 25vh, 30vh) !important;
-                    overflow-y: auto !important;
-                    padding: clamp(5px, 2vw, 10px) !important;
-                }
-                
-                .card-title {
-                    font-size: clamp(1rem, 5vw, 1.5rem) !important;
-                }
-                
-                .close-btn {
-                    width: clamp(35px, 8vw, 45px) !important;
-                    height: clamp(35px, 8vw, 45px) !important;
-                    font-size: clamp(20px, 5vw, 28px) !important;
+                    position: fixed !important;
+                    left: 2rem !important;
+                    top: 50% !important;
+                    transform: translateY(-50%) !important;
+                    width: min(45vw, 500px) !important;
+                    max-height: 85vh !important;
                 }
             }
             
-            /* Small devices (phones) - Landscape - ADAPTIVE POSITIONING */
+            /* PORTRAIT: Center modal horizontally and vertically */
+            @media (orientation: portrait) {
+                .character-card[style*="display: flex"],
+                .character-card[style*="display:flex"] {
+                    position: fixed !important;
+                    left: 50% !important;
+                    top: 50% !important;
+                    transform: translate(-50%, -50%) !important;
+                    width: min(90vw, 500px) !important;
+                    max-height: 85vh !important;
+                }
+            }
+            
+            /* Responsive image scaling */
+            .character-card .character-image {
+                width: 100% !important;
+                height: auto !important;
+                max-height: 40vh !important; /* Landscape default */
+                aspect-ratio: 1/1 !important;
+                object-fit: cover !important;
+                margin-bottom: clamp(0.5rem, 2vh, 1.5rem) !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+            
+            .character-card .character-image img {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: contain !important;
+                border-radius: 8px !important;
+            }
+            
+            /* Portrait image adjustment */
+            @media (orientation: portrait) {
+                .character-card .character-image {
+                    max-height: 30vh !important;
+                }
+            }
+            
+            /* Dynamic text and button scaling */
+            .character-card .card-title {
+                font-size: clamp(1.25rem, 4vw, 2rem) !important;
+                margin-bottom: clamp(0.5rem, 2vh, 1.5rem) !important;
+                line-height: 1.2 !important;
+            }
+            
+            .character-card .character-description {
+                font-size: clamp(0.875rem, 2.5vw, 1.125rem) !important;
+                line-height: 1.5 !important;
+                max-height: 25vh !important;
+                overflow-y: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                margin-bottom: clamp(0.5rem, 2vh, 1.5rem) !important;
+            }
+            
+            .character-card .homepage-btn {
+                font-size: clamp(0.875rem, 3vw, 1.25rem) !important;
+                padding: clamp(0.5rem, 2vw, 1rem) clamp(1rem, 4vw, 2rem) !important;
+                min-height: 44px !important; /* Touch target minimum */
+                margin-bottom: clamp(0.5rem, 2vh, 1.5rem) !important;
+            }
+            
+            /* Navigation arrow scaling */
+            .character-card .nav-btn {
+                width: clamp(30px, 5vw, 50px) !important;
+                height: clamp(30px, 5vw, 50px) !important;
+                min-width: 44px !important;
+                min-height: 44px !important;
+                font-size: clamp(1rem, 3vw, 1.5rem) !important;
+            }
+            
+            .character-card .close-btn {
+                width: clamp(30px, 5vw, 50px) !important;
+                height: clamp(30px, 5vw, 50px) !important;
+                min-width: 44px !important;
+                min-height: 44px !important;
+                font-size: clamp(1.5rem, 4vw, 2rem) !important;
+            }
+            
+            .character-card .card-header {
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                margin-bottom: clamp(0.5rem, 2vh, 1.5rem) !important;
+            }
+            
+            /* Breakpoint-specific adjustments */
+            
+            /* Small phones */
+            @media (max-width: 375px) {
+                .character-card[style*="display: flex"],
+                .character-card[style*="display:flex"] {
+                    width: 95vw !important;
+                }
+            }
+            
+            /* Tablets in landscape - ensure left positioning */
+            @media (min-width: 768px) and (max-width: 1366px) and (orientation: landscape) {
+                .character-card[style*="display: flex"],
+                .character-card[style*="display:flex"] {
+                    width: 45vw !important;
+                    left: 3rem !important;
+                }
+            }
+            
+            /* Large tablets like iPad Pro */
+            @media (min-width: 1024px) and (max-width: 1366px) {
+                .character-card[style*="display: flex"],
+                .character-card[style*="display:flex"] {
+                    width: min(500px, 40vw) !important;
+                }
+            }
+            
+            /* JavaScript device detection for mobile/tablet layout */
+            
+            /* OLD RULES TO BE CLEANED UP - START DELETION */
             @media (max-width: 667px) and (orientation: landscape) {
                 /* Small phones in landscape - CENTER the card */
                 .character-card[style*="display: flex"],
@@ -842,25 +954,39 @@
                 }
             }
             
-            /* COMPLETE RESET when character card is hidden - prevents outline/remnants */
+            /* ULTIMATE RESET - HIGHEST SPECIFICITY to override ALL other rules */
             .character-card[style*="display: none"],
-            .character-card[style*="display:none"] {
+            .character-card[style*="display:none"],
+            body .character-card[style*="display: none"],
+            body .character-card[style*="display:none"],
+            html body .character-card[style*="display: none"],
+            html body .character-card[style*="display:none"] {
+                display: none !important;
                 position: static !important;
                 left: auto !important;
                 top: auto !important;
+                right: auto !important;
+                bottom: auto !important;
                 transform: none !important;
                 width: auto !important;
                 height: auto !important;
                 max-width: none !important;
                 min-width: auto !important;
+                max-height: none !important;
+                min-height: auto !important;
                 padding: 0 !important;
                 margin: 0 !important;
                 opacity: 0 !important;
                 visibility: hidden !important;
-                z-index: -1 !important;
-                /* Force complete removal */
+                z-index: -9999 !important;
+                /* Nuclear option - force complete removal */
                 clip: rect(0,0,0,0) !important;
+                clip-path: inset(100%) !important;
                 overflow: hidden !important;
+                pointer-events: none !important;
+                /* Remove from layout completely */
+                float: none !important;
+                clear: both !important;
             }
             
             .agents-title {
@@ -1559,55 +1685,104 @@
                 console.log('Search button styles:', window.getComputedStyle(searchBtn));
             }
             
-                // Character card close button - SIMPLE FIX FOR MOBILE/TABLET
+                // Character card close button - AGGRESSIVE GALAXY RESET
             const closeBtn = document.getElementById('closeCard');
             if (closeBtn) {
-                console.log('Adding mobile/tablet support to close button...');
+                console.log('Setting up AGGRESSIVE close button...');
                 
-                // Simple approach: just ensure touch events work
-                closeBtn.addEventListener('touchstart', function(e) {
-                    console.log('Close button touched - triggering click');
-                    e.preventDefault();
-                    // Trigger the original click event
-                    closeBtn.dispatchEvent(new MouseEvent('click', {
-                        bubbles: true,
-                        cancelable: true,
-                        view: window
-                    }));
-                });
+                // Mobile/Tablet close function - SIMULATE ESCAPE KEY PRESS
+                window.forceGalaxyReset = function(e) {
+                    console.log('=== MOBILE/TABLET X BUTTON CLICKED ===');
+                    if (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                    
+                    // Check if we're on mobile/tablet
+                    const isMobileDevice = window.innerWidth <= 1366 || navigator.maxTouchPoints > 0;
+                    
+                    if (isMobileDevice) {
+                        console.log('Mobile/Tablet device detected - using direct Escape key simulation');
+                        
+                        // SOLUTION: Simulate an Escape key press which we know works
+                        const escapeEvent = new KeyboardEvent('keydown', {
+                            key: 'Escape',
+                            code: 'Escape',
+                            keyCode: 27,
+                            which: 27,
+                            bubbles: true,
+                            cancelable: true
+                        });
+                        
+                        console.log('Dispatching Escape key event...');
+                        document.dispatchEvent(escapeEvent);
+                        console.log('✓ Escape key event dispatched');
+                        
+                        // SMALL DEVICE SPECIFIC FIX: Force complete removal on phones and small tablets
+                        setTimeout(() => {
+                            const characterCard = document.getElementById('characterCard');
+                            const isSmallDevice = window.innerWidth <= 1024; // Phones and small tablets
+                            
+                            if (characterCard && isSmallDevice) {
+                                console.log('Small device detected - forcing COMPLETE card removal');
+                                
+                                // NUCLEAR OPTION: Complete style reset
+                                characterCard.removeAttribute('style');
+                                characterCard.style.cssText = 'display: none !important;';
+                                characterCard.className = characterCard.className.replace(/\s*active\s*/g, '');
+                                
+                                // Force reflow
+                                characterCard.offsetHeight;
+                                
+                                // Double-check it's gone
+                                const computedDisplay = window.getComputedStyle(characterCard).display;
+                                console.log('Final display state:', computedDisplay);
+                                
+                                if (computedDisplay !== 'none') {
+                                    console.log('FORCING display none with highest specificity');
+                                    characterCard.style.setProperty('display', 'none', 'important');
+                                }
+                                
+                                console.log('✓ Small device card COMPLETELY removed');
+                            }
+                        }, 300); // Even longer delay for small devices
+                        
+                    } else {
+                        // Desktop - use original method
+                        console.log('Desktop device - using UI.closeCharacterCard');
+                        if (window.UI && UI.closeCharacterCard) {
+                            UI.closeCharacterCard();
+                        }
+                    }
+                    
+                    console.log('=== MOBILE/TABLET CLOSE COMPLETE ===');
+                };
                 
-                closeBtn.addEventListener('pointerdown', function(e) {
-                    console.log('Close button pointer down - triggering click');
-                    e.preventDefault();
-                    // Trigger the original click event
-                    closeBtn.dispatchEvent(new MouseEvent('click', {
-                        bubbles: true,
-                        cancelable: true,
-                        view: window
-                    }));
-                });
+                // Replace the close button completely and add our function
+                closeBtn.onclick = window.forceGalaxyReset;
                 
-                console.log('Close button mobile/tablet support added');
+                // Add multiple event types
+                closeBtn.addEventListener('click', window.forceGalaxyReset);
+                closeBtn.addEventListener('touchstart', window.forceGalaxyReset);
+                closeBtn.addEventListener('touchend', window.forceGalaxyReset);
+                closeBtn.addEventListener('pointerdown', window.forceGalaxyReset);
+                
+                console.log('AGGRESSIVE close button setup complete');
             }
         });
         
         // Enhanced device detection for unified mobile/tablet experience
-        function isDesktopDevice() {
-            return window.innerWidth >= 1025 && 
-                   !('ontouchstart' in window) && 
-                   navigator.maxTouchPoints === 0 &&
-                   !window.matchMedia("(pointer: coarse)").matches;
-        }
+        const isMobileOrTablet = () => {
+            return window.innerWidth <= 1366 || 
+                   navigator.maxTouchPoints > 0 ||
+                   /Android|iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                   window.matchMedia("(pointer: coarse)").matches;
+        };
         
-        function isMobileOrTablet() {
-            // Check multiple factors to catch all mobile/tablet devices
-            const hasTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
-            const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
-            const noHover = window.matchMedia("(hover: none)").matches;
-            const isSmallScreen = window.innerWidth < 1025;
-            const isTabletLandscape = (window.innerWidth <= 1366 && window.innerHeight <= 1024 && hasTouch);
-            
-            return isSmallScreen || hasTouch || isCoarsePointer || noHover || isTabletLandscape;
+        // Apply mobile class to body for responsive character modals
+        if (isMobileOrTablet()) {
+            document.body.classList.add('mobile-layout');
+            console.log('Mobile/Tablet layout applied');
         }
         
         // Apply touch-first interactions for mobile/tablet devices
