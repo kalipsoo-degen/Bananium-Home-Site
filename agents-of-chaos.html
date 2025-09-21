@@ -301,10 +301,10 @@
             
             .mobile-menu-toggle {
                 display: block !important;
-                position: absolute !important;
+                position: fixed !important;
                 right: 15px !important;
-                top: 50% !important;
-                transform: translateY(-50%) !important;
+                top: 15px !important;
+                transform: none !important;
                 cursor: pointer !important;
                 z-index: 2010 !important;
                 color: #FFD700 !important;
@@ -1003,9 +1003,8 @@
 
         .mobile-menu-toggle {
             position: fixed !important; 
-            top: 30px !important; /* Align with logo center - navbar is 60px high, so 30px centers it */
+            top: 15px !important; /* Position within navbar, no centering transform */
             right: 15px !important;
-            transform: translateY(-50%) !important; /* Center vertically */
             z-index: 20000 !important; /* Highest z-index */
             width: 48px; 
             height: 48px;
@@ -1014,6 +1013,9 @@
             color: #FFD700 !important;
             font-size: 1.5rem !important;
             cursor: pointer !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
         }
 
         .mobile-search-toggle {
@@ -1107,9 +1109,8 @@
         /* Responsive mobile action buttons using viewport units */
         .mobile-menu-toggle {
             position: fixed !important; 
-            top: clamp(25px, 4vh, 35px) !important; 
-            right: clamp(10px, 3vw, 20px) !important;
-            transform: translateY(-50%) !important;
+            top: clamp(15px, 3vh, 25px) !important; /* Position within navbar height */
+            right: clamp(15px, 4vw, 30px) !important; /* Align with logo padding */
             z-index: 20000 !important;
             width: clamp(44px, 8vw, 60px) !important; /* Responsive with minimum touch target */
             height: clamp(44px, 8vw, 60px) !important;
@@ -1118,6 +1119,9 @@
             color: #FFD700 !important;
             font-size: clamp(1.2rem, 3vw, 1.8rem) !important;
             cursor: pointer !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
         }
 
         .mobile-search-toggle {
@@ -1207,6 +1211,8 @@
                 width: 55px !important;
                 height: 55px !important;
                 font-size: 1.7rem !important;
+                top: 15px !important;
+                transform: none !important;
             }
             
             .mobile-search-toggle {
