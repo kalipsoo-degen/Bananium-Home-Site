@@ -376,11 +376,20 @@ const UI = {
     // Prevent the event from propagating to the global handler
     event.stopPropagation();
     
-    // Prevent the default scroll behavior to implement custom scrolling
-    event.preventDefault();
-    
     // Get the dropdown element
     const dropdown = this.elements.searchDropdown;
+    
+    // Check if scrolling is needed (content height > visible height)
+    const needsScrolling = dropdown.scrollHeight > dropdown.clientHeight;
+    
+    // If no scrolling is needed (like with single item), just prevent default and return
+    if (!needsScrolling) {
+      event.preventDefault();
+      return;
+    }
+    
+    // Prevent the default scroll behavior to implement custom scrolling
+    event.preventDefault();
     
     // Calculate optimal scroll amount - adjust based on content and wheel sensitivity
     const scrollAmount = event.deltaY * 0.8;
@@ -531,9 +540,9 @@ const UI = {
         return;
       }
     } else {
-      // Find matching characters that start with search term OR contain the search term
+      // Find matching characters that start with search term only
       matchingCharacters = characterData.filter(character => 
-        character.name.toLowerCase().includes(searchTerm.toLowerCase())
+        character.name.toLowerCase().startsWith(searchTerm.toLowerCase())
       );
       
       // Sort matching characters alphabetically
@@ -542,8 +551,21 @@ const UI = {
     
     // Populate dropdown with matches
     if (matchingCharacters.length > 0) {
-      // Force block display with important flag
-      dropdown.style.cssText = 'display: block !important; opacity: 1 !important;';
+      // Calculate dynamic height based on number of items FIRST
+      const itemHeight = 50; // Each dropdown item is 50px (from CSS min-height)
+      const maxItems = 6; // Maximum items to show before scrolling
+      const actualItems = Math.min(matchingCharacters.length, maxItems);
+      const calculatedHeight = actualItems * itemHeight + 20; // +20px for padding and borders to prevent scrollbar
+      
+      // Force block display with calculated height - override all CSS
+      dropdown.style.cssText = `
+        display: block !important; 
+        opacity: 1 !important;
+        max-height: ${calculatedHeight}px !important;
+        min-height: ${calculatedHeight}px !important;
+        height: auto !important;
+        overflow-y: ${actualItems <= 1 ? 'hidden' : 'auto'} !important;
+      `;
       
       matchingCharacters.forEach(character => {
         const item = document.createElement('div');
@@ -587,22 +609,20 @@ const UI = {
         dropdown.appendChild(item);
       });
       
-      // Force recalculation of layout
+      // Check if dropdown would extend beyond viewport after rendering
       setTimeout(() => {
-        dropdown.style.opacity = '0.99';
-        setTimeout(() => dropdown.style.opacity = '1', 10);
-        
-        // Check if dropdown would extend beyond the viewport and adjust if needed
         const rect = dropdown.getBoundingClientRect();
         const viewportHeight = window.innerHeight;
         
-        console.log("Dropdown height:", rect.height, "Bottom position:", rect.bottom, "Viewport height:", viewportHeight);
-        
-        // If the dropdown extends beyond the viewport, adjust max-height instead of flipping
+        // If the dropdown extends beyond the viewport, adjust height
         if (rect.bottom > viewportHeight - 20) {
-          const newMaxHeight = viewportHeight - rect.top - 30; // 30px buffer
-          dropdown.style.maxHeight = `${newMaxHeight}px`;
-          console.log("Adjusted dropdown height to:", newMaxHeight);
+          const availableHeight = viewportHeight - rect.top - 30; // 30px buffer
+          const itemHeight = 50;
+          const maxFitItems = Math.max(1, Math.floor((availableHeight - 12) / itemHeight));
+          const adjustedHeight = maxFitItems * itemHeight + 20;
+          
+          dropdown.style.maxHeight = `${adjustedHeight}px !important`;
+          dropdown.style.minHeight = `${adjustedHeight}px !important`;
         }
       }, 0);
     } else if (searchTerm) {
@@ -614,13 +634,13 @@ const UI = {
     }
   },
   
-  // Filter characters based on search input - matches characters that contain the search term
+  // Filter characters based on search input - matches characters that start with the search term
   filterCharacters(searchTerm) {
     if (searchTerm === '') {
       filteredCharacters = [...characterData];
     } else {
       filteredCharacters = characterData.filter(character => 
-        character.name.toLowerCase().includes(searchTerm.toLowerCase())
+        character.name.toLowerCase().startsWith(searchTerm.toLowerCase())
       );
       
       // Sort filtered results alphabetically
