@@ -542,9 +542,10 @@
                 #characterCard[style*="display: flex"],
                 #characterCard[style*="display:flex"] {
                     left: 50% !important;
-                    top: 50% !important;
-                    transform: translate(-50%, -50%) !important;
+                    top: clamp(70px, 12vh, 100px) !important; /* Position below navbar */
+                    transform: translateX(-50%) !important; /* Only center horizontally */
                     width: min(90vw, 500px) !important;
+                    max-height: calc(100vh - clamp(80px, 14vh, 120px)) !important; /* Ensure it fits in viewport */
                     position: fixed !important;
                 }
             }
@@ -776,7 +777,7 @@
                 }
             }
             
-            /* ALL TABLETS - Portrait - AGGRESSIVELY CENTERED LAYOUT */
+            /* ALL TABLETS - Portrait - POSITIONED BELOW NAVBAR */
             @media (min-width: 481px) and (max-width: 1366px) and (orientation: portrait) {
                 .character-card[style*="display: flex"],
                 .character-card[style*="display:flex"],
@@ -785,16 +786,16 @@
                     /* ONLY apply positioning when card is already visible */
                     padding: clamp(20px, 4vw, 30px) clamp(15px, 3vw, 25px) !important;
                     gap: clamp(15px, 3vh, 25px) !important;
-                    justify-content: center !important;
+                    justify-content: flex-start !important;
                     align-items: center !important;
-                    /* AGGRESSIVELY CENTER the card in portrait mode */
+                    /* POSITION BELOW NAVBAR instead of centering */
                     position: fixed !important;
-                    top: 50% !important; /* Perfect vertical centering */
+                    top: clamp(70px, 12vh, 100px) !important; /* Position below navbar */
                     left: 50% !important;
-                    transform: translate(-50%, -50%) !important; /* Perfect centering */
+                    transform: translateX(-50%) !important; /* Only center horizontally */
                     width: clamp(350px, 80vw, 600px) !important;
                     max-width: calc(100vw - 40px) !important;
-                    height: calc(100vh - clamp(50px, 8vh, 70px)) !important;
+                    max-height: calc(100vh - clamp(80px, 14vh, 120px)) !important; /* Ensure it fits in viewport */
                 }
                 
                 .card-title {
