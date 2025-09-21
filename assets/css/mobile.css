@@ -613,33 +613,44 @@
         gap: 15px;
     }
     
-    /* Steps/flip tiles container for mobile */
+    /* Mobile Grid Override - Work with new CSS Grid system */
     .steps-container, 
     .flip-tiles-container {
-        flex-direction: column;
+        display: grid !important;
+        gap: 1rem !important;
         width: 92% !important;
         max-width: 92% !important;
         margin-left: auto !important;
         margin-right: auto !important;
+        padding: 0 1rem !important;
+    }
+    
+    /* Single column only for phones and portrait tablets */
+    @media (max-width: 768px), (max-width: 1024px) and (orientation: portrait) {
+        .steps-container, 
+        .flip-tiles-container {
+            grid-template-columns: 1fr !important;
+        }
     }
     
     .step, 
     .flip-tile {
-        width: 100%;
-        margin-bottom: 1.5rem;
+        width: 100% !important;
+        margin-bottom: 0 !important; /* Grid handles spacing */
+        justify-self: center !important;
     }
 
-    /* Enforce perfect square tiles on mobile, independent of flex growth */
+    /* Enforce perfect square tiles on mobile with grid */
     .steps-container .flip-tile,
     .flip-tiles-container .flip-tile {
         position: relative !important;
-        width: clamp(240px, 86vw, 360px) !important; /* smaller, responsive square */
-        aspect-ratio: 1 / 1 !important; /* modern */
+        width: clamp(240px, 86vw, 360px) !important;
+        aspect-ratio: 1 / 1 !important;
         height: auto !important;
-        flex: 0 0 auto !important; /* prevent flex:1 from stretching */
         display: block !important;
         margin-left: auto !important;
         margin-right: auto !important;
+        justify-self: center !important;
     }
 
     .steps-container .flip-tile .flip-tile-inner,
@@ -1284,19 +1295,29 @@
     }
 }
 
-/* Medium devices (tablets) */
+/* Medium devices (tablets) - Updated for Grid System */
 @media (min-width: 769px) and (max-width: 1024px) {
     .section-title.bananium-logo {
         font-size: 4.5rem;
     }
     
-    .flip-tiles-container {
-        flex-wrap: wrap;
+    /* Tablet grid layout - 2 columns */
+    .flip-tiles-container,
+    .steps-container {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: clamp(1rem, 3vw, 2rem) !important;
+        width: 95% !important;
+        max-width: 900px !important;
+        margin: 2rem auto !important;
+        padding: 0 1rem !important;
     }
     
     .flip-tile {
-        width: calc(50% - 10px);
-        margin-bottom: 20px;
+        width: 100% !important;
+        aspect-ratio: 1 / 1 !important;
+        margin-bottom: 0 !important;
+        justify-self: center !important;
     }
     
     .prize-cards-wrapper {
@@ -1323,14 +1344,85 @@
         min-height: 120vh;
     }
     
-    .flip-tile {
-        min-height: 170px;
+    /* Maintain grid layout in landscape - HIGH PRIORITY */
+    .flip-tiles-container {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important; /* 3 video tiles */
+        gap: clamp(0.8rem, 2vw, 1.2rem) !important;
+        width: 95% !important; /* Centered with borders */
+        max-width: 95% !important;
+        margin: 0.5rem auto !important;
+        padding: 0 0.5rem !important;
+        justify-content: center !important;
+    }
+    
+    .steps-container {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important; /* 4 participation tiles */
+        gap: clamp(0.5rem, 1.5vw, 1rem) !important;
+        width: 98% !important;
+        max-width: 98% !important;
+        margin: 0.5rem auto !important;
+        padding: 0 0.5rem !important;
+    }
+    
+    .flip-tiles-container .flip-tile {
+        aspect-ratio: 1 / 1 !important;
+        width: 100% !important;
+        max-width: none !important; /* Allow full width for video tiles */
+        margin-bottom: 0 !important;
+        justify-self: center !important;
+    }
+    
+    .steps-container .flip-tile {
+        aspect-ratio: 1 / 1 !important;
+        width: 100% !important;
+        max-width: 220px !important; /* Limit participation tiles */
+        margin-bottom: 0 !important;
+        justify-self: center !important;
+    }
+    
+    /* Enhanced text scaling for landscape - override ALL inline styles */
+    .flip-tile-front h3[style*="font-size"],
+    .flip-tile-back h3[style*="font-size"],
+    .flip-tile-front h3,
+    .flip-tile-back h3 {
+        font-size: clamp(0.7rem, 2.2vw, 1rem) !important;
+        line-height: 1.1 !important;
+        padding: clamp(0.2rem, 0.8vw, 0.5rem) !important;
+        margin: clamp(0.1rem, 0.5vw, 0.3rem) 0 !important;
+        text-align: center !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+    }
+    
+    .flip-tile-front p[style*="font-size"],
+    .flip-tile-back p[style*="font-size"],
+    .flip-tile-front p,
+    .flip-tile-back p {
+        font-size: clamp(0.6rem, 1.8vw, 0.85rem) !important;
+        line-height: 1.2 !important;
+        padding: clamp(0.1rem, 0.6vw, 0.4rem) !important;
+        margin: clamp(0.1rem, 0.4vw, 0.2rem) 0 !important;
+        text-align: center !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+    }
+    
+    /* Scale emojis and icons */
+    .flip-tile-front div[style*="font-size: 2rem"],
+    .flip-tile-back div[style*="font-size"],
+    .step-icon {
+        font-size: clamp(1rem, 2.8vw, 1.4rem) !important;
+        margin-bottom: clamp(0.2rem, 0.8vw, 0.4rem) !important;
+        line-height: 1 !important;
     }
     
     .nav-links.active {
         max-height: 80vh;
         overflow-y: auto;
     }
+}
     
     /* Adjust roadmap video in landscape orientation */
     .roadmap-video-container {
