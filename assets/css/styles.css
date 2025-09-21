@@ -2118,16 +2118,16 @@ body {
         justify-content: center !important;
     }
     
-    /* Participation tiles section - 4 columns for ALL tablets - override inline styles */
+    /* Participation tiles section - 4 columns for ALL tablets - match iPad Mini proportions */
     .steps-container[style] {
         display: grid !important;
         grid-template-columns: repeat(4, 1fr) !important; /* 4 participation tiles */
-        gap: clamp(0.4rem, 1.2vw, 0.8rem) !important; /* Smaller gaps for 4 tiles */
-        max-width: 98% !important; /* Use almost full width */
+        gap: clamp(0.3rem, 1vw, 0.8rem) !important; /* Match iPad Mini gap spacing */
+        max-width: 96% !important; /* Balanced width like iPad Mini */
         margin: 0.5rem auto !important;
-        padding: 0 0.3rem !important;
+        padding: 0 0.5rem !important; /* Balanced padding */
         justify-content: center !important;
-        width: 98% !important; /* Override inline width */
+        width: 96% !important; /* Override inline width */
     }
     
     /* Video tiles styling */
@@ -2138,11 +2138,11 @@ body {
         justify-self: center !important;
     }
     
-    /* Participation tiles styling */
+    /* Participation tiles styling - scale to match iPad Mini proportions */
     .steps-container .flip-tile {
         aspect-ratio: 1 / 1 !important;
         width: 100% !important;
-        max-width: 280px !important; /* Limit size to ensure 4 fit */
+        max-width: min(22vw, 280px) !important; /* Viewport-based sizing like iPad Mini */
         justify-self: center !important;
     }
     
@@ -2240,7 +2240,7 @@ body {
     }
     
     .steps-container .flip-tile {
-        max-width: 220px !important; /* Limit participation tiles */
+        max-width: min(22vw, 280px) !important; /* Scale to match iPad Mini proportions */
     }
 }
 
@@ -2249,19 +2249,27 @@ body {
     /* Video tiles - 3 columns */
     .flip-tiles-container {
         grid-template-columns: repeat(3, 1fr) !important;
-        max-width: 90% !important;
+        max-width: 95% !important;
     }
     
-    /* Participation tiles - 4 columns for proper single row layout - override inline styles */
+    /* Participation tiles - 4 columns for proper single row layout - match iPad Mini spacing */
     .steps-container[style] {
         display: grid !important;
         grid-template-columns: repeat(4, 1fr) !important;
-        gap: clamp(0.4rem, 1.2vw, 0.8rem) !important;
-        max-width: 98% !important;
+        gap: clamp(0.3rem, 1vw, 0.8rem) !important; /* Match iPad Mini gap spacing */
+        max-width: 96% !important; /* Balanced width like iPad Mini */
         margin: 0.5rem auto !important;
-        padding: 0 0.3rem !important;
+        padding: 0 0.5rem !important; /* Balanced padding */
         justify-content: center !important;
-        width: 98% !important; /* Override inline width */
+        width: 96% !important; /* Override inline width */
+    }
+    
+    /* Scale tiles to match iPad Mini proportions on iPad Pro */
+    .steps-container .flip-tile {
+        max-width: min(22vw, 280px) !important; /* Limit to viewport-based size like iPad Mini */
+        width: 100% !important;
+        aspect-ratio: 1 / 1 !important;
+        justify-self: center !important;
     }
     
     /* Add the missing text scaling rules for iPad Pro - target specific inline styles */
@@ -2331,12 +2339,20 @@ body {
     .steps-container[style] {
         display: grid !important;
         grid-template-columns: repeat(4, 1fr) !important;
-        gap: clamp(0.4rem, 1.2vw, 0.8rem) !important;
-        max-width: 98% !important;
+        gap: clamp(0.3rem, 1vw, 0.8rem) !important; /* Match iPad Mini gap spacing */
+        max-width: 96% !important; /* Balanced width like iPad Mini */
         margin: 0.5rem auto !important;
-        padding: 0 0.3rem !important;
+        padding: 0 0.5rem !important; /* Balanced padding */
         justify-content: center !important;
-        width: 98% !important; /* Override inline width */
+        width: 96% !important; /* Override inline width */
+    }
+    
+    /* Scale tiles to match iPad Mini proportions on iPad Air */
+    .steps-container .flip-tile {
+        max-width: min(22vw, 280px) !important; /* Limit to viewport-based size like iPad Mini */
+        width: 100% !important;
+        aspect-ratio: 1 / 1 !important;
+        justify-self: center !important;
     }
     
     /* Text scaling for iPad Air - target specific inline styles */

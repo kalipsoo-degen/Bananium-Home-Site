@@ -1468,12 +1468,20 @@
     .steps-container[style] {
         display: grid !important;
         grid-template-columns: repeat(4, 1fr) !important; /* 4 participation tiles */
-        gap: clamp(0.4rem, 1.2vw, 0.8rem) !important; /* Smaller gaps for 4 tiles */
-        width: 98% !important;
-        max-width: 98% !important;
+        gap: clamp(0.3rem, 1vw, 0.8rem) !important; /* Match iPad Mini gap spacing */
+        width: 96% !important;
+        max-width: 96% !important;
         margin: 0.5rem auto !important;
-        padding: 0 0.3rem !important; /* Reduced padding */
+        padding: 0 0.5rem !important; /* Balanced padding */
         justify-content: center !important;
+    }
+    
+    /* Scale tiles to match iPad Mini proportions on touch devices */
+    .steps-container .flip-tile {
+        max-width: min(22vw, 280px) !important;
+        width: 100% !important;
+        aspect-ratio: 1 / 1 !important;
+        justify-self: center !important;
     }
     
     .flip-tiles-container .flip-tile {
