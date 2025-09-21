@@ -1348,6 +1348,19 @@
         font-size: max(14px, min(1.5rem, 4.2vw)) !important;
     }
     
+    /* Additional scaling for very small mobile devices in landscape */
+    @media (max-height: 600px) and (orientation: landscape) {
+        .flip-tile-back p[style*="font-size: 1.92rem"] {
+            font-size: max(12px, min(1.2rem, 3.8vw)) !important;
+            line-height: 1.2 !important;
+            padding: clamp(0.1rem, 0.4vw, 0.3rem) !important;
+        }
+        
+        .flip-tile-back strong[style*="color: #FFD700"] {
+            font-size: max(13px, min(1.3rem, 4vw)) !important;
+        }
+    }
+    
     .first-place .podium-content {
         bottom: 205% !important;
     }
@@ -1504,6 +1517,26 @@
         text-align: center !important;
         word-wrap: break-word !important;
         overflow-wrap: break-word !important;
+    }
+    
+    /* Specific targeting for the problematic left tile with long text content */
+    .flip-tile-back p[style*="font-size: 1.92rem"] {
+        font-size: clamp(0.55rem, 1.6vw, 0.8rem) !important;
+        line-height: 1.25 !important;
+        padding: clamp(0.1rem, 0.5vw, 0.35rem) !important;
+        margin: clamp(0.05rem, 0.3vw, 0.2rem) 0 !important;
+        text-align: center !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        hyphens: auto !important;
+    }
+    
+    /* Target the "4,444 warriors" text specifically in landscape */
+    .flip-tile-back strong[style*="color: #FFD700"] {
+        font-size: clamp(0.6rem, 1.7vw, 0.85rem) !important;
+        line-height: 1.2 !important;
+        display: inline !important;
+        word-break: break-word !important;
     }
     
     /* Scale emojis and icons */

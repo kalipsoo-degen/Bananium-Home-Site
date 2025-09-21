@@ -2386,6 +2386,29 @@ body {
     padding: clamp(0.8rem, 3vw, 1.2rem) !important;
 }
 
+/* Enhanced scaling for long text content in landscape mode */
+@media (orientation: landscape) and (min-width: 768px) and (max-width: 1400px) {
+    /* Target the left tile specifically - more aggressive scaling for long content */
+    .flip-tile-back p[style*="font-size: 1.92rem"] {
+        font-size: clamp(0.55rem, 1.6vw, 0.8rem) !important;
+        line-height: 1.25 !important;
+        padding: clamp(0.1rem, 0.5vw, 0.35rem) !important;
+        margin: clamp(0.05rem, 0.3vw, 0.2rem) 0 !important;
+        text-align: center !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        hyphens: auto !important;
+    }
+    
+    /* Target the "4,444 warriors" text specifically */
+    .flip-tile-back p[style*="font-size: 1.92rem"] strong[style*="color: #FFD700"] {
+        font-size: clamp(0.6rem, 1.7vw, 0.85rem) !important;
+        line-height: 1.2 !important;
+        display: inline !important;
+        word-break: break-word !important;
+    }
+}
+
 /* Container query support for modern browsers */
 @container (max-width: 300px) {
     .flip-tile-front h3 {
