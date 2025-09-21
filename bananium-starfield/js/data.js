@@ -7,10 +7,14 @@ function loadCharacterData() {
   try {
     // Use the embedded data directly
     characterData = CHARACTERS_DATA || [];
+    
+    // Sort characters alphabetically by name
+    characterData.sort((a, b) => a.name.localeCompare(b.name));
+    
     filteredCharacters = [...characterData];
     
     // Signal that characters are loaded and ready
-    console.log("Character data loaded successfully, firing charactersLoaded event...");
+    console.log(`Character data loaded successfully with ${characterData.length} characters, firing charactersLoaded event...`);
     const event = new CustomEvent('charactersLoaded');
     window.dispatchEvent(event);
     

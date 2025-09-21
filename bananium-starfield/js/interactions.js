@@ -76,6 +76,7 @@ const UI = {
     if (this.elements.searchInput) {
       this.elements.searchInput.addEventListener('input', this.onSearchInput.bind(this));
       this.elements.searchInput.addEventListener('focus', this.onSearchFocus.bind(this));
+      this.elements.searchInput.addEventListener('click', this.onSearchFocus.bind(this));
     }
     
     // Re-add dropdown scroll wheel handler
@@ -488,10 +489,11 @@ const UI = {
     this.updateSearchDropdown(searchTerm);
   },
   
-  // Handle search focus
+  // Handle search focus - show all characters when clicked
   onSearchFocus(event) {
     const searchTerm = event.target.value.toLowerCase();
-    this.updateSearchDropdown(searchTerm);
+    // Always show dropdown when focused, even if empty
+    this.updateSearchDropdown(searchTerm, true);
   },
   
   // Handle document clicks to close dropdown when clicking outside
@@ -507,7 +509,7 @@ const UI = {
   },
   
   // Update dropdown with matching characters
-  updateSearchDropdown(searchTerm) {
+  updateSearchDropdown(searchTerm, forceShow = false) {
     if (!this.elements.searchDropdown) return;
     
     const dropdown = this.elements.searchDropdown;
@@ -516,26 +518,26 @@ const UI = {
     // Reset the dropdown position to default
     dropdown.classList.remove('search-dropdown-flipped');
     
-    // If search is empty, show all characters - not limited to 6
+    // If search is empty, show all characters when focused or forced
     let matchingCharacters = [];
     
     if (!searchTerm) {
-      if (document.activeElement === this.elements.searchInput) {
+      if (forceShow || document.activeElement === this.elements.searchInput) {
         // Show all characters on empty search when input is focused
-        matchingCharacters = characterData; // Show all characters, not just 6
+        matchingCharacters = [...characterData]; // Show all characters, sorted alphabetically
       } else {
         // Hide dropdown on empty search when input is not focused
         dropdown.style.display = 'none';
         return;
       }
     } else {
-      // Find matching characters that start with search term
+      // Find matching characters that start with search term OR contain the search term
       matchingCharacters = characterData.filter(character => 
-        character.name.toLowerCase().startsWith(searchTerm)
+        character.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
       
-      // Remove the 6-character limit to allow scrolling through all matches
-      // (removed the slicing code that was here)
+      // Sort matching characters alphabetically
+      matchingCharacters.sort((a, b) => a.name.localeCompare(b.name));
     }
     
     // Populate dropdown with matches
@@ -572,8 +574,14 @@ const UI = {
         
         // Add click event to navigate to character
         item.addEventListener('click', () => {
-          this.displayCharacterCard(character);
+          // Clear the search input
+          this.elements.searchInput.value = '';
+          
+          // Hide the dropdown
           this.elements.searchDropdown.style.display = 'none';
+          
+          // Display the character card and focus on their star
+          this.displayCharacterCard(character);
         });
         
         dropdown.appendChild(item);
@@ -606,14 +614,17 @@ const UI = {
     }
   },
   
-  // Filter characters based on search input - MODIFIED to match starting characters only
+  // Filter characters based on search input - matches characters that contain the search term
   filterCharacters(searchTerm) {
     if (searchTerm === '') {
       filteredCharacters = [...characterData];
     } else {
       filteredCharacters = characterData.filter(character => 
-        character.name.toLowerCase().startsWith(searchTerm)  // Changed from includes() to startsWith()
+        character.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
+      
+      // Sort filtered results alphabetically
+      filteredCharacters.sort((a, b) => a.name.localeCompare(b.name));
     }
     
     if (CharacterStars && CharacterStars.updateCharacterStarVisibility) {
