@@ -42,7 +42,7 @@ const UI = {
   init() {
     // Set up raycaster and mouse
     this.raycaster = new THREE.Raycaster();
-    this.raycaster.params.Points.threshold = 20; // Increase clickable area
+    this.raycaster.params.Points.threshold = 20; // Clickable area for stars
     this.mouse = new THREE.Vector2();
     
     // Initialize filteredCharacters if not already done
@@ -324,7 +324,6 @@ const UI = {
   
   // Handle star clicks
   handleStarClick() {
-    // Only allow star clicks if we're not in a transition animation
     if (Animation.isAnimating) return;
     
     this.raycaster.setFromCamera(this.mouse, App.camera);
@@ -332,7 +331,7 @@ const UI = {
     
     if (intersects.length > 0) {
       const index = intersects[0].index;
-      // Only proceed if the star is in filtered characters and isn't already selected
+      
       if (filteredCharacters.includes(characterData[index]) && index !== CharacterStars.selectedStarIndex) {
         this.displayCharacterCard(characterData[index]);
       }
@@ -1015,20 +1014,17 @@ const UI = {
 
   // Handle tap on star
   handleTap(touch) {
-      // Only allow taps if not animating
       if (Animation.isAnimating) return;
 
-      // Calculate normalized device coordinates from touch
       this.mouse.x = (touch.clientX / window.innerWidth) * 2 - 1;
       this.mouse.y = -(touch.clientY / window.innerHeight) * 2 + 1;
 
-      // Perform raycast
       this.raycaster.setFromCamera(this.mouse, App.camera);
       const intersects = this.raycaster.intersectObject(CharacterStars.characterStars);
 
       if (intersects.length > 0) {
           const index = intersects[0].index;
-          // Only proceed if the star is in filtered characters and isn't already selected
+          
           if (filteredCharacters.includes(characterData[index]) && index !== CharacterStars.selectedStarIndex) {
               this.displayCharacterCard(characterData[index]);
           }

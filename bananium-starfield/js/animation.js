@@ -144,25 +144,40 @@ const Animation = {
   // Set up transition to selected star
   setupStarTransition(starIndex, camera) {
     this.isStarSelected = true;
-    this.transitionPhase = 0; // Reset transition phase
+    this.transitionPhase = 0;
     
     const starWorldPosition = CharacterStars.getStarWorldPosition(starIndex);
     if (!starWorldPosition) return;
     
+    // Determine if this is a star-to-star transition
+    this.isStarToStarTransition = CharacterStars.selectedStarIndex !== -1;
+    this.transitionType = this.isStarToStarTransition ? 'star-to-star' : 'galaxy-to-star';
+    
     this.currentZoomRange = CONFIG.STAR_ZOOM_RANGE;
-    this.currentZoom = this.currentZoomRange.min;
+    
+    // For star-to-star transitions, maintain current zoom level
+    if (this.isStarToStarTransition) {
+      this.currentZoom = Math.max(
+        this.currentZoomRange.min,
+        Math.min(this.currentZoomRange.max, this.currentZoom)
+      );
+    } else {
+      this.currentZoom = this.currentZoomRange.min;
+    }
     
     this.updateRotationCenter(starWorldPosition);
     
     this.isAnimating = true;
     this.animationStartTime = Date.now();
+    
     this.startCameraPosition = {
       x: camera.position.x,
       y: camera.position.y,
       z: camera.position.z
     };
     
-    const distanceToStar = CONFIG.STAR_ZOOM_RANGE.min; 
+    // Calculate target position maintaining current zoom level
+    const distanceToStar = this.currentZoom;
     const zoomDirection = new THREE.Vector3().subVectors(this.currentFocusPoint, camera.position).normalize();
 
     this.targetCameraPosition = {
@@ -171,7 +186,6 @@ const Animation = {
       z: starWorldPosition.z - distanceToStar * zoomDirection.z
     };
     
-    // Store the initial camera quaternion for linear rotation
     this.startQuaternion.copy(camera.quaternion);
   },
   
