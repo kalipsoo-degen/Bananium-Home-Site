@@ -22,6 +22,62 @@
     
     <!-- Integration styles to handle conflicts -->
     <style>
+        /* Prevent flash of unstyled content */
+        html {
+            background: #000 !important;
+        }
+        
+        /* Loading screen to prevent flash */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: opacity 0.5s ease-out;
+        }
+        
+        #loading-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 215, 0, 0.3);
+            border-top: 3px solid #FFD700;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        .loading-text {
+            color: #FFD700;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Hide main content until loaded */
+        body:not(.loaded) .navbar,
+        body:not(.loaded) #starfield-container {
+            opacity: 0;
+        }
+        
         /* Reset some body styles from main site that might interfere */
         body.agents-page {
             overflow: hidden !important;
@@ -30,6 +86,17 @@
             height: 100vh;
             width: 100vw;
             background: #000;
+        }
+        
+        /* Smooth transition for content */
+        .navbar,
+        #starfield-container {
+            transition: opacity 0.5s ease-in;
+        }
+        
+        body.loaded .navbar,
+        body.loaded #starfield-container {
+            opacity: 1;
         }
         
         /* Keep navbar on top with proper z-index */
@@ -706,8 +773,74 @@
 </head>
 <body class="agents-page">
     
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Loading Agents of Chaos...</div>
+    </div>
+    
     <!-- Main Canvas for Starfield -->
     <canvas id="canvas"></canvas>
+    
+    <!-- Loading screen management -->
+    <script>
+        // Prevent flash of unstyled content
+        let resourcesLoaded = 0;
+        const totalResources = 3; // CSS, Three.js, and App initialization
+        
+        function checkAllLoaded() {
+            resourcesLoaded++;
+            if (resourcesLoaded >= totalResources) {
+                // Add a small delay to ensure smooth transition
+                setTimeout(() => {
+                    document.body.classList.add('loaded');
+                    const loadingScreen = document.getElementById('loading-screen');
+                    if (loadingScreen) {
+                        loadingScreen.classList.add('fade-out');
+                        
+                        // Remove loading screen after fade
+                        setTimeout(() => {
+                            if (loadingScreen.parentNode) {
+                                loadingScreen.remove();
+                            }
+                        }, 500);
+                    }
+                }, 300);
+            }
+        }
+        
+        // Check when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', checkAllLoaded);
+        } else {
+            checkAllLoaded();
+        }
+        
+        // Check when all stylesheets are loaded
+        window.addEventListener('load', checkAllLoaded);
+        
+        // Monitor for Three.js and App initialization
+        const checkAppReady = setInterval(() => {
+            if (typeof THREE !== 'undefined' && typeof App !== 'undefined') {
+                clearInterval(checkAppReady);
+                checkAllLoaded();
+            }
+        }, 100);
+        
+        // Fallback - force load after 3 seconds
+        setTimeout(() => {
+            document.body.classList.add('loaded');
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) {
+                loadingScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    if (loadingScreen.parentNode) {
+                        loadingScreen.remove();
+                    }
+                }, 500);
+            }
+        }, 3000);
+    </script>
     
     <!-- Mobile-specific enhancements -->
     <script src="assets/js/mobile.js"></script>
